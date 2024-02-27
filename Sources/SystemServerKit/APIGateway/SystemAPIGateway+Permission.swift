@@ -19,7 +19,7 @@ extension SystemAPIGateway {
     )
         async throws -> Operations.listSystemPermission.Output
     {
-        let result = try await sdk.listSystemPermissions(input.query.toSDK())
+        let result = try await sdk.listPermissions(input.query.toSDK())
         return .ok(.init(body: .json(result.toAPI())))
     }
 
@@ -30,7 +30,7 @@ extension SystemAPIGateway {
     {
         switch input.body {
         case .json(let content):
-            let result = try await sdk.createSystemPermission(content.toSDK())
+            let result = try await sdk.createPermission(content.toSDK())
             return .ok(.init(body: .json(result.toAPI())))
         }
     }
@@ -40,7 +40,7 @@ extension SystemAPIGateway {
     ) async throws -> Operations.bulkDeleteSystemPermission.Output {
         switch input.body {
         case .json(let content):
-            try await sdk.bulkDeleteSystemPermission(keys: content.toSDK())
+            try await sdk.bulkDeletePermission(keys: content.toSDK())
             return .noContent(.init())
         }
     }
@@ -50,7 +50,7 @@ extension SystemAPIGateway {
     )
         async throws -> Operations.detailSystemPermission.Output
     {
-        let result = try await sdk.getSystemPermission(
+        let result = try await sdk.getPermission(
             key: .init(input.path.permissionKey)
         )
         return .ok(.init(body: .json(result.toAPI())))
@@ -63,7 +63,7 @@ extension SystemAPIGateway {
     {
         switch input.body {
         case .json(let content):
-            let result = try await sdk.patchSystemPermission(
+            let result = try await sdk.patchPermission(
                 key: .init(input.path.permissionKey),
                 content.toSDK()
             )
@@ -78,7 +78,7 @@ extension SystemAPIGateway {
     {
         switch input.body {
         case .json(let content):
-            let result = try await sdk.updateSystemPermission(
+            let result = try await sdk.updatePermission(
                 key: .init(input.path.permissionKey),
                 content.toSDK()
             )

@@ -9,7 +9,7 @@ import FeatherKit
 
 public protocol SystemPermissionInterface {
 
-    func listSystemPermissions(
+    func listPermissions(
         _ input: List.Query<
             System.Permission.List.Sort
         >
@@ -19,25 +19,25 @@ public protocol SystemPermissionInterface {
             System.Permission.List.Sort
         >
 
-    func createSystemPermission(
+    func createPermission(
         _ input: System.Permission.Create
     ) async throws -> System.Permission.Detail
 
-    func getSystemPermission(
+    func getPermission(
         key: ID<System.Permission>
     ) async throws -> System.Permission.Detail
 
-    func updateSystemPermission(
+    func updatePermission(
         key: ID<System.Permission>,
         _ input: System.Permission.Update
     ) async throws -> System.Permission.Detail
 
-    func patchSystemPermission(
+    func patchPermission(
         key: ID<System.Permission>,
         _ input: System.Permission.Patch
     ) async throws -> System.Permission.Detail
 
-    func bulkDeleteSystemPermission(
+    func bulkDeletePermission(
         keys: [ID<System.Permission>]
     ) async throws
 }

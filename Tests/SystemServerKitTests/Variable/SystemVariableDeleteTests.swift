@@ -8,7 +8,7 @@ final class SystemVariableDeleteAllTests: TestCase {
 
     func testSimpleDelete() async throws {
         let objects = [
-            try await sdk.createSystemVariable(
+            try await sdk.createVariable(
                 .init(
                     key: .init("key1"),
                     value: "value1",
@@ -16,7 +16,7 @@ final class SystemVariableDeleteAllTests: TestCase {
                     notes: "notes1"
                 )
             ),
-            try await sdk.createSystemVariable(
+            try await sdk.createVariable(
                 .init(
                     key: .init("key2"),
                     value: "value2",
@@ -36,7 +36,7 @@ final class SystemVariableDeleteAllTests: TestCase {
             Expect(.noContent)
         }
 
-        let list = try await sdk.listSystemVariables(.init(page: .init()))
+        let list = try await sdk.listVariables(.init(page: .init()))
 
         XCTAssertEqual(list.count, 1)
         XCTAssertEqual(list.items[0].key.rawValue, "key2")
@@ -44,7 +44,7 @@ final class SystemVariableDeleteAllTests: TestCase {
 
     func testBulkDelete() async throws {
         let objects = [
-            try await sdk.createSystemVariable(
+            try await sdk.createVariable(
                 .init(
                     key: .init("key1"),
                     value: "value1",
@@ -52,7 +52,7 @@ final class SystemVariableDeleteAllTests: TestCase {
                     notes: "notes1"
                 )
             ),
-            try await sdk.createSystemVariable(
+            try await sdk.createVariable(
                 .init(
                     key: .init("key2"),
                     value: "value2",
@@ -73,7 +73,7 @@ final class SystemVariableDeleteAllTests: TestCase {
             Expect(.noContent)
         }
 
-        let list = try await sdk.listSystemVariables(.init(page: .init()))
+        let list = try await sdk.listVariables(.init(page: .init()))
 
         XCTAssertTrue(list.items.isEmpty)
     }

@@ -8,7 +8,7 @@ final class SystemPermissionGetTests: TestCase {
 
     func testSimpleDelete() async throws {
         let object = try await sdk.auth(TestUser.root()) {
-            try await sdk.createSystemPermission(
+            try await sdk.createPermission(
                 .init(
                     key: .init("namespace.context.action"),
                     name: "name",

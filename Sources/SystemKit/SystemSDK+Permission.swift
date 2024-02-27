@@ -13,7 +13,7 @@ import SystemInterfaceKit
 
 extension SystemSDK {
 
-    public func listSystemPermissions(
+    public func listPermissions(
         _ input: List.Query<
             System.Permission.List.Sort
         >
@@ -25,7 +25,7 @@ extension SystemSDK {
     {
         let user = try await ACL.require(ACL.AuthenticatedUser.self)
         try await user.requirePermission(
-            System.Permission.Permission.list.rawValue
+            System.Permission.ACL.list.rawValue
         )
 
         do {
@@ -46,12 +46,12 @@ extension SystemSDK {
         }
     }
 
-    public func createSystemPermission(
+    public func createPermission(
         _ input: System.Permission.Create
     ) async throws -> System.Permission.Detail {
         let user = try await ACL.require(ACL.AuthenticatedUser.self)
         try await user.requirePermission(
-            System.Permission.Permission.create.rawValue
+            System.Permission.ACL.create.rawValue
         )
 
         do {
@@ -94,12 +94,12 @@ extension SystemSDK {
         }
     }
 
-    public func getSystemPermission(
+    public func getPermission(
         key: ID<System.Permission>
     ) async throws -> System.Permission.Detail {
         let user = try await ACL.require(ACL.AuthenticatedUser.self)
         try await user.requirePermission(
-            System.Permission.Permission.get.rawValue
+            System.Permission.ACL.get.rawValue
         )
 
         do {
@@ -115,13 +115,13 @@ extension SystemSDK {
         }
     }
 
-    public func updateSystemPermission(
+    public func updatePermission(
         key: ID<System.Permission>,
         _ input: System.Permission.Update
     ) async throws -> System.Permission.Detail {
         let user = try await ACL.require(ACL.AuthenticatedUser.self)
         try await user.requirePermission(
-            System.Permission.Permission.update.rawValue
+            System.Permission.ACL.update.rawValue
         )
 
         do {
@@ -144,13 +144,13 @@ extension SystemSDK {
         }
     }
 
-    public func patchSystemPermission(
+    public func patchPermission(
         key: ID<System.Permission>,
         _ input: System.Permission.Patch
     ) async throws -> System.Permission.Detail {
         let user = try await ACL.require(ACL.AuthenticatedUser.self)
         try await user.requirePermission(
-            System.Permission.Permission.update.rawValue
+            System.Permission.ACL.update.rawValue
         )
 
         do {
@@ -173,12 +173,12 @@ extension SystemSDK {
         }
     }
 
-    public func bulkDeleteSystemPermission(keys: [ID<System.Permission>])
+    public func bulkDeletePermission(keys: [ID<System.Permission>])
         async throws
     {
         let user = try await ACL.require(ACL.AuthenticatedUser.self)
         try await user.requirePermission(
-            System.Permission.Permission.delete.rawValue
+            System.Permission.ACL.delete.rawValue
         )
 
         do {

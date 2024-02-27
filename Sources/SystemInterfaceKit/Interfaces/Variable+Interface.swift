@@ -9,7 +9,7 @@ import FeatherKit
 
 public protocol SystemVariableInterface {
 
-    func listSystemVariables(
+    func listVariables(
         _ input: List.Query<
             System.Variable.List.Sort
         >
@@ -19,29 +19,29 @@ public protocol SystemVariableInterface {
             System.Variable.List.Sort
         >
 
-    func bulkDeleteSystemVariable(
+    func bulkDeleteVariable(
         keys: [ID<System.Variable>]
     ) async throws
 
-    func createSystemVariable(
+    func createVariable(
         _ input: System.Variable.Create
     ) async throws -> System.Variable.Detail
 
-    func getSystemVariable(
+    func getVariable(
         key: ID<System.Variable>
     ) async throws -> System.Variable.Detail
 
-    func updateSystemVariable(
+    func updateVariable(
         key: ID<System.Variable>,
         _ input: System.Variable.Update
     ) async throws -> System.Variable.Detail
 
-    func patchSystemVariable(
+    func patchVariable(
         key: ID<System.Variable>,
         _ input: System.Variable.Patch
     ) async throws -> System.Variable.Detail
 
-    func deleteSystemVariable(
+    func deleteVariable(
         key: ID<System.Variable>
     ) async throws
 }

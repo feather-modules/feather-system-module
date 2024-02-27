@@ -7,7 +7,7 @@ import XCTest
 final class SystemVariableGetTests: TestCase {
 
     func testSimpleGet() async throws {
-        let object = try await sdk.createSystemVariable(
+        let object = try await sdk.createVariable(
             .init(
                 key: .init("key1"),
                 value: "value1",

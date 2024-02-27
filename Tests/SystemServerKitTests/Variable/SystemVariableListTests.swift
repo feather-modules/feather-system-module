@@ -9,7 +9,7 @@ final class SystemVariableListTests: TestCase {
     func testSimpleList() async throws {
         try await sdk.auth(TestUser.root()) {
             [
-                try await sdk.createSystemVariable(
+                try await sdk.createVariable(
                     .init(
                         key: .init("key1"),
                         value: "value1",
@@ -17,7 +17,7 @@ final class SystemVariableListTests: TestCase {
                         notes: "notes1"
                     )
                 ),
-                try await sdk.createSystemVariable(
+                try await sdk.createVariable(
                     .init(
                         key: .init("key2"),
                         value: "value2",

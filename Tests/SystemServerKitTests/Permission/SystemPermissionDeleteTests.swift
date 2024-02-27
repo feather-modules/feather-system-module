@@ -9,14 +9,14 @@ final class SystemPermissionDeleteTests: TestCase {
     func testSimpleDelete() async throws {
         let objects = try await sdk.auth(TestUser.root()) {
             [
-                try await sdk.createSystemPermission(
+                try await sdk.createPermission(
                     .init(
                         key: .init("namespace.context.action1"),
                         name: "name",
                         notes: "notes"
                     )
                 ),
-                try await sdk.createSystemPermission(
+                try await sdk.createPermission(
                     .init(
                         key: .init("namespace.context.action2"),
                         name: "name",
@@ -39,7 +39,7 @@ final class SystemPermissionDeleteTests: TestCase {
         }
 
         let list = try await sdk.auth(TestUser.root()) {
-            try await sdk.listSystemPermissions(.init(page: .init()))
+            try await sdk.listPermissions(.init(page: .init()))
         }
 
         XCTAssertEqual(list.count, 1)
@@ -50,14 +50,14 @@ final class SystemPermissionDeleteTests: TestCase {
 
         let objects = try await sdk.auth(TestUser.root()) {
             [
-                try await sdk.createSystemPermission(
+                try await sdk.createPermission(
                     .init(
                         key: .init("namespace.context.action1"),
                         name: "name",
                         notes: "notes"
                     )
                 ),
-                try await sdk.createSystemPermission(
+                try await sdk.createPermission(
                     .init(
                         key: .init("namespace.context.action2"),
                         name: "name",
@@ -81,7 +81,7 @@ final class SystemPermissionDeleteTests: TestCase {
         }
 
         let list = try await sdk.auth(TestUser.root()) {
-            try await sdk.listSystemPermissions(.init(page: .init()))
+            try await sdk.listPermissions(.init(page: .init()))
         }
         XCTAssertTrue(list.items.isEmpty)
     }

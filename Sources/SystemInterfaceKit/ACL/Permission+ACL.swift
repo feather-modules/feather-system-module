@@ -7,7 +7,7 @@
 
 extension System.Permission {
 
-    public enum Permission: String {
+    public enum ACL: String {
         case list = "system.permission.list"
         case get = "system.permission.get"
         case create = "system.permission.create"

@@ -29,7 +29,7 @@ final class SystemPermissionCreateTests: TestCase {
         }
 
         let list = try await sdk.auth(TestUser.root()) {
-            try await sdk.listSystemPermissions(.init(page: .init()))
+            try await sdk.listPermissions(.init(page: .init()))
         }
 
         XCTAssertFalse(list.items.isEmpty)

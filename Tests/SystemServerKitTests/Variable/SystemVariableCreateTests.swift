@@ -27,7 +27,7 @@ final class SystemVariableCreateTests: TestCase {
             }
         }
 
-        let list = try await sdk.listSystemVariables(.init(page: .init()))
+        let list = try await sdk.listVariables(.init(page: .init()))
 
         XCTAssertEqual(list.count, 1)
         XCTAssertEqual(list.items[0].key.rawValue, "key1")

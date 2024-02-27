@@ -10,7 +10,7 @@ final class SystemPermissionUpdateTests: TestCase {
     func testSimpleUpdate() async throws {
         let object = try await sdk.auth(TestUser.root()) {
 
-            try await sdk.createSystemPermission(
+            try await sdk.createPermission(
                 .init(
                     key: .init("namespace.context.action1"),
                     name: "name1",

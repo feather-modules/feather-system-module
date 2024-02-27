@@ -17,11 +17,11 @@ struct TestUser {
                 "root"
             ],
             permissionKeys: [
-                System.Permission.Permission.list.rawValue,
-                System.Permission.Permission.get.rawValue,
-                System.Permission.Permission.create.rawValue,
-                System.Permission.Permission.update.rawValue,
-                System.Permission.Permission.delete.rawValue,
+                System.Permission.ACL.list.rawValue,
+                System.Permission.ACL.get.rawValue,
+                System.Permission.ACL.create.rawValue,
+                System.Permission.ACL.update.rawValue,
+                System.Permission.ACL.delete.rawValue,
                     // TODO: add other permission
             ]
         )

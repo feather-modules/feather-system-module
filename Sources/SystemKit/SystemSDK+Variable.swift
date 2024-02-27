@@ -15,7 +15,7 @@ import SystemInterfaceKit
 
 extension SystemSDK {
 
-    public func listSystemVariables(
+    public func listVariables(
         _ input: List.Query<
             System.Variable.List.Sort
         >
@@ -43,7 +43,7 @@ extension SystemSDK {
         }
     }
 
-    public func createSystemVariable(
+    public func createVariable(
         _ input: System.Variable.Create
     ) async throws -> System.Variable.Detail {
         do {
@@ -64,7 +64,7 @@ extension SystemSDK {
         }
     }
 
-    public func getSystemVariable(
+    public func getVariable(
         key: ID<System.Variable>
     ) async throws -> System.Variable.Detail {
         do {
@@ -80,7 +80,7 @@ extension SystemSDK {
         }
     }
 
-    public func updateSystemVariable(
+    public func updateVariable(
         key: ID<System.Variable>,
         _ input: System.Variable.Update
     ) async throws -> System.Variable.Detail {
@@ -104,7 +104,7 @@ extension SystemSDK {
         }
     }
 
-    public func patchSystemVariable(
+    public func patchVariable(
         key: ID<System.Variable>,
         _ input: System.Variable.Patch
     ) async throws -> System.Variable.Detail {
@@ -128,13 +128,13 @@ extension SystemSDK {
         }
     }
 
-    public func deleteSystemVariable(
+    public func deleteVariable(
         key: ID<System.Variable>
     ) async throws {
-        try await bulkDeleteSystemVariable(keys: [key])
+        try await bulkDeleteVariable(keys: [key])
     }
 
-    public func bulkDeleteSystemVariable(keys: [ID<System.Variable>])
+    public func bulkDeleteVariable(keys: [ID<System.Variable>])
         async throws
     {
         do {

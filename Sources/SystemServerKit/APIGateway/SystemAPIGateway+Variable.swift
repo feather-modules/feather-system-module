@@ -17,7 +17,7 @@ extension SystemAPIGateway {
     public func listSystemVariable(
         _ input: Operations.listSystemVariable.Input
     ) async throws -> Operations.listSystemVariable.Output {
-        let result = try await sdk.listSystemVariables(input.query.toSDK())
+        let result = try await sdk.listVariables(input.query.toSDK())
         return .ok(.init(body: .json(result.toAPI())))
     }
 
@@ -26,7 +26,7 @@ extension SystemAPIGateway {
     ) async throws -> Operations.createSystemVariable.Output {
         switch input.body {
         case .json(let content):
-            let result = try await sdk.createSystemVariable(content.toSDK())
+            let result = try await sdk.createVariable(content.toSDK())
             return .ok(.init(body: .json(result.toAPI())))
         }
     }
@@ -36,7 +36,7 @@ extension SystemAPIGateway {
     ) async throws -> Operations.bulkDeleteSystemVariable.Output {
         switch input.body {
         case .json(let content):
-            try await sdk.bulkDeleteSystemVariable(keys: content.toSDK())
+            try await sdk.bulkDeleteVariable(keys: content.toSDK())
             return .noContent(.init())
         }
     }
@@ -44,7 +44,7 @@ extension SystemAPIGateway {
     public func getSystemVariable(_ input: Operations.getSystemVariable.Input)
         async throws -> Operations.getSystemVariable.Output
     {
-        let result = try await sdk.getSystemVariable(key: .init(input.path.key))
+        let result = try await sdk.getVariable(key: .init(input.path.key))
         return .ok(.init(body: .json(result.toAPI())))
     }
 
@@ -53,7 +53,7 @@ extension SystemAPIGateway {
     ) async throws -> Operations.patchSystemVariable.Output {
         switch input.body {
         case .json(let content):
-            let result = try await sdk.patchSystemVariable(
+            let result = try await sdk.patchVariable(
                 key: .init(input.path.key),
                 content.toSDK()
             )
@@ -66,7 +66,7 @@ extension SystemAPIGateway {
     ) async throws -> Operations.updateSystemVariable.Output {
         switch input.body {
         case .json(let content):
-            let result = try await sdk.updateSystemVariable(
+            let result = try await sdk.updateVariable(
                 key: .init(input.path.key),
                 content.toSDK()
             )

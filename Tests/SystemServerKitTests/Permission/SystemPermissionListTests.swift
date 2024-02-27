@@ -9,14 +9,14 @@ final class SystemPermissionListTests: TestCase {
     func testSimpleList() async throws {
         try await sdk.auth(TestUser.root()) {
             [
-                try await sdk.createSystemPermission(
+                try await sdk.createPermission(
                     .init(
                         key: .init("namespace.context.action1"),
                         name: "name",
                         notes: "notes"
                     )
                 ),
-                try await sdk.createSystemPermission(
+                try await sdk.createPermission(
                     .init(
                         key: .init("namespace.context.action2"),
                         name: "name",
