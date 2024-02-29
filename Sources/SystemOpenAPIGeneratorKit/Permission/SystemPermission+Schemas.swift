@@ -3,34 +3,34 @@ import FeatherOpenAPIKitMacros
 
 extension System.Permission {
 
-    enum Schemas {
+    public enum Schemas {
 
-        enum Key: TextSchema {
-            static let description = "Key of the permission"
-            static let examples = [
+        public enum Key: TextSchema {
+            public static let description = "Key of the permission"
+            public static let examples = [
                 "namespace.context.action"
             ]
         }
 
-        enum Name: TextSchema {
-            static let description = "Name of the permission"
-            static let examples = [
+        public enum Name: TextSchema {
+            public static let description = "Name of the permission"
+            public static let examples = [
                 "Name of the permission"
             ]
         }
 
-        enum Notes: TextSchema {
-            static let description = "Description of the permission"
-            static let examples = [
+        public enum Notes: TextSchema {
+            public static let description = "Description of the permission"
+            public static let examples = [
                 "Notes for the permission"
             ]
         }
 
         // MARK: -
 
-        enum Reference: ObjectSchema {
-            static let description = ""
-            static let properties: [ObjectSchemaProperty] = [
+        public enum Reference: ObjectSchema {
+            public static let description = ""
+            public static let properties: [ObjectSchemaProperty] = [
                 .init("key", Key.self),
                 .init("name", Name.self),
             ]
@@ -38,30 +38,30 @@ extension System.Permission {
 
         // MARK: - list
 
-        enum List: ObjectSchema {
+        public enum List: ObjectSchema {
 
-            enum Item: ObjectSchema {
-                static let description = "Permission list item"
-                static let properties: [ObjectSchemaProperty] = [
+            public enum Item: ObjectSchema {
+                public static let description = "Permission list item"
+                public static let properties: [ObjectSchemaProperty] = [
                     .init("key", Key.self),
                     .init("name", Name.self),
                 ]
             }
 
-            enum Items: ArraySchema {
-                static let description = "Permission list items"
-                static let items: Schema.Type = Item.self
+            public enum Items: ArraySchema {
+                public static let description = "Permission list items"
+                public static let items: Schema.Type = Item.self
             }
 
-            enum Sort: EnumSchema {
-                static let description = "The sort key for the list"
-                static let allowedValues = ["key", "name"]
-                static let defaultValue = "key"
+            public enum Sort: EnumSchema {
+                public static let description = "The sort key for the list"
+                public static let allowedValues = ["key", "name"]
+                public static let defaultValue = "key"
 
             }
 
-            static let description = "Permission list"
-            static let properties: [ObjectSchemaProperty] =
+            public static let description = "Permission list"
+            public static let properties: [ObjectSchemaProperty] =
                 [
                     .init("items", Items.self),
                     .init("sort", Sort.self, required: false),
@@ -70,45 +70,46 @@ extension System.Permission {
 
         // MARK: -
 
-        enum Detail: ObjectSchema {
-            static let description = ""
-            static let properties: [ObjectSchemaProperty] = [
+        public enum Detail: ObjectSchema {
+            public static let description = ""
+            public static let properties: [ObjectSchemaProperty] = [
                 .init("key", Key.self),
                 .init("name", Name.self),
                 .init("notes", Notes.self, required: false),
             ]
         }
 
-        enum Create: ObjectSchema {
-            static let description = ""
-            static let properties: [ObjectSchemaProperty] = [
+        public enum Create: ObjectSchema {
+            public static let description = ""
+            public static let properties: [ObjectSchemaProperty] = [
                 .init("key", Key.self),
                 .init("name", Name.self),
                 .init("notes", Notes.self, required: false),
             ]
         }
 
-        enum Update: ObjectSchema {
-            static let description = ""
-            static let properties: [ObjectSchemaProperty] = [
+        public enum Update: ObjectSchema {
+            public static let description = ""
+            public static let properties: [ObjectSchemaProperty] = [
                 .init("key", Key.self),
                 .init("name", Name.self),
                 .init("notes", Notes.self, required: false),
             ]
         }
 
-        enum Patch: ObjectSchema {
-            static let description = ""
-            static let properties: [ObjectSchemaProperty] = [
+        public enum Patch: ObjectSchema {
+            public static let description = ""
+            public static let properties: [ObjectSchemaProperty] = [
                 .init("key", Key.self, required: false),
                 .init("name", Name.self, required: false),
                 .init("notes", Notes.self, required: false),
             ]
         }
 
-        enum BulkDelete: ArraySchema {
-            static let description = "The list of the keys to be deleted."
-            static let items: Schema.Type = Key.self
+        public enum BulkDelete: ArraySchema {
+            public static let description =
+                "The list of the keys to be deleted."
+            public static let items: Schema.Type = Key.self
         }
     }
 }
