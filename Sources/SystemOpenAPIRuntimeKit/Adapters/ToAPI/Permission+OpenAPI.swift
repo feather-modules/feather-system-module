@@ -5,7 +5,7 @@
 //  Created by Tibor Bodecs on 21/02/2024.
 //
 
-import FeatherKit
+import CoreInterfaceKit
 import SystemInterfaceKit
 
 extension System.Permission.List.Sort {

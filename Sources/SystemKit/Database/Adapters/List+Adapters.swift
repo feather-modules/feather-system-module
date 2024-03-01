@@ -6,7 +6,7 @@
 //
 
 import DatabaseQueryKit
-import FeatherKit
+import CoreInterfaceKit
 import Foundation
 
 extension ListQuery {

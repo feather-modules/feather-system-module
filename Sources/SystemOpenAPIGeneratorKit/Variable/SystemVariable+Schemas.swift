@@ -1,83 +1,83 @@
 import FeatherOpenAPIKit
-import FeatherOpenAPIKitMacros
+import CoreOpenAPIGeneratorKit
 
 extension System.Variable {
 
-    public enum Schemas {
+    public enum Schemas: Component {
 
-        public enum Key: TextSchema {
-            public static let description = "Key of the system variable"
-            public static let examples = [
+        enum Key: TextSchema {
+            static let description = "Key of the system variable"
+            static let examples = [
                 "system.email.address"
             ]
         }
 
-        public enum Name: TextSchema {
-            public static let description = "Name of the system variable"
-            public static let examples = [
+        enum Name: TextSchema {
+            static let description = "Name of the system variable"
+            static let examples = [
                 "Sender address"
             ]
         }
 
-        public enum Value: TextSchema {
-            public static let description = "Value of the system variable"
-            public static let examples = [
+        enum Value: TextSchema {
+            static let description = "Value of the system variable"
+            static let examples = [
                 "something@mail.com"
             ]
         }
 
-        public enum Notes: TextSchema {
-            public static let description = "Notes of the system variable"
-            public static let examples = [
+        enum Notes: TextSchema {
+            static let description = "Notes of the system variable"
+            static let examples = [
                 "Any notes here"
             ]
         }
 
         // MARK: - list
 
-        public enum List: ObjectSchema {
+        enum List: ObjectSchema {
 
-            public enum Item: ObjectSchema {
-                public static let description = "System variable list item"
-                public static let properties: [ObjectSchemaProperty] = [
+            enum Item: ObjectSchema {
+                static let description = "System variable list item"
+                static let properties: [ObjectSchemaProperty] = [
                     .init("key", Key.self),
                     .init("value", Value.self),
                     .init("name", Name.self, required: false),
                 ]
             }
 
-            public enum Items: ArraySchema {
-                public static let description = "System variable list items"
-                public static let items: Schema.Type = Item.self
+            enum Items: ArraySchema {
+                static let description = "System variable list items"
+                static let items: Schema.Type = Item.self
             }
 
-            public enum Sort: EnumSchema {
-                public static let description = "The sort key for the list"
-                public static let allowedValues = ["key", "name", "value"]
-                public static let defaultValue = "key"
+            enum Sort: EnumSchema {
+                static let description = "The sort key for the list"
+                static let allowedValues = ["key", "name", "value"]
+                static let defaultValue = "key"
             }
 
-            public static let description = "System varaible list"
-            public static let properties: [ObjectSchemaProperty] =
+            static let description = "System varaible list"
+            static let properties: [ObjectSchemaProperty] =
                 [
                     .init("items", Items.self),
                     .init("sort", Sort.self, required: false),
-                ] + Generic.Component.Schemas.List.properties
+                ] + Feather.Core.Schemas.List.properties
         }
 
         // MARK: -
 
-        public enum Reference: ObjectSchema {
-            public static let description = ""
-            public static let properties: [ObjectSchemaProperty] = [
+        enum Reference: ObjectSchema {
+            static let description = ""
+            static let properties: [ObjectSchemaProperty] = [
                 .init("key", Key.self),
                 .init("value", Value.self),
             ]
         }
 
-        public enum Detail: ObjectSchema {
-            public static let description = ""
-            public static let properties: [ObjectSchemaProperty] = [
+        enum Detail: ObjectSchema {
+            static let description = ""
+            static let properties: [ObjectSchemaProperty] = [
                 .init("key", Key.self),
                 .init("value", Value.self),
                 .init("name", Name.self, required: false),
@@ -85,15 +85,15 @@ extension System.Variable {
             ]
         }
 
-        public enum BulkDelete: ArraySchema {
-            public static let description =
+        enum BulkDelete: ArraySchema {
+            static let description =
                 "The list of the keys to be deleted."
-            public static let items: Schema.Type = Key.self
+            static let items: Schema.Type = Key.self
         }
 
-        public enum Create: ObjectSchema {
-            public static let description = ""
-            public static let properties: [ObjectSchemaProperty] = [
+        enum Create: ObjectSchema {
+            static let description = ""
+            static let properties: [ObjectSchemaProperty] = [
                 .init("key", Key.self),
                 .init("value", Value.self),
                 .init("name", Name.self, required: false),
@@ -101,9 +101,9 @@ extension System.Variable {
             ]
         }
 
-        public enum Update: ObjectSchema {
-            public static let description = ""
-            public static let properties: [ObjectSchemaProperty] = [
+        enum Update: ObjectSchema {
+            static let description = ""
+            static let properties: [ObjectSchemaProperty] = [
                 .init("key", Key.self),
                 .init("value", Value.self),
                 .init("name", Name.self, required: false),
@@ -111,9 +111,9 @@ extension System.Variable {
             ]
         }
 
-        public enum Patch: ObjectSchema {
-            public static let description = ""
-            public static let properties: [ObjectSchemaProperty] = [
+        enum Patch: ObjectSchema {
+            static let description = ""
+            static let properties: [ObjectSchemaProperty] = [
                 .init("key", Key.self, required: false),
                 .init("value", Value.self, required: false),
                 .init("name", Name.self, required: false),

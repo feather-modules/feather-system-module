@@ -1,9 +1,9 @@
 import FeatherOpenAPIKit
-import FeatherOpenAPIKitMacros
+
 
 extension System.Variable {
 
-    enum PathItems {
+    public enum PathItems: Component {
 
         enum Main: PathItem {
             static let path: Path = System.Variable.path

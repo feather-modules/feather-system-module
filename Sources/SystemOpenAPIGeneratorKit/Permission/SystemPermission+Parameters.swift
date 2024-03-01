@@ -1,9 +1,9 @@
 import FeatherOpenAPIKit
-import FeatherOpenAPIKitMacros
+
 
 extension System.Permission {
 
-    enum Parameters {
+    public enum Parameters: Component {
 
         enum Key: PathParameter {
             static let name = "permissionKey"

@@ -1,4 +1,4 @@
-import FeatherKit
+import CoreInterfaceKit
 
 extension System.Variable {
 

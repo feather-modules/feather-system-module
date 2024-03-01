@@ -7,7 +7,7 @@
 
 import DatabaseQueryKit
 import FeatherComponent
-import FeatherKit
+import CoreInterfaceKit
 import FeatherValidation
 import Logging
 import SQLKit

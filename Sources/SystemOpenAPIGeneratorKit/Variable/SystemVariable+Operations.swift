@@ -1,9 +1,9 @@
 import FeatherOpenAPIKit
-import FeatherOpenAPIKitMacros
+import CoreOpenAPIGeneratorKit
 
 extension System.Variable {
 
-    enum Operations {
+    public enum Operations: Component {
 
         enum List: Operation {
             static let security: [SecurityScheme.Type] = .shared
@@ -15,7 +15,7 @@ extension System.Variable {
             static let parameters: [Parameter.Type] =
                 [
                     Parameters.List.Sort.self
-                ] + Generic.Component.Parameters.List.parameters
+                ] + Feather.Core.Parameters.List.parameters
             static let responses: [OperationResponse] = [
                 .ok(Responses.List.self),
                 .badRequest,
