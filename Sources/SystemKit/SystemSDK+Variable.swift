@@ -5,9 +5,9 @@
 //  Created by Tibor Bodecs on 06/01/2024.
 //
 
+import CoreInterfaceKit
 import DatabaseQueryKit
 import FeatherComponent
-import CoreInterfaceKit
 import FeatherValidation
 import Logging
 import SQLKit

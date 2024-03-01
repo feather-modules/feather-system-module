@@ -1,7 +1,7 @@
+import CoreOpenAPIGeneratorKit
 import FeatherOpenAPIKit
 import Foundation
 import OpenAPIKit
-import CoreOpenAPIGeneratorKit
 import SystemOpenAPIGeneratorKit
 
 struct OpenAPIDocument: Document {

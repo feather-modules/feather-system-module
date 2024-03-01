@@ -9,11 +9,285 @@ import struct Foundation.URL
 import struct Foundation.Data
 import struct Foundation.Date
 #endif
+
 /// A type that performs HTTP operations defined by the OpenAPI document.
-public protocol APIProtocol: Sendable {}
+public protocol APIProtocol: Sendable {
+    /// List system variables
+    ///
+    /// List available system variables
+    ///
+    /// - Remark: HTTP `GET /system/variables`.
+    /// - Remark: Generated from `#/paths//system/variables/get(listSystemVariable)`.
+    func listSystemVariable(_ input: Operations.listSystemVariable.Input) async throws -> Operations.listSystemVariable.Output
+    /// Create a system variable
+    ///
+    /// Creates a new system variable
+    ///
+    /// - Remark: HTTP `POST /system/variables`.
+    /// - Remark: Generated from `#/paths//system/variables/post(createSystemVariable)`.
+    func createSystemVariable(_ input: Operations.createSystemVariable.Input) async throws -> Operations.createSystemVariable.Output
+    /// Bulk delete system variables
+    ///
+    /// Bulk delete system variables using identifiers
+    ///
+    /// - Remark: HTTP `DELETE /system/variables`.
+    /// - Remark: Generated from `#/paths//system/variables/delete(bulkDeleteSystemVariable)`.
+    func bulkDeleteSystemVariable(_ input: Operations.bulkDeleteSystemVariable.Input) async throws -> Operations.bulkDeleteSystemVariable.Output
+    /// System variable details
+    ///
+    /// Get the details of a system variable
+    ///
+    /// - Remark: HTTP `GET /system/variables/{key}`.
+    /// - Remark: Generated from `#/paths//system/variables/{key}/get(getSystemVariable)`.
+    func getSystemVariable(_ input: Operations.getSystemVariable.Input) async throws -> Operations.getSystemVariable.Output
+    /// Patch a system variable
+    ///
+    /// Patches a system variable using an identifier
+    ///
+    /// - Remark: HTTP `PATCH /system/variables/{key}`.
+    /// - Remark: Generated from `#/paths//system/variables/{key}/patch(patchSystemVariable)`.
+    func patchSystemVariable(_ input: Operations.patchSystemVariable.Input) async throws -> Operations.patchSystemVariable.Output
+    /// Update a system variable
+    ///
+    /// Updates a system variable using an identifier
+    ///
+    /// - Remark: HTTP `PUT /system/variables/{key}`.
+    /// - Remark: Generated from `#/paths//system/variables/{key}/put(updateSystemVariable)`.
+    func updateSystemVariable(_ input: Operations.updateSystemVariable.Input) async throws -> Operations.updateSystemVariable.Output
+    /// List system permissions
+    ///
+    /// List available system permissions
+    ///
+    /// - Remark: HTTP `GET /system/permissions`.
+    /// - Remark: Generated from `#/paths//system/permissions/get(listSystemPermission)`.
+    func listSystemPermission(_ input: Operations.listSystemPermission.Input) async throws -> Operations.listSystemPermission.Output
+    /// Create a system permission
+    ///
+    /// Creates a new system permission
+    ///
+    /// - Remark: HTTP `POST /system/permissions`.
+    /// - Remark: Generated from `#/paths//system/permissions/post(createSystemPermission)`.
+    func createSystemPermission(_ input: Operations.createSystemPermission.Input) async throws -> Operations.createSystemPermission.Output
+    /// Bulk delete system permissions
+    ///
+    /// Removes multiple system permissions at once
+    ///
+    /// - Remark: HTTP `DELETE /system/permissions`.
+    /// - Remark: Generated from `#/paths//system/permissions/delete(bulkDeleteSystemPermission)`.
+    func bulkDeleteSystemPermission(_ input: Operations.bulkDeleteSystemPermission.Input) async throws -> Operations.bulkDeleteSystemPermission.Output
+    /// System permission details
+    ///
+    /// Get the details of a system permission
+    ///
+    /// - Remark: HTTP `GET /system/permissions/{permissionKey}`.
+    /// - Remark: Generated from `#/paths//system/permissions/{permissionKey}/get(detailSystemPermission)`.
+    func detailSystemPermission(_ input: Operations.detailSystemPermission.Input) async throws -> Operations.detailSystemPermission.Output
+    /// Patch a System Permission
+    ///
+    /// Patch a given System Permission
+    ///
+    /// - Remark: HTTP `PATCH /system/permissions/{permissionKey}`.
+    /// - Remark: Generated from `#/paths//system/permissions/{permissionKey}/patch(patchSystemPermission)`.
+    func patchSystemPermission(_ input: Operations.patchSystemPermission.Input) async throws -> Operations.patchSystemPermission.Output
+    /// Update a system permission
+    ///
+    /// Updates a system permission
+    ///
+    /// - Remark: HTTP `PUT /system/permissions/{permissionKey}`.
+    /// - Remark: Generated from `#/paths//system/permissions/{permissionKey}/put(updateSystemPermission)`.
+    func updateSystemPermission(_ input: Operations.updateSystemPermission.Input) async throws -> Operations.updateSystemPermission.Output
+}
 
 /// Convenience overloads for operation inputs.
 extension APIProtocol {
+    /// List system variables
+    ///
+    /// List available system variables
+    ///
+    /// - Remark: HTTP `GET /system/variables`.
+    /// - Remark: Generated from `#/paths//system/variables/get(listSystemVariable)`.
+    public func listSystemVariable(
+        query: Operations.listSystemVariable.Input.Query = .init(),
+        headers: Operations.listSystemVariable.Input.Headers = .init()
+    ) async throws -> Operations.listSystemVariable.Output {
+        try await listSystemVariable(Operations.listSystemVariable.Input(
+            query: query,
+            headers: headers
+        ))
+    }
+    /// Create a system variable
+    ///
+    /// Creates a new system variable
+    ///
+    /// - Remark: HTTP `POST /system/variables`.
+    /// - Remark: Generated from `#/paths//system/variables/post(createSystemVariable)`.
+    public func createSystemVariable(
+        headers: Operations.createSystemVariable.Input.Headers = .init(),
+        body: Operations.createSystemVariable.Input.Body
+    ) async throws -> Operations.createSystemVariable.Output {
+        try await createSystemVariable(Operations.createSystemVariable.Input(
+            headers: headers,
+            body: body
+        ))
+    }
+    /// Bulk delete system variables
+    ///
+    /// Bulk delete system variables using identifiers
+    ///
+    /// - Remark: HTTP `DELETE /system/variables`.
+    /// - Remark: Generated from `#/paths//system/variables/delete(bulkDeleteSystemVariable)`.
+    public func bulkDeleteSystemVariable(
+        headers: Operations.bulkDeleteSystemVariable.Input.Headers = .init(),
+        body: Operations.bulkDeleteSystemVariable.Input.Body
+    ) async throws -> Operations.bulkDeleteSystemVariable.Output {
+        try await bulkDeleteSystemVariable(Operations.bulkDeleteSystemVariable.Input(
+            headers: headers,
+            body: body
+        ))
+    }
+    /// System variable details
+    ///
+    /// Get the details of a system variable
+    ///
+    /// - Remark: HTTP `GET /system/variables/{key}`.
+    /// - Remark: Generated from `#/paths//system/variables/{key}/get(getSystemVariable)`.
+    public func getSystemVariable(
+        path: Operations.getSystemVariable.Input.Path,
+        headers: Operations.getSystemVariable.Input.Headers = .init()
+    ) async throws -> Operations.getSystemVariable.Output {
+        try await getSystemVariable(Operations.getSystemVariable.Input(
+            path: path,
+            headers: headers
+        ))
+    }
+    /// Patch a system variable
+    ///
+    /// Patches a system variable using an identifier
+    ///
+    /// - Remark: HTTP `PATCH /system/variables/{key}`.
+    /// - Remark: Generated from `#/paths//system/variables/{key}/patch(patchSystemVariable)`.
+    public func patchSystemVariable(
+        path: Operations.patchSystemVariable.Input.Path,
+        headers: Operations.patchSystemVariable.Input.Headers = .init(),
+        body: Operations.patchSystemVariable.Input.Body
+    ) async throws -> Operations.patchSystemVariable.Output {
+        try await patchSystemVariable(Operations.patchSystemVariable.Input(
+            path: path,
+            headers: headers,
+            body: body
+        ))
+    }
+    /// Update a system variable
+    ///
+    /// Updates a system variable using an identifier
+    ///
+    /// - Remark: HTTP `PUT /system/variables/{key}`.
+    /// - Remark: Generated from `#/paths//system/variables/{key}/put(updateSystemVariable)`.
+    public func updateSystemVariable(
+        path: Operations.updateSystemVariable.Input.Path,
+        headers: Operations.updateSystemVariable.Input.Headers = .init(),
+        body: Operations.updateSystemVariable.Input.Body
+    ) async throws -> Operations.updateSystemVariable.Output {
+        try await updateSystemVariable(Operations.updateSystemVariable.Input(
+            path: path,
+            headers: headers,
+            body: body
+        ))
+    }
+    /// List system permissions
+    ///
+    /// List available system permissions
+    ///
+    /// - Remark: HTTP `GET /system/permissions`.
+    /// - Remark: Generated from `#/paths//system/permissions/get(listSystemPermission)`.
+    public func listSystemPermission(
+        query: Operations.listSystemPermission.Input.Query = .init(),
+        headers: Operations.listSystemPermission.Input.Headers = .init()
+    ) async throws -> Operations.listSystemPermission.Output {
+        try await listSystemPermission(Operations.listSystemPermission.Input(
+            query: query,
+            headers: headers
+        ))
+    }
+    /// Create a system permission
+    ///
+    /// Creates a new system permission
+    ///
+    /// - Remark: HTTP `POST /system/permissions`.
+    /// - Remark: Generated from `#/paths//system/permissions/post(createSystemPermission)`.
+    public func createSystemPermission(
+        headers: Operations.createSystemPermission.Input.Headers = .init(),
+        body: Operations.createSystemPermission.Input.Body
+    ) async throws -> Operations.createSystemPermission.Output {
+        try await createSystemPermission(Operations.createSystemPermission.Input(
+            headers: headers,
+            body: body
+        ))
+    }
+    /// Bulk delete system permissions
+    ///
+    /// Removes multiple system permissions at once
+    ///
+    /// - Remark: HTTP `DELETE /system/permissions`.
+    /// - Remark: Generated from `#/paths//system/permissions/delete(bulkDeleteSystemPermission)`.
+    public func bulkDeleteSystemPermission(
+        headers: Operations.bulkDeleteSystemPermission.Input.Headers = .init(),
+        body: Operations.bulkDeleteSystemPermission.Input.Body
+    ) async throws -> Operations.bulkDeleteSystemPermission.Output {
+        try await bulkDeleteSystemPermission(Operations.bulkDeleteSystemPermission.Input(
+            headers: headers,
+            body: body
+        ))
+    }
+    /// System permission details
+    ///
+    /// Get the details of a system permission
+    ///
+    /// - Remark: HTTP `GET /system/permissions/{permissionKey}`.
+    /// - Remark: Generated from `#/paths//system/permissions/{permissionKey}/get(detailSystemPermission)`.
+    public func detailSystemPermission(
+        path: Operations.detailSystemPermission.Input.Path,
+        headers: Operations.detailSystemPermission.Input.Headers = .init()
+    ) async throws -> Operations.detailSystemPermission.Output {
+        try await detailSystemPermission(Operations.detailSystemPermission.Input(
+            path: path,
+            headers: headers
+        ))
+    }
+    /// Patch a System Permission
+    ///
+    /// Patch a given System Permission
+    ///
+    /// - Remark: HTTP `PATCH /system/permissions/{permissionKey}`.
+    /// - Remark: Generated from `#/paths//system/permissions/{permissionKey}/patch(patchSystemPermission)`.
+    public func patchSystemPermission(
+        path: Operations.patchSystemPermission.Input.Path,
+        headers: Operations.patchSystemPermission.Input.Headers = .init(),
+        body: Operations.patchSystemPermission.Input.Body
+    ) async throws -> Operations.patchSystemPermission.Output {
+        try await patchSystemPermission(Operations.patchSystemPermission.Input(
+            path: path,
+            headers: headers,
+            body: body
+        ))
+    }
+    /// Update a system permission
+    ///
+    /// Updates a system permission
+    ///
+    /// - Remark: HTTP `PUT /system/permissions/{permissionKey}`.
+    /// - Remark: Generated from `#/paths//system/permissions/{permissionKey}/put(updateSystemPermission)`.
+    public func updateSystemPermission(
+        path: Operations.updateSystemPermission.Input.Path,
+        headers: Operations.updateSystemPermission.Input.Headers = .init(),
+        body: Operations.updateSystemPermission.Input.Body
+    ) async throws -> Operations.updateSystemPermission.Output {
+        try await updateSystemPermission(Operations.updateSystemPermission.Input(
+            path: path,
+            headers: headers,
+            body: body
+        ))
+    }
 }
 
 /// Server URLs defined in the OpenAPI document.
@@ -38,111 +312,20 @@ public enum Servers {
 public enum Components {
     /// Types generated from the `#/components/schemas` section of the OpenAPI document.
     public enum Schemas {
-        /// The original error message provided by the system.
-        ///
-        /// - Remark: Generated from `#/components/schemas/GenericErrorMessage`.
-        public typealias GenericErrorMessage = Swift.String
-        /// Content length
-        ///
-        /// - Remark: Generated from `#/components/schemas/GenericHeadersContentLength`.
-        public typealias GenericHeadersContentLength = Swift.Int
-        /// Total elements
-        ///
-        /// - Remark: Generated from `#/components/schemas/GenericListCount`.
-        public typealias GenericListCount = Swift.Int
-        /// Page properties
-        ///
-        /// - Remark: Generated from `#/components/schemas/GenericListPage`.
-        public struct GenericListPage: Codable, Hashable, Sendable {
-            /// - Remark: Generated from `#/components/schemas/GenericListPage/size`.
-            public var size: Components.Schemas.GenericListPageSize
-            /// - Remark: Generated from `#/components/schemas/GenericListPage/index`.
-            public var index: Components.Schemas.GenericListPageIndex
-            /// Creates a new `GenericListPage`.
-            ///
-            /// - Parameters:
-            ///   - size:
-            ///   - index:
-            public init(
-                size: Components.Schemas.GenericListPageSize,
-                index: Components.Schemas.GenericListPageIndex
-            ) {
-                self.size = size
-                self.index = index
-            }
-            public enum CodingKeys: String, CodingKey {
-                case size
-                case index
-            }
-        }
-        /// Page size
-        ///
-        /// - Remark: Generated from `#/components/schemas/GenericListPageSize`.
-        public typealias GenericListPageSize = Swift.Int
-        /// Page index
-        ///
-        /// - Remark: Generated from `#/components/schemas/GenericListPageIndex`.
-        public typealias GenericListPageIndex = Swift.Int
-        /// Order of the list (ascending or descending).
-        ///
-        /// - Remark: Generated from `#/components/schemas/GenericListOrder`.
-        @frozen public enum GenericListOrder: String, Codable, Hashable, Sendable {
-            case asc = "asc"
-            case desc = "desc"
-        }
-        /// Value of the search term.
-        ///
-        /// - Remark: Generated from `#/components/schemas/GenericListSearch`.
-        public typealias GenericListSearch = Swift.String
-        /// Object creation date
-        ///
-        /// - Remark: Generated from `#/components/schemas/GenericCreatedAt`.
-        public typealias GenericCreatedAt = Foundation.Date
-        /// Last update for the object
-        ///
-        /// - Remark: Generated from `#/components/schemas/GenericUpdatedAt`.
-        public typealias GenericUpdatedAt = Foundation.Date
-        /// - Remark: Generated from `#/components/schemas/GenericMethodNotAllowedError`.
-        public struct GenericMethodNotAllowedError: Codable, Hashable, Sendable {
-            /// - Remark: Generated from `#/components/schemas/GenericMethodNotAllowedError/key`.
-            public var key: Components.Schemas.GenericMethodNotAllowedErrorKey
-            /// - Remark: Generated from `#/components/schemas/GenericMethodNotAllowedError/message`.
-            public var message: Components.Schemas.GenericErrorMessage
-            /// Creates a new `GenericMethodNotAllowedError`.
+        /// - Remark: Generated from `#/components/schemas/FeatherCoreUnsupportedMediaTypeError`.
+        public struct FeatherCoreUnsupportedMediaTypeError: Codable, Hashable, Sendable {
+            /// - Remark: Generated from `#/components/schemas/FeatherCoreUnsupportedMediaTypeError/key`.
+            public var key: Components.Schemas.FeatherCoreUnsupportedMediaTypeErrorKey
+            /// - Remark: Generated from `#/components/schemas/FeatherCoreUnsupportedMediaTypeError/message`.
+            public var message: Components.Schemas.FeatherCoreErrorMessage
+            /// Creates a new `FeatherCoreUnsupportedMediaTypeError`.
             ///
             /// - Parameters:
             ///   - key:
             ///   - message:
             public init(
-                key: Components.Schemas.GenericMethodNotAllowedErrorKey,
-                message: Components.Schemas.GenericErrorMessage
-            ) {
-                self.key = key
-                self.message = message
-            }
-            public enum CodingKeys: String, CodingKey {
-                case key
-                case message
-            }
-        }
-        /// The system key of the related object.
-        ///
-        /// - Remark: Generated from `#/components/schemas/GenericMethodNotAllowedErrorKey`.
-        public typealias GenericMethodNotAllowedErrorKey = Swift.String
-        /// - Remark: Generated from `#/components/schemas/GenericUnauthorizedError`.
-        public struct GenericUnauthorizedError: Codable, Hashable, Sendable {
-            /// - Remark: Generated from `#/components/schemas/GenericUnauthorizedError/key`.
-            public var key: Components.Schemas.GenericUnauthorizedErrorKey
-            /// - Remark: Generated from `#/components/schemas/GenericUnauthorizedError/message`.
-            public var message: Components.Schemas.GenericErrorMessage
-            /// Creates a new `GenericUnauthorizedError`.
-            ///
-            /// - Parameters:
-            ///   - key:
-            ///   - message:
-            public init(
-                key: Components.Schemas.GenericUnauthorizedErrorKey,
-                message: Components.Schemas.GenericErrorMessage
+                key: Components.Schemas.FeatherCoreUnsupportedMediaTypeErrorKey,
+                message: Components.Schemas.FeatherCoreErrorMessage
             ) {
                 self.key = key
                 self.message = message
@@ -154,24 +337,49 @@ public enum Components {
         }
         /// You can use this key for translation purposes.
         ///
-        /// - Remark: Generated from `#/components/schemas/GenericUnauthorizedErrorKey`.
-        @frozen public enum GenericUnauthorizedErrorKey: String, Codable, Hashable, Sendable {
-            case invalidUserToken = "invalidUserToken"
-        }
-        /// - Remark: Generated from `#/components/schemas/GenericNotAcceptableError`.
-        public struct GenericNotAcceptableError: Codable, Hashable, Sendable {
-            /// - Remark: Generated from `#/components/schemas/GenericNotAcceptableError/key`.
-            public var key: Components.Schemas.GenericNotAcceptableErrorKey
-            /// - Remark: Generated from `#/components/schemas/GenericNotAcceptableError/message`.
-            public var message: Components.Schemas.GenericErrorMessage
-            /// Creates a new `GenericNotAcceptableError`.
+        /// - Remark: Generated from `#/components/schemas/FeatherCoreUnsupportedMediaTypeErrorKey`.
+        public typealias FeatherCoreUnsupportedMediaTypeErrorKey = Swift.String
+        /// - Remark: Generated from `#/components/schemas/FeatherCoreInternalServerErrorError`.
+        public struct FeatherCoreInternalServerErrorError: Codable, Hashable, Sendable {
+            /// - Remark: Generated from `#/components/schemas/FeatherCoreInternalServerErrorError/key`.
+            public var key: Components.Schemas.FeatherCoreInternalServerErrorErrorKey
+            /// - Remark: Generated from `#/components/schemas/FeatherCoreInternalServerErrorError/message`.
+            public var message: Components.Schemas.FeatherCoreErrorMessage
+            /// Creates a new `FeatherCoreInternalServerErrorError`.
             ///
             /// - Parameters:
             ///   - key:
             ///   - message:
             public init(
-                key: Components.Schemas.GenericNotAcceptableErrorKey,
-                message: Components.Schemas.GenericErrorMessage
+                key: Components.Schemas.FeatherCoreInternalServerErrorErrorKey,
+                message: Components.Schemas.FeatherCoreErrorMessage
+            ) {
+                self.key = key
+                self.message = message
+            }
+            public enum CodingKeys: String, CodingKey {
+                case key
+                case message
+            }
+        }
+        /// The key of the related object.
+        ///
+        /// - Remark: Generated from `#/components/schemas/FeatherCoreInternalServerErrorErrorKey`.
+        public typealias FeatherCoreInternalServerErrorErrorKey = Swift.String
+        /// - Remark: Generated from `#/components/schemas/FeatherCoreGoneError`.
+        public struct FeatherCoreGoneError: Codable, Hashable, Sendable {
+            /// - Remark: Generated from `#/components/schemas/FeatherCoreGoneError/key`.
+            public var key: Components.Schemas.FeatherCoreGoneErrorKey
+            /// - Remark: Generated from `#/components/schemas/FeatherCoreGoneError/message`.
+            public var message: Components.Schemas.FeatherCoreErrorMessage
+            /// Creates a new `FeatherCoreGoneError`.
+            ///
+            /// - Parameters:
+            ///   - key:
+            ///   - message:
+            public init(
+                key: Components.Schemas.FeatherCoreGoneErrorKey,
+                message: Components.Schemas.FeatherCoreErrorMessage
             ) {
                 self.key = key
                 self.message = message
@@ -183,22 +391,103 @@ public enum Components {
         }
         /// The system key of the related object.
         ///
-        /// - Remark: Generated from `#/components/schemas/GenericNotAcceptableErrorKey`.
-        public typealias GenericNotAcceptableErrorKey = Swift.String
-        /// - Remark: Generated from `#/components/schemas/GenericUnsupportedMediaTypeError`.
-        public struct GenericUnsupportedMediaTypeError: Codable, Hashable, Sendable {
-            /// - Remark: Generated from `#/components/schemas/GenericUnsupportedMediaTypeError/key`.
-            public var key: Components.Schemas.GenericUnsupportedMediaTypeErrorKey
-            /// - Remark: Generated from `#/components/schemas/GenericUnsupportedMediaTypeError/message`.
-            public var message: Components.Schemas.GenericErrorMessage
-            /// Creates a new `GenericUnsupportedMediaTypeError`.
+        /// - Remark: Generated from `#/components/schemas/FeatherCoreGoneErrorKey`.
+        public typealias FeatherCoreGoneErrorKey = Swift.String
+        /// - Remark: Generated from `#/components/schemas/FeatherCoreNotAcceptableError`.
+        public struct FeatherCoreNotAcceptableError: Codable, Hashable, Sendable {
+            /// - Remark: Generated from `#/components/schemas/FeatherCoreNotAcceptableError/key`.
+            public var key: Components.Schemas.FeatherCoreNotAcceptableErrorKey
+            /// - Remark: Generated from `#/components/schemas/FeatherCoreNotAcceptableError/message`.
+            public var message: Components.Schemas.FeatherCoreErrorMessage
+            /// Creates a new `FeatherCoreNotAcceptableError`.
             ///
             /// - Parameters:
             ///   - key:
             ///   - message:
             public init(
-                key: Components.Schemas.GenericUnsupportedMediaTypeErrorKey,
-                message: Components.Schemas.GenericErrorMessage
+                key: Components.Schemas.FeatherCoreNotAcceptableErrorKey,
+                message: Components.Schemas.FeatherCoreErrorMessage
+            ) {
+                self.key = key
+                self.message = message
+            }
+            public enum CodingKeys: String, CodingKey {
+                case key
+                case message
+            }
+        }
+        /// The system key of the related object.
+        ///
+        /// - Remark: Generated from `#/components/schemas/FeatherCoreNotAcceptableErrorKey`.
+        public typealias FeatherCoreNotAcceptableErrorKey = Swift.String
+        /// - Remark: Generated from `#/components/schemas/FeatherCoreMethodNotAllowedError`.
+        public struct FeatherCoreMethodNotAllowedError: Codable, Hashable, Sendable {
+            /// - Remark: Generated from `#/components/schemas/FeatherCoreMethodNotAllowedError/key`.
+            public var key: Components.Schemas.FeatherCoreMethodNotAllowedErrorKey
+            /// - Remark: Generated from `#/components/schemas/FeatherCoreMethodNotAllowedError/message`.
+            public var message: Components.Schemas.FeatherCoreErrorMessage
+            /// Creates a new `FeatherCoreMethodNotAllowedError`.
+            ///
+            /// - Parameters:
+            ///   - key:
+            ///   - message:
+            public init(
+                key: Components.Schemas.FeatherCoreMethodNotAllowedErrorKey,
+                message: Components.Schemas.FeatherCoreErrorMessage
+            ) {
+                self.key = key
+                self.message = message
+            }
+            public enum CodingKeys: String, CodingKey {
+                case key
+                case message
+            }
+        }
+        /// The system key of the related object.
+        ///
+        /// - Remark: Generated from `#/components/schemas/FeatherCoreMethodNotAllowedErrorKey`.
+        public typealias FeatherCoreMethodNotAllowedErrorKey = Swift.String
+        /// - Remark: Generated from `#/components/schemas/FeatherCoreNotFoundError`.
+        public struct FeatherCoreNotFoundError: Codable, Hashable, Sendable {
+            /// - Remark: Generated from `#/components/schemas/FeatherCoreNotFoundError/key`.
+            public var key: Components.Schemas.FeatherCoreNotFoundErrorKey
+            /// - Remark: Generated from `#/components/schemas/FeatherCoreNotFoundError/message`.
+            public var message: Components.Schemas.FeatherCoreErrorMessage
+            /// Creates a new `FeatherCoreNotFoundError`.
+            ///
+            /// - Parameters:
+            ///   - key:
+            ///   - message:
+            public init(
+                key: Components.Schemas.FeatherCoreNotFoundErrorKey,
+                message: Components.Schemas.FeatherCoreErrorMessage
+            ) {
+                self.key = key
+                self.message = message
+            }
+            public enum CodingKeys: String, CodingKey {
+                case key
+                case message
+            }
+        }
+        /// The system key of the related object.
+        ///
+        /// - Remark: Generated from `#/components/schemas/FeatherCoreNotFoundErrorKey`.
+        public typealias FeatherCoreNotFoundErrorKey = Swift.String
+        /// - Remark: Generated from `#/components/schemas/FeatherCoreBadRequestError`.
+        public struct FeatherCoreBadRequestError: Codable, Hashable, Sendable {
+            /// - Remark: Generated from `#/components/schemas/FeatherCoreBadRequestError/key`.
+            public var key: Components.Schemas.FeatherCoreBadRequestErrorKey
+            /// - Remark: Generated from `#/components/schemas/FeatherCoreBadRequestError/message`.
+            public var message: Components.Schemas.FeatherCoreErrorMessage
+            /// Creates a new `FeatherCoreBadRequestError`.
+            ///
+            /// - Parameters:
+            ///   - key:
+            ///   - message:
+            public init(
+                key: Components.Schemas.FeatherCoreBadRequestErrorKey,
+                message: Components.Schemas.FeatherCoreErrorMessage
             ) {
                 self.key = key
                 self.message = message
@@ -210,107 +499,29 @@ public enum Components {
         }
         /// You can use this key for translation purposes.
         ///
-        /// - Remark: Generated from `#/components/schemas/GenericUnsupportedMediaTypeErrorKey`.
-        public typealias GenericUnsupportedMediaTypeErrorKey = Swift.String
-        /// - Remark: Generated from `#/components/schemas/GenericForbiddenError`.
-        public struct GenericForbiddenError: Codable, Hashable, Sendable {
-            /// - Remark: Generated from `#/components/schemas/GenericForbiddenError/key`.
-            public var key: Components.Schemas.GenericForbiddenErrorKey
-            /// - Remark: Generated from `#/components/schemas/GenericForbiddenError/message`.
-            public var message: Components.Schemas.GenericErrorMessage
-            /// Creates a new `GenericForbiddenError`.
-            ///
-            /// - Parameters:
-            ///   - key:
-            ///   - message:
-            public init(
-                key: Components.Schemas.GenericForbiddenErrorKey,
-                message: Components.Schemas.GenericErrorMessage
-            ) {
-                self.key = key
-                self.message = message
-            }
-            public enum CodingKeys: String, CodingKey {
-                case key
-                case message
-            }
+        /// - Remark: Generated from `#/components/schemas/FeatherCoreBadRequestErrorKey`.
+        @frozen public enum FeatherCoreBadRequestErrorKey: String, Codable, Hashable, Sendable {
+            case missingRequestBody = "missingRequestBody"
+            case invalidRequestBody = "invalidRequestBody"
         }
-        /// The system key of the related object.
-        ///
-        /// - Remark: Generated from `#/components/schemas/GenericForbiddenErrorKey`.
-        public typealias GenericForbiddenErrorKey = Swift.String
-        /// - Remark: Generated from `#/components/schemas/GenericGoneError`.
-        public struct GenericGoneError: Codable, Hashable, Sendable {
-            /// - Remark: Generated from `#/components/schemas/GenericGoneError/key`.
-            public var key: Components.Schemas.GenericGoneErrorKey
-            /// - Remark: Generated from `#/components/schemas/GenericGoneError/message`.
-            public var message: Components.Schemas.GenericErrorMessage
-            /// Creates a new `GenericGoneError`.
-            ///
-            /// - Parameters:
-            ///   - key:
-            ///   - message:
-            public init(
-                key: Components.Schemas.GenericGoneErrorKey,
-                message: Components.Schemas.GenericErrorMessage
-            ) {
-                self.key = key
-                self.message = message
-            }
-            public enum CodingKeys: String, CodingKey {
-                case key
-                case message
-            }
-        }
-        /// The system key of the related object.
-        ///
-        /// - Remark: Generated from `#/components/schemas/GenericGoneErrorKey`.
-        public typealias GenericGoneErrorKey = Swift.String
-        /// - Remark: Generated from `#/components/schemas/GenericConflictError`.
-        public struct GenericConflictError: Codable, Hashable, Sendable {
-            /// - Remark: Generated from `#/components/schemas/GenericConflictError/key`.
-            public var key: Components.Schemas.GenericConflictErrorKey
-            /// - Remark: Generated from `#/components/schemas/GenericConflictError/message`.
-            public var message: Components.Schemas.GenericErrorMessage
-            /// Creates a new `GenericConflictError`.
-            ///
-            /// - Parameters:
-            ///   - key:
-            ///   - message:
-            public init(
-                key: Components.Schemas.GenericConflictErrorKey,
-                message: Components.Schemas.GenericErrorMessage
-            ) {
-                self.key = key
-                self.message = message
-            }
-            public enum CodingKeys: String, CodingKey {
-                case key
-                case message
-            }
-        }
-        /// The system key of the related object.
-        ///
-        /// - Remark: Generated from `#/components/schemas/GenericConflictErrorKey`.
-        public typealias GenericConflictErrorKey = Swift.String
-        /// - Remark: Generated from `#/components/schemas/GenericUnprocessableContentError`.
-        public struct GenericUnprocessableContentError: Codable, Hashable, Sendable {
-            /// - Remark: Generated from `#/components/schemas/GenericUnprocessableContentError/key`.
-            public var key: Components.Schemas.GenericUnprocessableContentErrorKey
-            /// - Remark: Generated from `#/components/schemas/GenericUnprocessableContentError/message`.
-            public var message: Components.Schemas.GenericErrorMessage
-            /// - Remark: Generated from `#/components/schemas/GenericUnprocessableContentError/failures`.
-            public var failures: Components.Schemas.GenericUnprocessableContentErrorFailure
-            /// Creates a new `GenericUnprocessableContentError`.
+        /// - Remark: Generated from `#/components/schemas/FeatherCoreUnprocessableContentError`.
+        public struct FeatherCoreUnprocessableContentError: Codable, Hashable, Sendable {
+            /// - Remark: Generated from `#/components/schemas/FeatherCoreUnprocessableContentError/key`.
+            public var key: Components.Schemas.FeatherCoreUnprocessableContentErrorKey
+            /// - Remark: Generated from `#/components/schemas/FeatherCoreUnprocessableContentError/message`.
+            public var message: Components.Schemas.FeatherCoreErrorMessage
+            /// - Remark: Generated from `#/components/schemas/FeatherCoreUnprocessableContentError/failures`.
+            public var failures: Components.Schemas.FeatherCoreUnprocessableContentErrorFailure
+            /// Creates a new `FeatherCoreUnprocessableContentError`.
             ///
             /// - Parameters:
             ///   - key:
             ///   - message:
             ///   - failures:
             public init(
-                key: Components.Schemas.GenericUnprocessableContentErrorKey,
-                message: Components.Schemas.GenericErrorMessage,
-                failures: Components.Schemas.GenericUnprocessableContentErrorFailure
+                key: Components.Schemas.FeatherCoreUnprocessableContentErrorKey,
+                message: Components.Schemas.FeatherCoreErrorMessage,
+                failures: Components.Schemas.FeatherCoreUnprocessableContentErrorFailure
             ) {
                 self.key = key
                 self.message = message
@@ -324,26 +535,26 @@ public enum Components {
         }
         /// You can use this key for translation purposes.
         ///
-        /// - Remark: Generated from `#/components/schemas/GenericUnprocessableContentErrorKey`.
-        @frozen public enum GenericUnprocessableContentErrorKey: String, Codable, Hashable, Sendable {
+        /// - Remark: Generated from `#/components/schemas/FeatherCoreUnprocessableContentErrorKey`.
+        @frozen public enum FeatherCoreUnprocessableContentErrorKey: String, Codable, Hashable, Sendable {
             case validation = "validation"
         }
-        /// - Remark: Generated from `#/components/schemas/GenericUnprocessableContentErrorFailure`.
-        public typealias GenericUnprocessableContentErrorFailure = [Components.Schemas.GenericUnprocessableContentErrorFailureDetail]
-        /// - Remark: Generated from `#/components/schemas/GenericUnprocessableContentErrorFailureDetail`.
-        public struct GenericUnprocessableContentErrorFailureDetail: Codable, Hashable, Sendable {
-            /// - Remark: Generated from `#/components/schemas/GenericUnprocessableContentErrorFailureDetail/key`.
-            public var key: Components.Schemas.GenericUnprocessableContentErrorFailureDetailKey
-            /// - Remark: Generated from `#/components/schemas/GenericUnprocessableContentErrorFailureDetail/message`.
-            public var message: Components.Schemas.GenericErrorMessage
-            /// Creates a new `GenericUnprocessableContentErrorFailureDetail`.
+        /// - Remark: Generated from `#/components/schemas/FeatherCoreUnprocessableContentErrorFailure`.
+        public typealias FeatherCoreUnprocessableContentErrorFailure = [Components.Schemas.FeatherCoreUnprocessableContentErrorFailureDetail]
+        /// - Remark: Generated from `#/components/schemas/FeatherCoreUnprocessableContentErrorFailureDetail`.
+        public struct FeatherCoreUnprocessableContentErrorFailureDetail: Codable, Hashable, Sendable {
+            /// - Remark: Generated from `#/components/schemas/FeatherCoreUnprocessableContentErrorFailureDetail/key`.
+            public var key: Components.Schemas.FeatherCoreUnprocessableContentErrorFailureDetailKey
+            /// - Remark: Generated from `#/components/schemas/FeatherCoreUnprocessableContentErrorFailureDetail/message`.
+            public var message: Components.Schemas.FeatherCoreErrorMessage
+            /// Creates a new `FeatherCoreUnprocessableContentErrorFailureDetail`.
             ///
             /// - Parameters:
             ///   - key:
             ///   - message:
             public init(
-                key: Components.Schemas.GenericUnprocessableContentErrorFailureDetailKey,
-                message: Components.Schemas.GenericErrorMessage
+                key: Components.Schemas.FeatherCoreUnprocessableContentErrorFailureDetailKey,
+                message: Components.Schemas.FeatherCoreErrorMessage
             ) {
                 self.key = key
                 self.message = message
@@ -355,49 +566,22 @@ public enum Components {
         }
         /// Related field key for the error detail.
         ///
-        /// - Remark: Generated from `#/components/schemas/GenericUnprocessableContentErrorFailureDetailKey`.
-        public typealias GenericUnprocessableContentErrorFailureDetailKey = Swift.String
-        /// - Remark: Generated from `#/components/schemas/GenericNotFoundError`.
-        public struct GenericNotFoundError: Codable, Hashable, Sendable {
-            /// - Remark: Generated from `#/components/schemas/GenericNotFoundError/key`.
-            public var key: Components.Schemas.GenericNotFoundErrorKey
-            /// - Remark: Generated from `#/components/schemas/GenericNotFoundError/message`.
-            public var message: Components.Schemas.GenericErrorMessage
-            /// Creates a new `GenericNotFoundError`.
+        /// - Remark: Generated from `#/components/schemas/FeatherCoreUnprocessableContentErrorFailureDetailKey`.
+        public typealias FeatherCoreUnprocessableContentErrorFailureDetailKey = Swift.String
+        /// - Remark: Generated from `#/components/schemas/FeatherCoreUnauthorizedError`.
+        public struct FeatherCoreUnauthorizedError: Codable, Hashable, Sendable {
+            /// - Remark: Generated from `#/components/schemas/FeatherCoreUnauthorizedError/key`.
+            public var key: Components.Schemas.FeatherCoreUnauthorizedErrorKey
+            /// - Remark: Generated from `#/components/schemas/FeatherCoreUnauthorizedError/message`.
+            public var message: Components.Schemas.FeatherCoreErrorMessage
+            /// Creates a new `FeatherCoreUnauthorizedError`.
             ///
             /// - Parameters:
             ///   - key:
             ///   - message:
             public init(
-                key: Components.Schemas.GenericNotFoundErrorKey,
-                message: Components.Schemas.GenericErrorMessage
-            ) {
-                self.key = key
-                self.message = message
-            }
-            public enum CodingKeys: String, CodingKey {
-                case key
-                case message
-            }
-        }
-        /// The system key of the related object.
-        ///
-        /// - Remark: Generated from `#/components/schemas/GenericNotFoundErrorKey`.
-        public typealias GenericNotFoundErrorKey = Swift.String
-        /// - Remark: Generated from `#/components/schemas/GenericBadRequestError`.
-        public struct GenericBadRequestError: Codable, Hashable, Sendable {
-            /// - Remark: Generated from `#/components/schemas/GenericBadRequestError/key`.
-            public var key: Components.Schemas.GenericBadRequestErrorKey
-            /// - Remark: Generated from `#/components/schemas/GenericBadRequestError/message`.
-            public var message: Components.Schemas.GenericErrorMessage
-            /// Creates a new `GenericBadRequestError`.
-            ///
-            /// - Parameters:
-            ///   - key:
-            ///   - message:
-            public init(
-                key: Components.Schemas.GenericBadRequestErrorKey,
-                message: Components.Schemas.GenericErrorMessage
+                key: Components.Schemas.FeatherCoreUnauthorizedErrorKey,
+                message: Components.Schemas.FeatherCoreErrorMessage
             ) {
                 self.key = key
                 self.message = message
@@ -409,25 +593,24 @@ public enum Components {
         }
         /// You can use this key for translation purposes.
         ///
-        /// - Remark: Generated from `#/components/schemas/GenericBadRequestErrorKey`.
-        @frozen public enum GenericBadRequestErrorKey: String, Codable, Hashable, Sendable {
-            case missingRequestBody = "missingRequestBody"
-            case invalidRequestBody = "invalidRequestBody"
+        /// - Remark: Generated from `#/components/schemas/FeatherCoreUnauthorizedErrorKey`.
+        @frozen public enum FeatherCoreUnauthorizedErrorKey: String, Codable, Hashable, Sendable {
+            case invalidUserToken = "invalidUserToken"
         }
-        /// - Remark: Generated from `#/components/schemas/GenericInternalServerErrorError`.
-        public struct GenericInternalServerErrorError: Codable, Hashable, Sendable {
-            /// - Remark: Generated from `#/components/schemas/GenericInternalServerErrorError/key`.
-            public var key: Components.Schemas.GenericInternalServerErrorErrorKey
-            /// - Remark: Generated from `#/components/schemas/GenericInternalServerErrorError/message`.
-            public var message: Components.Schemas.GenericErrorMessage
-            /// Creates a new `GenericInternalServerErrorError`.
+        /// - Remark: Generated from `#/components/schemas/FeatherCoreConflictError`.
+        public struct FeatherCoreConflictError: Codable, Hashable, Sendable {
+            /// - Remark: Generated from `#/components/schemas/FeatherCoreConflictError/key`.
+            public var key: Components.Schemas.FeatherCoreConflictErrorKey
+            /// - Remark: Generated from `#/components/schemas/FeatherCoreConflictError/message`.
+            public var message: Components.Schemas.FeatherCoreErrorMessage
+            /// Creates a new `FeatherCoreConflictError`.
             ///
             /// - Parameters:
             ///   - key:
             ///   - message:
             public init(
-                key: Components.Schemas.GenericInternalServerErrorErrorKey,
-                message: Components.Schemas.GenericErrorMessage
+                key: Components.Schemas.FeatherCoreConflictErrorKey,
+                message: Components.Schemas.FeatherCoreErrorMessage
             ) {
                 self.key = key
                 self.message = message
@@ -437,10 +620,101 @@ public enum Components {
                 case message
             }
         }
-        /// The key of the related object.
+        /// The system key of the related object.
         ///
-        /// - Remark: Generated from `#/components/schemas/GenericInternalServerErrorErrorKey`.
-        public typealias GenericInternalServerErrorErrorKey = Swift.String
+        /// - Remark: Generated from `#/components/schemas/FeatherCoreConflictErrorKey`.
+        public typealias FeatherCoreConflictErrorKey = Swift.String
+        /// - Remark: Generated from `#/components/schemas/FeatherCoreForbiddenError`.
+        public struct FeatherCoreForbiddenError: Codable, Hashable, Sendable {
+            /// - Remark: Generated from `#/components/schemas/FeatherCoreForbiddenError/key`.
+            public var key: Components.Schemas.FeatherCoreForbiddenErrorKey
+            /// - Remark: Generated from `#/components/schemas/FeatherCoreForbiddenError/message`.
+            public var message: Components.Schemas.FeatherCoreErrorMessage
+            /// Creates a new `FeatherCoreForbiddenError`.
+            ///
+            /// - Parameters:
+            ///   - key:
+            ///   - message:
+            public init(
+                key: Components.Schemas.FeatherCoreForbiddenErrorKey,
+                message: Components.Schemas.FeatherCoreErrorMessage
+            ) {
+                self.key = key
+                self.message = message
+            }
+            public enum CodingKeys: String, CodingKey {
+                case key
+                case message
+            }
+        }
+        /// The system key of the related object.
+        ///
+        /// - Remark: Generated from `#/components/schemas/FeatherCoreForbiddenErrorKey`.
+        public typealias FeatherCoreForbiddenErrorKey = Swift.String
+        /// The original error message provided by the system.
+        ///
+        /// - Remark: Generated from `#/components/schemas/FeatherCoreErrorMessage`.
+        public typealias FeatherCoreErrorMessage = Swift.String
+        /// Content length
+        ///
+        /// - Remark: Generated from `#/components/schemas/FeatherCoreHeadersContentLength`.
+        public typealias FeatherCoreHeadersContentLength = Swift.Int
+        /// Total elements
+        ///
+        /// - Remark: Generated from `#/components/schemas/FeatherCoreListCount`.
+        public typealias FeatherCoreListCount = Swift.Int
+        /// Page properties
+        ///
+        /// - Remark: Generated from `#/components/schemas/FeatherCoreListPage`.
+        public struct FeatherCoreListPage: Codable, Hashable, Sendable {
+            /// - Remark: Generated from `#/components/schemas/FeatherCoreListPage/size`.
+            public var size: Components.Schemas.FeatherCoreListPageSize
+            /// - Remark: Generated from `#/components/schemas/FeatherCoreListPage/index`.
+            public var index: Components.Schemas.FeatherCoreListPageIndex
+            /// Creates a new `FeatherCoreListPage`.
+            ///
+            /// - Parameters:
+            ///   - size:
+            ///   - index:
+            public init(
+                size: Components.Schemas.FeatherCoreListPageSize,
+                index: Components.Schemas.FeatherCoreListPageIndex
+            ) {
+                self.size = size
+                self.index = index
+            }
+            public enum CodingKeys: String, CodingKey {
+                case size
+                case index
+            }
+        }
+        /// Page size
+        ///
+        /// - Remark: Generated from `#/components/schemas/FeatherCoreListPageSize`.
+        public typealias FeatherCoreListPageSize = Swift.Int
+        /// Page index
+        ///
+        /// - Remark: Generated from `#/components/schemas/FeatherCoreListPageIndex`.
+        public typealias FeatherCoreListPageIndex = Swift.Int
+        /// Order of the list (ascending or descending).
+        ///
+        /// - Remark: Generated from `#/components/schemas/FeatherCoreListOrder`.
+        @frozen public enum FeatherCoreListOrder: String, Codable, Hashable, Sendable {
+            case asc = "asc"
+            case desc = "desc"
+        }
+        /// Value of the search term.
+        ///
+        /// - Remark: Generated from `#/components/schemas/FeatherCoreListSearch`.
+        public typealias FeatherCoreListSearch = Swift.String
+        /// Object creation date
+        ///
+        /// - Remark: Generated from `#/components/schemas/FeatherCoreCreatedAt`.
+        public typealias FeatherCoreCreatedAt = Foundation.Date
+        /// Last update for the object
+        ///
+        /// - Remark: Generated from `#/components/schemas/FeatherCoreUpdatedAt`.
+        public typealias FeatherCoreUpdatedAt = Foundation.Date
         /// Key of the system variable
         ///
         /// - Remark: Generated from `#/components/schemas/SystemVariableKey`.
@@ -466,13 +740,13 @@ public enum Components {
             /// - Remark: Generated from `#/components/schemas/SystemVariableList/sort`.
             public var sort: Components.Schemas.SystemVariableListSort?
             /// - Remark: Generated from `#/components/schemas/SystemVariableList/order`.
-            public var order: Components.Schemas.GenericListOrder?
+            public var order: Components.Schemas.FeatherCoreListOrder?
             /// - Remark: Generated from `#/components/schemas/SystemVariableList/search`.
-            public var search: Components.Schemas.GenericListSearch?
+            public var search: Components.Schemas.FeatherCoreListSearch?
             /// - Remark: Generated from `#/components/schemas/SystemVariableList/page`.
-            public var page: Components.Schemas.GenericListPage
+            public var page: Components.Schemas.FeatherCoreListPage
             /// - Remark: Generated from `#/components/schemas/SystemVariableList/count`.
-            public var count: Components.Schemas.GenericListCount
+            public var count: Components.Schemas.FeatherCoreListCount
             /// Creates a new `SystemVariableList`.
             ///
             /// - Parameters:
@@ -485,10 +759,10 @@ public enum Components {
             public init(
                 items: Components.Schemas.SystemVariableListItems,
                 sort: Components.Schemas.SystemVariableListSort? = nil,
-                order: Components.Schemas.GenericListOrder? = nil,
-                search: Components.Schemas.GenericListSearch? = nil,
-                page: Components.Schemas.GenericListPage,
-                count: Components.Schemas.GenericListCount
+                order: Components.Schemas.FeatherCoreListOrder? = nil,
+                search: Components.Schemas.FeatherCoreListSearch? = nil,
+                page: Components.Schemas.FeatherCoreListPage,
+                count: Components.Schemas.FeatherCoreListCount
             ) {
                 self.items = items
                 self.sort = sort
@@ -760,13 +1034,13 @@ public enum Components {
             /// - Remark: Generated from `#/components/schemas/SystemPermissionList/sort`.
             public var sort: Components.Schemas.SystemPermissionListSort?
             /// - Remark: Generated from `#/components/schemas/SystemPermissionList/order`.
-            public var order: Components.Schemas.GenericListOrder?
+            public var order: Components.Schemas.FeatherCoreListOrder?
             /// - Remark: Generated from `#/components/schemas/SystemPermissionList/search`.
-            public var search: Components.Schemas.GenericListSearch?
+            public var search: Components.Schemas.FeatherCoreListSearch?
             /// - Remark: Generated from `#/components/schemas/SystemPermissionList/page`.
-            public var page: Components.Schemas.GenericListPage
+            public var page: Components.Schemas.FeatherCoreListPage
             /// - Remark: Generated from `#/components/schemas/SystemPermissionList/count`.
-            public var count: Components.Schemas.GenericListCount
+            public var count: Components.Schemas.FeatherCoreListCount
             /// Creates a new `SystemPermissionList`.
             ///
             /// - Parameters:
@@ -779,10 +1053,10 @@ public enum Components {
             public init(
                 items: Components.Schemas.SystemPermissionListItems,
                 sort: Components.Schemas.SystemPermissionListSort? = nil,
-                order: Components.Schemas.GenericListOrder? = nil,
-                search: Components.Schemas.GenericListSearch? = nil,
-                page: Components.Schemas.GenericListPage,
-                count: Components.Schemas.GenericListCount
+                order: Components.Schemas.FeatherCoreListOrder? = nil,
+                search: Components.Schemas.FeatherCoreListSearch? = nil,
+                page: Components.Schemas.FeatherCoreListPage,
+                count: Components.Schemas.FeatherCoreListCount
             ) {
                 self.items = items
                 self.sort = sort
@@ -961,31 +1235,116 @@ public enum Components {
     public enum Parameters {
         /// The list search value
         ///
-        /// - Remark: Generated from `#/components/parameters/GenericListSearch`.
-        public typealias GenericListSearch = Components.Schemas.GenericListSearch
+        /// - Remark: Generated from `#/components/parameters/FeatherCoreListSearch`.
+        public typealias FeatherCoreListSearch = Components.Schemas.FeatherCoreListSearch
         /// The number of items per page
         ///
-        /// - Remark: Generated from `#/components/parameters/GenericListPageSize`.
-        public typealias GenericListPageSize = Components.Schemas.GenericListPageSize
+        /// - Remark: Generated from `#/components/parameters/FeatherCoreListPageSize`.
+        public typealias FeatherCoreListPageSize = Components.Schemas.FeatherCoreListPageSize
         /// The current page number
         ///
-        /// - Remark: Generated from `#/components/parameters/GenericListPageIndex`.
-        public typealias GenericListPageIndex = Components.Schemas.GenericListPageIndex
+        /// - Remark: Generated from `#/components/parameters/FeatherCoreListPageIndex`.
+        public typealias FeatherCoreListPageIndex = Components.Schemas.FeatherCoreListPageIndex
         /// Sort order parameter
         ///
-        /// - Remark: Generated from `#/components/parameters/GenericListOrder`.
-        public typealias GenericListOrder = Components.Schemas.GenericListOrder
+        /// - Remark: Generated from `#/components/parameters/FeatherCoreListOrder`.
+        public typealias FeatherCoreListOrder = Components.Schemas.FeatherCoreListOrder
+        /// System variable key
+        ///
+        /// - Remark: Generated from `#/components/parameters/SystemVariableKey`.
+        public typealias SystemVariableKey = Components.Schemas.SystemVariableKey
+        /// Sort by parameter
+        ///
+        /// - Remark: Generated from `#/components/parameters/SystemVariableListSort`.
+        public typealias SystemVariableListSort = Components.Schemas.SystemVariableListSort
+        /// System permission key
+        ///
+        /// - Remark: Generated from `#/components/parameters/SystemPermissionKey`.
+        public typealias SystemPermissionKey = Components.Schemas.SystemPermissionKey
+        /// Sort by parameter
+        ///
+        /// - Remark: Generated from `#/components/parameters/SystemPermissionListSort`.
+        public typealias SystemPermissionListSort = Components.Schemas.SystemPermissionListSort
     }
     /// Types generated from the `#/components/requestBodies` section of the OpenAPI document.
-    public enum RequestBodies {}
+    public enum RequestBodies {
+        /// - Remark: Generated from `#/components/requestBodies/SystemVariableCreate`.
+        @frozen public enum SystemVariableCreate: Sendable, Hashable {
+            /// - Remark: Generated from `#/components/requestBodies/SystemVariableCreate/content/application\/json`.
+            case json(Components.Schemas.SystemVariableCreate)
+        }
+        /// - Remark: Generated from `#/components/requestBodies/SystemVariableBulkDelete`.
+        @frozen public enum SystemVariableBulkDelete: Sendable, Hashable {
+            /// - Remark: Generated from `#/components/requestBodies/SystemVariableBulkDelete/content/application\/json`.
+            case json(Components.Schemas.SystemVariableBulkDelete)
+        }
+        /// - Remark: Generated from `#/components/requestBodies/SystemVariableUpdate`.
+        @frozen public enum SystemVariableUpdate: Sendable, Hashable {
+            /// - Remark: Generated from `#/components/requestBodies/SystemVariableUpdate/content/application\/json`.
+            case json(Components.Schemas.SystemVariableUpdate)
+        }
+        /// - Remark: Generated from `#/components/requestBodies/SystemVariablePatch`.
+        @frozen public enum SystemVariablePatch: Sendable, Hashable {
+            /// - Remark: Generated from `#/components/requestBodies/SystemVariablePatch/content/application\/json`.
+            case json(Components.Schemas.SystemVariablePatch)
+        }
+        /// - Remark: Generated from `#/components/requestBodies/SystemPermissionCreate`.
+        @frozen public enum SystemPermissionCreate: Sendable, Hashable {
+            /// - Remark: Generated from `#/components/requestBodies/SystemPermissionCreate/content/application\/json`.
+            case json(Components.Schemas.SystemPermissionCreate)
+        }
+        /// - Remark: Generated from `#/components/requestBodies/SystemPermissionBulkDelete`.
+        @frozen public enum SystemPermissionBulkDelete: Sendable, Hashable {
+            /// - Remark: Generated from `#/components/requestBodies/SystemPermissionBulkDelete/content/application\/json`.
+            case json(Components.Schemas.SystemPermissionBulkDelete)
+        }
+        /// - Remark: Generated from `#/components/requestBodies/SystemPermissionUpdate`.
+        @frozen public enum SystemPermissionUpdate: Sendable, Hashable {
+            /// - Remark: Generated from `#/components/requestBodies/SystemPermissionUpdate/content/application\/json`.
+            case json(Components.Schemas.SystemPermissionUpdate)
+        }
+        /// - Remark: Generated from `#/components/requestBodies/SystemPermissionPatch`.
+        @frozen public enum SystemPermissionPatch: Sendable, Hashable {
+            /// - Remark: Generated from `#/components/requestBodies/SystemPermissionPatch/content/application\/json`.
+            case json(Components.Schemas.SystemPermissionPatch)
+        }
+    }
     /// Types generated from the `#/components/responses` section of the OpenAPI document.
     public enum Responses {
-        public struct GenericHead: Sendable, Hashable {
-            /// - Remark: Generated from `#/components/responses/GenericHead/headers`.
+        public struct FeatherCoreUnsupportedMediaType: Sendable, Hashable {
+            /// - Remark: Generated from `#/components/responses/FeatherCoreUnsupportedMediaType/content`.
+            @frozen public enum Body: Sendable, Hashable {
+                /// - Remark: Generated from `#/components/responses/FeatherCoreUnsupportedMediaType/content/application\/json`.
+                case json(Components.Schemas.FeatherCoreUnsupportedMediaTypeError)
+                /// The associated value of the enum case if `self` is `.json`.
+                ///
+                /// - Throws: An error if `self` is not `.json`.
+                /// - SeeAlso: `.json`.
+                public var json: Components.Schemas.FeatherCoreUnsupportedMediaTypeError {
+                    get throws {
+                        switch self {
+                        case let .json(body):
+                            return body
+                        }
+                    }
+                }
+            }
+            /// Received HTTP response body
+            public var body: Components.Responses.FeatherCoreUnsupportedMediaType.Body
+            /// Creates a new `FeatherCoreUnsupportedMediaType`.
+            ///
+            /// - Parameters:
+            ///   - body: Received HTTP response body
+            public init(body: Components.Responses.FeatherCoreUnsupportedMediaType.Body) {
+                self.body = body
+            }
+        }
+        public struct FeatherCoreHead: Sendable, Hashable {
+            /// - Remark: Generated from `#/components/responses/FeatherCoreHead/headers`.
             public struct Headers: Sendable, Hashable {
                 /// Content length header
                 ///
-                /// - Remark: Generated from `#/components/responses/GenericHead/headers/Content-Length`.
+                /// - Remark: Generated from `#/components/responses/FeatherCoreHead/headers/Content-Length`.
                 public var Content_hyphen_Length: Components.Headers.Content_hyphen_Length?
                 /// Creates a new `Headers`.
                 ///
@@ -996,113 +1355,29 @@ public enum Components {
                 }
             }
             /// Received HTTP response headers
-            public var headers: Components.Responses.GenericHead.Headers
-            /// Creates a new `GenericHead`.
+            public var headers: Components.Responses.FeatherCoreHead.Headers
+            /// Creates a new `FeatherCoreHead`.
             ///
             /// - Parameters:
             ///   - headers: Received HTTP response headers
-            public init(headers: Components.Responses.GenericHead.Headers = .init()) {
+            public init(headers: Components.Responses.FeatherCoreHead.Headers = .init()) {
                 self.headers = headers
             }
         }
-        public struct GenericMethodNotAllowed: Sendable, Hashable {
-            /// - Remark: Generated from `#/components/responses/GenericMethodNotAllowed/content`.
-            @frozen public enum Body: Sendable, Hashable {
-                /// - Remark: Generated from `#/components/responses/GenericMethodNotAllowed/content/application\/json`.
-                case json(Components.Schemas.GenericMethodNotAllowedError)
-                /// The associated value of the enum case if `self` is `.json`.
-                ///
-                /// - Throws: An error if `self` is not `.json`.
-                /// - SeeAlso: `.json`.
-                public var json: Components.Schemas.GenericMethodNotAllowedError {
-                    get throws {
-                        switch self {
-                        case let .json(body):
-                            return body
-                        }
-                    }
-                }
-            }
-            /// Received HTTP response body
-            public var body: Components.Responses.GenericMethodNotAllowed.Body
-            /// Creates a new `GenericMethodNotAllowed`.
-            ///
-            /// - Parameters:
-            ///   - body: Received HTTP response body
-            public init(body: Components.Responses.GenericMethodNotAllowed.Body) {
-                self.body = body
-            }
-        }
-        public struct GenericUnauthorized: Sendable, Hashable {
-            /// - Remark: Generated from `#/components/responses/GenericUnauthorized/content`.
-            @frozen public enum Body: Sendable, Hashable {
-                /// - Remark: Generated from `#/components/responses/GenericUnauthorized/content/application\/json`.
-                case json(Components.Schemas.GenericUnauthorizedError)
-                /// The associated value of the enum case if `self` is `.json`.
-                ///
-                /// - Throws: An error if `self` is not `.json`.
-                /// - SeeAlso: `.json`.
-                public var json: Components.Schemas.GenericUnauthorizedError {
-                    get throws {
-                        switch self {
-                        case let .json(body):
-                            return body
-                        }
-                    }
-                }
-            }
-            /// Received HTTP response body
-            public var body: Components.Responses.GenericUnauthorized.Body
-            /// Creates a new `GenericUnauthorized`.
-            ///
-            /// - Parameters:
-            ///   - body: Received HTTP response body
-            public init(body: Components.Responses.GenericUnauthorized.Body) {
-                self.body = body
-            }
-        }
-        public struct GenericNotAcceptable: Sendable, Hashable {
-            /// - Remark: Generated from `#/components/responses/GenericNotAcceptable/content`.
-            @frozen public enum Body: Sendable, Hashable {
-                /// - Remark: Generated from `#/components/responses/GenericNotAcceptable/content/application\/json`.
-                case json(Components.Schemas.GenericNotAcceptableError)
-                /// The associated value of the enum case if `self` is `.json`.
-                ///
-                /// - Throws: An error if `self` is not `.json`.
-                /// - SeeAlso: `.json`.
-                public var json: Components.Schemas.GenericNotAcceptableError {
-                    get throws {
-                        switch self {
-                        case let .json(body):
-                            return body
-                        }
-                    }
-                }
-            }
-            /// Received HTTP response body
-            public var body: Components.Responses.GenericNotAcceptable.Body
-            /// Creates a new `GenericNotAcceptable`.
-            ///
-            /// - Parameters:
-            ///   - body: Received HTTP response body
-            public init(body: Components.Responses.GenericNotAcceptable.Body) {
-                self.body = body
-            }
-        }
-        public struct GenericNoContent: Sendable, Hashable {
-            /// Creates a new `GenericNoContent`.
+        public struct FeatherCoreNoContent: Sendable, Hashable {
+            /// Creates a new `FeatherCoreNoContent`.
             public init() {}
         }
-        public struct GenericUnsupportedMediaType: Sendable, Hashable {
-            /// - Remark: Generated from `#/components/responses/GenericUnsupportedMediaType/content`.
+        public struct FeatherCoreInternalServerError: Sendable, Hashable {
+            /// - Remark: Generated from `#/components/responses/FeatherCoreInternalServerError/content`.
             @frozen public enum Body: Sendable, Hashable {
-                /// - Remark: Generated from `#/components/responses/GenericUnsupportedMediaType/content/application\/json`.
-                case json(Components.Schemas.GenericUnsupportedMediaTypeError)
+                /// - Remark: Generated from `#/components/responses/FeatherCoreInternalServerError/content/application\/json`.
+                case json(Components.Schemas.FeatherCoreInternalServerErrorError)
                 /// The associated value of the enum case if `self` is `.json`.
                 ///
                 /// - Throws: An error if `self` is not `.json`.
                 /// - SeeAlso: `.json`.
-                public var json: Components.Schemas.GenericUnsupportedMediaTypeError {
+                public var json: Components.Schemas.FeatherCoreInternalServerErrorError {
                     get throws {
                         switch self {
                         case let .json(body):
@@ -1112,113 +1387,29 @@ public enum Components {
                 }
             }
             /// Received HTTP response body
-            public var body: Components.Responses.GenericUnsupportedMediaType.Body
-            /// Creates a new `GenericUnsupportedMediaType`.
+            public var body: Components.Responses.FeatherCoreInternalServerError.Body
+            /// Creates a new `FeatherCoreInternalServerError`.
             ///
             /// - Parameters:
             ///   - body: Received HTTP response body
-            public init(body: Components.Responses.GenericUnsupportedMediaType.Body) {
+            public init(body: Components.Responses.FeatherCoreInternalServerError.Body) {
                 self.body = body
             }
         }
-        public struct GenericForbidden: Sendable, Hashable {
-            /// - Remark: Generated from `#/components/responses/GenericForbidden/content`.
-            @frozen public enum Body: Sendable, Hashable {
-                /// - Remark: Generated from `#/components/responses/GenericForbidden/content/application\/json`.
-                case json(Components.Schemas.GenericForbiddenError)
-                /// The associated value of the enum case if `self` is `.json`.
-                ///
-                /// - Throws: An error if `self` is not `.json`.
-                /// - SeeAlso: `.json`.
-                public var json: Components.Schemas.GenericForbiddenError {
-                    get throws {
-                        switch self {
-                        case let .json(body):
-                            return body
-                        }
-                    }
-                }
-            }
-            /// Received HTTP response body
-            public var body: Components.Responses.GenericForbidden.Body
-            /// Creates a new `GenericForbidden`.
-            ///
-            /// - Parameters:
-            ///   - body: Received HTTP response body
-            public init(body: Components.Responses.GenericForbidden.Body) {
-                self.body = body
-            }
-        }
-        public struct GenericGone: Sendable, Hashable {
-            /// - Remark: Generated from `#/components/responses/GenericGone/content`.
-            @frozen public enum Body: Sendable, Hashable {
-                /// - Remark: Generated from `#/components/responses/GenericGone/content/application\/json`.
-                case json(Components.Schemas.GenericGoneError)
-                /// The associated value of the enum case if `self` is `.json`.
-                ///
-                /// - Throws: An error if `self` is not `.json`.
-                /// - SeeAlso: `.json`.
-                public var json: Components.Schemas.GenericGoneError {
-                    get throws {
-                        switch self {
-                        case let .json(body):
-                            return body
-                        }
-                    }
-                }
-            }
-            /// Received HTTP response body
-            public var body: Components.Responses.GenericGone.Body
-            /// Creates a new `GenericGone`.
-            ///
-            /// - Parameters:
-            ///   - body: Received HTTP response body
-            public init(body: Components.Responses.GenericGone.Body) {
-                self.body = body
-            }
-        }
-        public struct GenericConflict: Sendable, Hashable {
-            /// - Remark: Generated from `#/components/responses/GenericConflict/content`.
-            @frozen public enum Body: Sendable, Hashable {
-                /// - Remark: Generated from `#/components/responses/GenericConflict/content/application\/json`.
-                case json(Components.Schemas.GenericConflictError)
-                /// The associated value of the enum case if `self` is `.json`.
-                ///
-                /// - Throws: An error if `self` is not `.json`.
-                /// - SeeAlso: `.json`.
-                public var json: Components.Schemas.GenericConflictError {
-                    get throws {
-                        switch self {
-                        case let .json(body):
-                            return body
-                        }
-                    }
-                }
-            }
-            /// Received HTTP response body
-            public var body: Components.Responses.GenericConflict.Body
-            /// Creates a new `GenericConflict`.
-            ///
-            /// - Parameters:
-            ///   - body: Received HTTP response body
-            public init(body: Components.Responses.GenericConflict.Body) {
-                self.body = body
-            }
-        }
-        public struct GenericOk: Sendable, Hashable {
-            /// Creates a new `GenericOk`.
+        public struct FeatherCoreOk: Sendable, Hashable {
+            /// Creates a new `FeatherCoreOk`.
             public init() {}
         }
-        public struct GenericUnprocessableContent: Sendable, Hashable {
-            /// - Remark: Generated from `#/components/responses/GenericUnprocessableContent/content`.
+        public struct FeatherCoreGone: Sendable, Hashable {
+            /// - Remark: Generated from `#/components/responses/FeatherCoreGone/content`.
             @frozen public enum Body: Sendable, Hashable {
-                /// - Remark: Generated from `#/components/responses/GenericUnprocessableContent/content/application\/json`.
-                case json(Components.Schemas.GenericUnprocessableContentError)
+                /// - Remark: Generated from `#/components/responses/FeatherCoreGone/content/application\/json`.
+                case json(Components.Schemas.FeatherCoreGoneError)
                 /// The associated value of the enum case if `self` is `.json`.
                 ///
                 /// - Throws: An error if `self` is not `.json`.
                 /// - SeeAlso: `.json`.
-                public var json: Components.Schemas.GenericUnprocessableContentError {
+                public var json: Components.Schemas.FeatherCoreGoneError {
                     get throws {
                         switch self {
                         case let .json(body):
@@ -1228,25 +1419,25 @@ public enum Components {
                 }
             }
             /// Received HTTP response body
-            public var body: Components.Responses.GenericUnprocessableContent.Body
-            /// Creates a new `GenericUnprocessableContent`.
+            public var body: Components.Responses.FeatherCoreGone.Body
+            /// Creates a new `FeatherCoreGone`.
             ///
             /// - Parameters:
             ///   - body: Received HTTP response body
-            public init(body: Components.Responses.GenericUnprocessableContent.Body) {
+            public init(body: Components.Responses.FeatherCoreGone.Body) {
                 self.body = body
             }
         }
-        public struct GenericNotFound: Sendable, Hashable {
-            /// - Remark: Generated from `#/components/responses/GenericNotFound/content`.
+        public struct FeatherCoreNotAcceptable: Sendable, Hashable {
+            /// - Remark: Generated from `#/components/responses/FeatherCoreNotAcceptable/content`.
             @frozen public enum Body: Sendable, Hashable {
-                /// - Remark: Generated from `#/components/responses/GenericNotFound/content/application\/json`.
-                case json(Components.Schemas.GenericNotFoundError)
+                /// - Remark: Generated from `#/components/responses/FeatherCoreNotAcceptable/content/application\/json`.
+                case json(Components.Schemas.FeatherCoreNotAcceptableError)
                 /// The associated value of the enum case if `self` is `.json`.
                 ///
                 /// - Throws: An error if `self` is not `.json`.
                 /// - SeeAlso: `.json`.
-                public var json: Components.Schemas.GenericNotFoundError {
+                public var json: Components.Schemas.FeatherCoreNotAcceptableError {
                     get throws {
                         switch self {
                         case let .json(body):
@@ -1256,25 +1447,25 @@ public enum Components {
                 }
             }
             /// Received HTTP response body
-            public var body: Components.Responses.GenericNotFound.Body
-            /// Creates a new `GenericNotFound`.
+            public var body: Components.Responses.FeatherCoreNotAcceptable.Body
+            /// Creates a new `FeatherCoreNotAcceptable`.
             ///
             /// - Parameters:
             ///   - body: Received HTTP response body
-            public init(body: Components.Responses.GenericNotFound.Body) {
+            public init(body: Components.Responses.FeatherCoreNotAcceptable.Body) {
                 self.body = body
             }
         }
-        public struct GenericBadRequest: Sendable, Hashable {
-            /// - Remark: Generated from `#/components/responses/GenericBadRequest/content`.
+        public struct FeatherCoreMethodNotAllowed: Sendable, Hashable {
+            /// - Remark: Generated from `#/components/responses/FeatherCoreMethodNotAllowed/content`.
             @frozen public enum Body: Sendable, Hashable {
-                /// - Remark: Generated from `#/components/responses/GenericBadRequest/content/application\/json`.
-                case json(Components.Schemas.GenericBadRequestError)
+                /// - Remark: Generated from `#/components/responses/FeatherCoreMethodNotAllowed/content/application\/json`.
+                case json(Components.Schemas.FeatherCoreMethodNotAllowedError)
                 /// The associated value of the enum case if `self` is `.json`.
                 ///
                 /// - Throws: An error if `self` is not `.json`.
                 /// - SeeAlso: `.json`.
-                public var json: Components.Schemas.GenericBadRequestError {
+                public var json: Components.Schemas.FeatherCoreMethodNotAllowedError {
                     get throws {
                         switch self {
                         case let .json(body):
@@ -1284,25 +1475,25 @@ public enum Components {
                 }
             }
             /// Received HTTP response body
-            public var body: Components.Responses.GenericBadRequest.Body
-            /// Creates a new `GenericBadRequest`.
+            public var body: Components.Responses.FeatherCoreMethodNotAllowed.Body
+            /// Creates a new `FeatherCoreMethodNotAllowed`.
             ///
             /// - Parameters:
             ///   - body: Received HTTP response body
-            public init(body: Components.Responses.GenericBadRequest.Body) {
+            public init(body: Components.Responses.FeatherCoreMethodNotAllowed.Body) {
                 self.body = body
             }
         }
-        public struct GenericInternalServerError: Sendable, Hashable {
-            /// - Remark: Generated from `#/components/responses/GenericInternalServerError/content`.
+        public struct FeatherCoreNotFound: Sendable, Hashable {
+            /// - Remark: Generated from `#/components/responses/FeatherCoreNotFound/content`.
             @frozen public enum Body: Sendable, Hashable {
-                /// - Remark: Generated from `#/components/responses/GenericInternalServerError/content/application\/json`.
-                case json(Components.Schemas.GenericInternalServerErrorError)
+                /// - Remark: Generated from `#/components/responses/FeatherCoreNotFound/content/application\/json`.
+                case json(Components.Schemas.FeatherCoreNotFoundError)
                 /// The associated value of the enum case if `self` is `.json`.
                 ///
                 /// - Throws: An error if `self` is not `.json`.
                 /// - SeeAlso: `.json`.
-                public var json: Components.Schemas.GenericInternalServerErrorError {
+                public var json: Components.Schemas.FeatherCoreNotFoundError {
                     get throws {
                         switch self {
                         case let .json(body):
@@ -1312,12 +1503,264 @@ public enum Components {
                 }
             }
             /// Received HTTP response body
-            public var body: Components.Responses.GenericInternalServerError.Body
-            /// Creates a new `GenericInternalServerError`.
+            public var body: Components.Responses.FeatherCoreNotFound.Body
+            /// Creates a new `FeatherCoreNotFound`.
             ///
             /// - Parameters:
             ///   - body: Received HTTP response body
-            public init(body: Components.Responses.GenericInternalServerError.Body) {
+            public init(body: Components.Responses.FeatherCoreNotFound.Body) {
+                self.body = body
+            }
+        }
+        public struct FeatherCoreBadRequest: Sendable, Hashable {
+            /// - Remark: Generated from `#/components/responses/FeatherCoreBadRequest/content`.
+            @frozen public enum Body: Sendable, Hashable {
+                /// - Remark: Generated from `#/components/responses/FeatherCoreBadRequest/content/application\/json`.
+                case json(Components.Schemas.FeatherCoreBadRequestError)
+                /// The associated value of the enum case if `self` is `.json`.
+                ///
+                /// - Throws: An error if `self` is not `.json`.
+                /// - SeeAlso: `.json`.
+                public var json: Components.Schemas.FeatherCoreBadRequestError {
+                    get throws {
+                        switch self {
+                        case let .json(body):
+                            return body
+                        }
+                    }
+                }
+            }
+            /// Received HTTP response body
+            public var body: Components.Responses.FeatherCoreBadRequest.Body
+            /// Creates a new `FeatherCoreBadRequest`.
+            ///
+            /// - Parameters:
+            ///   - body: Received HTTP response body
+            public init(body: Components.Responses.FeatherCoreBadRequest.Body) {
+                self.body = body
+            }
+        }
+        public struct FeatherCoreUnprocessableContent: Sendable, Hashable {
+            /// - Remark: Generated from `#/components/responses/FeatherCoreUnprocessableContent/content`.
+            @frozen public enum Body: Sendable, Hashable {
+                /// - Remark: Generated from `#/components/responses/FeatherCoreUnprocessableContent/content/application\/json`.
+                case json(Components.Schemas.FeatherCoreUnprocessableContentError)
+                /// The associated value of the enum case if `self` is `.json`.
+                ///
+                /// - Throws: An error if `self` is not `.json`.
+                /// - SeeAlso: `.json`.
+                public var json: Components.Schemas.FeatherCoreUnprocessableContentError {
+                    get throws {
+                        switch self {
+                        case let .json(body):
+                            return body
+                        }
+                    }
+                }
+            }
+            /// Received HTTP response body
+            public var body: Components.Responses.FeatherCoreUnprocessableContent.Body
+            /// Creates a new `FeatherCoreUnprocessableContent`.
+            ///
+            /// - Parameters:
+            ///   - body: Received HTTP response body
+            public init(body: Components.Responses.FeatherCoreUnprocessableContent.Body) {
+                self.body = body
+            }
+        }
+        public struct FeatherCoreUnauthorized: Sendable, Hashable {
+            /// - Remark: Generated from `#/components/responses/FeatherCoreUnauthorized/content`.
+            @frozen public enum Body: Sendable, Hashable {
+                /// - Remark: Generated from `#/components/responses/FeatherCoreUnauthorized/content/application\/json`.
+                case json(Components.Schemas.FeatherCoreUnauthorizedError)
+                /// The associated value of the enum case if `self` is `.json`.
+                ///
+                /// - Throws: An error if `self` is not `.json`.
+                /// - SeeAlso: `.json`.
+                public var json: Components.Schemas.FeatherCoreUnauthorizedError {
+                    get throws {
+                        switch self {
+                        case let .json(body):
+                            return body
+                        }
+                    }
+                }
+            }
+            /// Received HTTP response body
+            public var body: Components.Responses.FeatherCoreUnauthorized.Body
+            /// Creates a new `FeatherCoreUnauthorized`.
+            ///
+            /// - Parameters:
+            ///   - body: Received HTTP response body
+            public init(body: Components.Responses.FeatherCoreUnauthorized.Body) {
+                self.body = body
+            }
+        }
+        public struct FeatherCoreConflict: Sendable, Hashable {
+            /// - Remark: Generated from `#/components/responses/FeatherCoreConflict/content`.
+            @frozen public enum Body: Sendable, Hashable {
+                /// - Remark: Generated from `#/components/responses/FeatherCoreConflict/content/application\/json`.
+                case json(Components.Schemas.FeatherCoreConflictError)
+                /// The associated value of the enum case if `self` is `.json`.
+                ///
+                /// - Throws: An error if `self` is not `.json`.
+                /// - SeeAlso: `.json`.
+                public var json: Components.Schemas.FeatherCoreConflictError {
+                    get throws {
+                        switch self {
+                        case let .json(body):
+                            return body
+                        }
+                    }
+                }
+            }
+            /// Received HTTP response body
+            public var body: Components.Responses.FeatherCoreConflict.Body
+            /// Creates a new `FeatherCoreConflict`.
+            ///
+            /// - Parameters:
+            ///   - body: Received HTTP response body
+            public init(body: Components.Responses.FeatherCoreConflict.Body) {
+                self.body = body
+            }
+        }
+        public struct FeatherCoreForbidden: Sendable, Hashable {
+            /// - Remark: Generated from `#/components/responses/FeatherCoreForbidden/content`.
+            @frozen public enum Body: Sendable, Hashable {
+                /// - Remark: Generated from `#/components/responses/FeatherCoreForbidden/content/application\/json`.
+                case json(Components.Schemas.FeatherCoreForbiddenError)
+                /// The associated value of the enum case if `self` is `.json`.
+                ///
+                /// - Throws: An error if `self` is not `.json`.
+                /// - SeeAlso: `.json`.
+                public var json: Components.Schemas.FeatherCoreForbiddenError {
+                    get throws {
+                        switch self {
+                        case let .json(body):
+                            return body
+                        }
+                    }
+                }
+            }
+            /// Received HTTP response body
+            public var body: Components.Responses.FeatherCoreForbidden.Body
+            /// Creates a new `FeatherCoreForbidden`.
+            ///
+            /// - Parameters:
+            ///   - body: Received HTTP response body
+            public init(body: Components.Responses.FeatherCoreForbidden.Body) {
+                self.body = body
+            }
+        }
+        public struct SystemVariableList: Sendable, Hashable {
+            /// - Remark: Generated from `#/components/responses/SystemVariableList/content`.
+            @frozen public enum Body: Sendable, Hashable {
+                /// - Remark: Generated from `#/components/responses/SystemVariableList/content/application\/json`.
+                case json(Components.Schemas.SystemVariableList)
+                /// The associated value of the enum case if `self` is `.json`.
+                ///
+                /// - Throws: An error if `self` is not `.json`.
+                /// - SeeAlso: `.json`.
+                public var json: Components.Schemas.SystemVariableList {
+                    get throws {
+                        switch self {
+                        case let .json(body):
+                            return body
+                        }
+                    }
+                }
+            }
+            /// Received HTTP response body
+            public var body: Components.Responses.SystemVariableList.Body
+            /// Creates a new `SystemVariableList`.
+            ///
+            /// - Parameters:
+            ///   - body: Received HTTP response body
+            public init(body: Components.Responses.SystemVariableList.Body) {
+                self.body = body
+            }
+        }
+        public struct SystemVariableDetail: Sendable, Hashable {
+            /// - Remark: Generated from `#/components/responses/SystemVariableDetail/content`.
+            @frozen public enum Body: Sendable, Hashable {
+                /// - Remark: Generated from `#/components/responses/SystemVariableDetail/content/application\/json`.
+                case json(Components.Schemas.SystemVariableDetail)
+                /// The associated value of the enum case if `self` is `.json`.
+                ///
+                /// - Throws: An error if `self` is not `.json`.
+                /// - SeeAlso: `.json`.
+                public var json: Components.Schemas.SystemVariableDetail {
+                    get throws {
+                        switch self {
+                        case let .json(body):
+                            return body
+                        }
+                    }
+                }
+            }
+            /// Received HTTP response body
+            public var body: Components.Responses.SystemVariableDetail.Body
+            /// Creates a new `SystemVariableDetail`.
+            ///
+            /// - Parameters:
+            ///   - body: Received HTTP response body
+            public init(body: Components.Responses.SystemVariableDetail.Body) {
+                self.body = body
+            }
+        }
+        public struct SystemPermissionList: Sendable, Hashable {
+            /// - Remark: Generated from `#/components/responses/SystemPermissionList/content`.
+            @frozen public enum Body: Sendable, Hashable {
+                /// - Remark: Generated from `#/components/responses/SystemPermissionList/content/application\/json`.
+                case json(Components.Schemas.SystemPermissionList)
+                /// The associated value of the enum case if `self` is `.json`.
+                ///
+                /// - Throws: An error if `self` is not `.json`.
+                /// - SeeAlso: `.json`.
+                public var json: Components.Schemas.SystemPermissionList {
+                    get throws {
+                        switch self {
+                        case let .json(body):
+                            return body
+                        }
+                    }
+                }
+            }
+            /// Received HTTP response body
+            public var body: Components.Responses.SystemPermissionList.Body
+            /// Creates a new `SystemPermissionList`.
+            ///
+            /// - Parameters:
+            ///   - body: Received HTTP response body
+            public init(body: Components.Responses.SystemPermissionList.Body) {
+                self.body = body
+            }
+        }
+        public struct SystemPermissionDetail: Sendable, Hashable {
+            /// - Remark: Generated from `#/components/responses/SystemPermissionDetail/content`.
+            @frozen public enum Body: Sendable, Hashable {
+                /// - Remark: Generated from `#/components/responses/SystemPermissionDetail/content/application\/json`.
+                case json(Components.Schemas.SystemPermissionDetail)
+                /// The associated value of the enum case if `self` is `.json`.
+                ///
+                /// - Throws: An error if `self` is not `.json`.
+                /// - SeeAlso: `.json`.
+                public var json: Components.Schemas.SystemPermissionDetail {
+                    get throws {
+                        switch self {
+                        case let .json(body):
+                            return body
+                        }
+                    }
+                }
+            }
+            /// Received HTTP response body
+            public var body: Components.Responses.SystemPermissionDetail.Body
+            /// Creates a new `SystemPermissionDetail`.
+            ///
+            /// - Parameters:
+            ///   - body: Received HTTP response body
+            public init(body: Components.Responses.SystemPermissionDetail.Body) {
                 self.body = body
             }
         }
@@ -1327,9 +1770,2721 @@ public enum Components {
         /// Content length header
         ///
         /// - Remark: Generated from `#/components/headers/Content-Length`.
-        public typealias Content_hyphen_Length = Components.Schemas.GenericHeadersContentLength
+        public typealias Content_hyphen_Length = Components.Schemas.FeatherCoreHeadersContentLength
     }
 }
 
 /// API operations, with input and output types, generated from `#/paths` in the OpenAPI document.
-public enum Operations {}
+public enum Operations {
+    /// List system variables
+    ///
+    /// List available system variables
+    ///
+    /// - Remark: HTTP `GET /system/variables`.
+    /// - Remark: Generated from `#/paths//system/variables/get(listSystemVariable)`.
+    public enum listSystemVariable {
+        public static let id: Swift.String = "listSystemVariable"
+        public struct Input: Sendable, Hashable {
+            /// - Remark: Generated from `#/paths/system/variables/GET/query`.
+            public struct Query: Sendable, Hashable {
+                /// Sort by parameter
+                ///
+                /// - Remark: Generated from `#/paths/system/variables/GET/query/sort`.
+                public var sort: Components.Parameters.SystemVariableListSort?
+                /// The list search value
+                ///
+                /// - Remark: Generated from `#/paths/system/variables/GET/query/search`.
+                public var search: Components.Parameters.FeatherCoreListSearch?
+                /// The number of items per page
+                ///
+                /// - Remark: Generated from `#/paths/system/variables/GET/query/pageSize`.
+                public var pageSize: Components.Parameters.FeatherCoreListPageSize?
+                /// The current page number
+                ///
+                /// - Remark: Generated from `#/paths/system/variables/GET/query/pageIndex`.
+                public var pageIndex: Components.Parameters.FeatherCoreListPageIndex?
+                /// Sort order parameter
+                ///
+                /// - Remark: Generated from `#/paths/system/variables/GET/query/order`.
+                public var order: Components.Parameters.FeatherCoreListOrder?
+                /// Creates a new `Query`.
+                ///
+                /// - Parameters:
+                ///   - sort: Sort by parameter
+                ///   - search: The list search value
+                ///   - pageSize: The number of items per page
+                ///   - pageIndex: The current page number
+                ///   - order: Sort order parameter
+                public init(
+                    sort: Components.Parameters.SystemVariableListSort? = nil,
+                    search: Components.Parameters.FeatherCoreListSearch? = nil,
+                    pageSize: Components.Parameters.FeatherCoreListPageSize? = nil,
+                    pageIndex: Components.Parameters.FeatherCoreListPageIndex? = nil,
+                    order: Components.Parameters.FeatherCoreListOrder? = nil
+                ) {
+                    self.sort = sort
+                    self.search = search
+                    self.pageSize = pageSize
+                    self.pageIndex = pageIndex
+                    self.order = order
+                }
+            }
+            public var query: Operations.listSystemVariable.Input.Query
+            /// - Remark: Generated from `#/paths/system/variables/GET/header`.
+            public struct Headers: Sendable, Hashable {
+                public var accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.listSystemVariable.AcceptableContentType>]
+                /// Creates a new `Headers`.
+                ///
+                /// - Parameters:
+                ///   - accept:
+                public init(accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.listSystemVariable.AcceptableContentType>] = .defaultValues()) {
+                    self.accept = accept
+                }
+            }
+            public var headers: Operations.listSystemVariable.Input.Headers
+            /// Creates a new `Input`.
+            ///
+            /// - Parameters:
+            ///   - query:
+            ///   - headers:
+            public init(
+                query: Operations.listSystemVariable.Input.Query = .init(),
+                headers: Operations.listSystemVariable.Input.Headers = .init()
+            ) {
+                self.query = query
+                self.headers = headers
+            }
+        }
+        @frozen public enum Output: Sendable, Hashable {
+            /// System variable list object
+            ///
+            /// - Remark: Generated from `#/paths//system/variables/get(listSystemVariable)/responses/200`.
+            ///
+            /// HTTP response code: `200 ok`.
+            case ok(Components.Responses.SystemVariableList)
+            /// The associated value of the enum case if `self` is `.ok`.
+            ///
+            /// - Throws: An error if `self` is not `.ok`.
+            /// - SeeAlso: `.ok`.
+            public var ok: Components.Responses.SystemVariableList {
+                get throws {
+                    switch self {
+                    case let .ok(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "ok",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Bad request
+            ///
+            /// - Remark: Generated from `#/paths//system/variables/get(listSystemVariable)/responses/400`.
+            ///
+            /// HTTP response code: `400 badRequest`.
+            case badRequest(Components.Responses.FeatherCoreBadRequest)
+            /// The associated value of the enum case if `self` is `.badRequest`.
+            ///
+            /// - Throws: An error if `self` is not `.badRequest`.
+            /// - SeeAlso: `.badRequest`.
+            public var badRequest: Components.Responses.FeatherCoreBadRequest {
+                get throws {
+                    switch self {
+                    case let .badRequest(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "badRequest",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Unsupported media type
+            ///
+            /// - Remark: Generated from `#/paths//system/variables/get(listSystemVariable)/responses/415`.
+            ///
+            /// HTTP response code: `415 unsupportedMediaType`.
+            case unsupportedMediaType(Components.Responses.FeatherCoreUnsupportedMediaType)
+            /// The associated value of the enum case if `self` is `.unsupportedMediaType`.
+            ///
+            /// - Throws: An error if `self` is not `.unsupportedMediaType`.
+            /// - SeeAlso: `.unsupportedMediaType`.
+            public var unsupportedMediaType: Components.Responses.FeatherCoreUnsupportedMediaType {
+                get throws {
+                    switch self {
+                    case let .unsupportedMediaType(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "unsupportedMediaType",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Unauthorized
+            ///
+            /// - Remark: Generated from `#/paths//system/variables/get(listSystemVariable)/responses/401`.
+            ///
+            /// HTTP response code: `401 unauthorized`.
+            case unauthorized(Components.Responses.FeatherCoreUnauthorized)
+            /// The associated value of the enum case if `self` is `.unauthorized`.
+            ///
+            /// - Throws: An error if `self` is not `.unauthorized`.
+            /// - SeeAlso: `.unauthorized`.
+            public var unauthorized: Components.Responses.FeatherCoreUnauthorized {
+                get throws {
+                    switch self {
+                    case let .unauthorized(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "unauthorized",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Forbidden
+            ///
+            /// - Remark: Generated from `#/paths//system/variables/get(listSystemVariable)/responses/403`.
+            ///
+            /// HTTP response code: `403 forbidden`.
+            case forbidden(Components.Responses.FeatherCoreForbidden)
+            /// The associated value of the enum case if `self` is `.forbidden`.
+            ///
+            /// - Throws: An error if `self` is not `.forbidden`.
+            /// - SeeAlso: `.forbidden`.
+            public var forbidden: Components.Responses.FeatherCoreForbidden {
+                get throws {
+                    switch self {
+                    case let .forbidden(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "forbidden",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Undocumented response.
+            ///
+            /// A response with a code that is not documented in the OpenAPI document.
+            case undocumented(statusCode: Swift.Int, OpenAPIRuntime.UndocumentedPayload)
+        }
+        @frozen public enum AcceptableContentType: AcceptableProtocol {
+            case json
+            case other(Swift.String)
+            public init?(rawValue: Swift.String) {
+                switch rawValue.lowercased() {
+                case "application/json":
+                    self = .json
+                default:
+                    self = .other(rawValue)
+                }
+            }
+            public var rawValue: Swift.String {
+                switch self {
+                case let .other(string):
+                    return string
+                case .json:
+                    return "application/json"
+                }
+            }
+            public static var allCases: [Self] {
+                [
+                    .json
+                ]
+            }
+        }
+    }
+    /// Create a system variable
+    ///
+    /// Creates a new system variable
+    ///
+    /// - Remark: HTTP `POST /system/variables`.
+    /// - Remark: Generated from `#/paths//system/variables/post(createSystemVariable)`.
+    public enum createSystemVariable {
+        public static let id: Swift.String = "createSystemVariable"
+        public struct Input: Sendable, Hashable {
+            /// - Remark: Generated from `#/paths/system/variables/POST/header`.
+            public struct Headers: Sendable, Hashable {
+                public var accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.createSystemVariable.AcceptableContentType>]
+                /// Creates a new `Headers`.
+                ///
+                /// - Parameters:
+                ///   - accept:
+                public init(accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.createSystemVariable.AcceptableContentType>] = .defaultValues()) {
+                    self.accept = accept
+                }
+            }
+            public var headers: Operations.createSystemVariable.Input.Headers
+            /// - Remark: Generated from `#/paths/system/variables/POST/requestBody`.
+            @frozen public enum Body: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/system/variables/POST/requestBody/content/application\/json`.
+                case json(Components.Schemas.SystemVariableCreate)
+            }
+            public var body: Operations.createSystemVariable.Input.Body
+            /// Creates a new `Input`.
+            ///
+            /// - Parameters:
+            ///   - headers:
+            ///   - body:
+            public init(
+                headers: Operations.createSystemVariable.Input.Headers = .init(),
+                body: Operations.createSystemVariable.Input.Body
+            ) {
+                self.headers = headers
+                self.body = body
+            }
+        }
+        @frozen public enum Output: Sendable, Hashable {
+            /// System variable detail object
+            ///
+            /// - Remark: Generated from `#/paths//system/variables/post(createSystemVariable)/responses/200`.
+            ///
+            /// HTTP response code: `200 ok`.
+            case ok(Components.Responses.SystemVariableDetail)
+            /// The associated value of the enum case if `self` is `.ok`.
+            ///
+            /// - Throws: An error if `self` is not `.ok`.
+            /// - SeeAlso: `.ok`.
+            public var ok: Components.Responses.SystemVariableDetail {
+                get throws {
+                    switch self {
+                    case let .ok(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "ok",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Bad request
+            ///
+            /// - Remark: Generated from `#/paths//system/variables/post(createSystemVariable)/responses/400`.
+            ///
+            /// HTTP response code: `400 badRequest`.
+            case badRequest(Components.Responses.FeatherCoreBadRequest)
+            /// The associated value of the enum case if `self` is `.badRequest`.
+            ///
+            /// - Throws: An error if `self` is not `.badRequest`.
+            /// - SeeAlso: `.badRequest`.
+            public var badRequest: Components.Responses.FeatherCoreBadRequest {
+                get throws {
+                    switch self {
+                    case let .badRequest(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "badRequest",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Unauthorized
+            ///
+            /// - Remark: Generated from `#/paths//system/variables/post(createSystemVariable)/responses/401`.
+            ///
+            /// HTTP response code: `401 unauthorized`.
+            case unauthorized(Components.Responses.FeatherCoreUnauthorized)
+            /// The associated value of the enum case if `self` is `.unauthorized`.
+            ///
+            /// - Throws: An error if `self` is not `.unauthorized`.
+            /// - SeeAlso: `.unauthorized`.
+            public var unauthorized: Components.Responses.FeatherCoreUnauthorized {
+                get throws {
+                    switch self {
+                    case let .unauthorized(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "unauthorized",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Forbidden
+            ///
+            /// - Remark: Generated from `#/paths//system/variables/post(createSystemVariable)/responses/403`.
+            ///
+            /// HTTP response code: `403 forbidden`.
+            case forbidden(Components.Responses.FeatherCoreForbidden)
+            /// The associated value of the enum case if `self` is `.forbidden`.
+            ///
+            /// - Throws: An error if `self` is not `.forbidden`.
+            /// - SeeAlso: `.forbidden`.
+            public var forbidden: Components.Responses.FeatherCoreForbidden {
+                get throws {
+                    switch self {
+                    case let .forbidden(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "forbidden",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Unsupported media type
+            ///
+            /// - Remark: Generated from `#/paths//system/variables/post(createSystemVariable)/responses/415`.
+            ///
+            /// HTTP response code: `415 unsupportedMediaType`.
+            case unsupportedMediaType(Components.Responses.FeatherCoreUnsupportedMediaType)
+            /// The associated value of the enum case if `self` is `.unsupportedMediaType`.
+            ///
+            /// - Throws: An error if `self` is not `.unsupportedMediaType`.
+            /// - SeeAlso: `.unsupportedMediaType`.
+            public var unsupportedMediaType: Components.Responses.FeatherCoreUnsupportedMediaType {
+                get throws {
+                    switch self {
+                    case let .unsupportedMediaType(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "unsupportedMediaType",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Unprocessable content
+            ///
+            /// - Remark: Generated from `#/paths//system/variables/post(createSystemVariable)/responses/422`.
+            ///
+            /// HTTP response code: `422 unprocessableContent`.
+            case unprocessableContent(Components.Responses.FeatherCoreUnprocessableContent)
+            /// The associated value of the enum case if `self` is `.unprocessableContent`.
+            ///
+            /// - Throws: An error if `self` is not `.unprocessableContent`.
+            /// - SeeAlso: `.unprocessableContent`.
+            public var unprocessableContent: Components.Responses.FeatherCoreUnprocessableContent {
+                get throws {
+                    switch self {
+                    case let .unprocessableContent(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "unprocessableContent",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Undocumented response.
+            ///
+            /// A response with a code that is not documented in the OpenAPI document.
+            case undocumented(statusCode: Swift.Int, OpenAPIRuntime.UndocumentedPayload)
+        }
+        @frozen public enum AcceptableContentType: AcceptableProtocol {
+            case json
+            case other(Swift.String)
+            public init?(rawValue: Swift.String) {
+                switch rawValue.lowercased() {
+                case "application/json":
+                    self = .json
+                default:
+                    self = .other(rawValue)
+                }
+            }
+            public var rawValue: Swift.String {
+                switch self {
+                case let .other(string):
+                    return string
+                case .json:
+                    return "application/json"
+                }
+            }
+            public static var allCases: [Self] {
+                [
+                    .json
+                ]
+            }
+        }
+    }
+    /// Bulk delete system variables
+    ///
+    /// Bulk delete system variables using identifiers
+    ///
+    /// - Remark: HTTP `DELETE /system/variables`.
+    /// - Remark: Generated from `#/paths//system/variables/delete(bulkDeleteSystemVariable)`.
+    public enum bulkDeleteSystemVariable {
+        public static let id: Swift.String = "bulkDeleteSystemVariable"
+        public struct Input: Sendable, Hashable {
+            /// - Remark: Generated from `#/paths/system/variables/DELETE/header`.
+            public struct Headers: Sendable, Hashable {
+                public var accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.bulkDeleteSystemVariable.AcceptableContentType>]
+                /// Creates a new `Headers`.
+                ///
+                /// - Parameters:
+                ///   - accept:
+                public init(accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.bulkDeleteSystemVariable.AcceptableContentType>] = .defaultValues()) {
+                    self.accept = accept
+                }
+            }
+            public var headers: Operations.bulkDeleteSystemVariable.Input.Headers
+            /// - Remark: Generated from `#/paths/system/variables/DELETE/requestBody`.
+            @frozen public enum Body: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/system/variables/DELETE/requestBody/content/application\/json`.
+                case json(Components.Schemas.SystemVariableBulkDelete)
+            }
+            public var body: Operations.bulkDeleteSystemVariable.Input.Body
+            /// Creates a new `Input`.
+            ///
+            /// - Parameters:
+            ///   - headers:
+            ///   - body:
+            public init(
+                headers: Operations.bulkDeleteSystemVariable.Input.Headers = .init(),
+                body: Operations.bulkDeleteSystemVariable.Input.Body
+            ) {
+                self.headers = headers
+                self.body = body
+            }
+        }
+        @frozen public enum Output: Sendable, Hashable {
+            /// No content
+            ///
+            /// - Remark: Generated from `#/paths//system/variables/delete(bulkDeleteSystemVariable)/responses/204`.
+            ///
+            /// HTTP response code: `204 noContent`.
+            case noContent(Components.Responses.FeatherCoreNoContent)
+            /// The associated value of the enum case if `self` is `.noContent`.
+            ///
+            /// - Throws: An error if `self` is not `.noContent`.
+            /// - SeeAlso: `.noContent`.
+            public var noContent: Components.Responses.FeatherCoreNoContent {
+                get throws {
+                    switch self {
+                    case let .noContent(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "noContent",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Bad request
+            ///
+            /// - Remark: Generated from `#/paths//system/variables/delete(bulkDeleteSystemVariable)/responses/400`.
+            ///
+            /// HTTP response code: `400 badRequest`.
+            case badRequest(Components.Responses.FeatherCoreBadRequest)
+            /// The associated value of the enum case if `self` is `.badRequest`.
+            ///
+            /// - Throws: An error if `self` is not `.badRequest`.
+            /// - SeeAlso: `.badRequest`.
+            public var badRequest: Components.Responses.FeatherCoreBadRequest {
+                get throws {
+                    switch self {
+                    case let .badRequest(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "badRequest",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Unauthorized
+            ///
+            /// - Remark: Generated from `#/paths//system/variables/delete(bulkDeleteSystemVariable)/responses/401`.
+            ///
+            /// HTTP response code: `401 unauthorized`.
+            case unauthorized(Components.Responses.FeatherCoreUnauthorized)
+            /// The associated value of the enum case if `self` is `.unauthorized`.
+            ///
+            /// - Throws: An error if `self` is not `.unauthorized`.
+            /// - SeeAlso: `.unauthorized`.
+            public var unauthorized: Components.Responses.FeatherCoreUnauthorized {
+                get throws {
+                    switch self {
+                    case let .unauthorized(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "unauthorized",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Forbidden
+            ///
+            /// - Remark: Generated from `#/paths//system/variables/delete(bulkDeleteSystemVariable)/responses/403`.
+            ///
+            /// HTTP response code: `403 forbidden`.
+            case forbidden(Components.Responses.FeatherCoreForbidden)
+            /// The associated value of the enum case if `self` is `.forbidden`.
+            ///
+            /// - Throws: An error if `self` is not `.forbidden`.
+            /// - SeeAlso: `.forbidden`.
+            public var forbidden: Components.Responses.FeatherCoreForbidden {
+                get throws {
+                    switch self {
+                    case let .forbidden(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "forbidden",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Not found
+            ///
+            /// - Remark: Generated from `#/paths//system/variables/delete(bulkDeleteSystemVariable)/responses/404`.
+            ///
+            /// HTTP response code: `404 notFound`.
+            case notFound(Components.Responses.FeatherCoreNotFound)
+            /// The associated value of the enum case if `self` is `.notFound`.
+            ///
+            /// - Throws: An error if `self` is not `.notFound`.
+            /// - SeeAlso: `.notFound`.
+            public var notFound: Components.Responses.FeatherCoreNotFound {
+                get throws {
+                    switch self {
+                    case let .notFound(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "notFound",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Unsupported media type
+            ///
+            /// - Remark: Generated from `#/paths//system/variables/delete(bulkDeleteSystemVariable)/responses/415`.
+            ///
+            /// HTTP response code: `415 unsupportedMediaType`.
+            case unsupportedMediaType(Components.Responses.FeatherCoreUnsupportedMediaType)
+            /// The associated value of the enum case if `self` is `.unsupportedMediaType`.
+            ///
+            /// - Throws: An error if `self` is not `.unsupportedMediaType`.
+            /// - SeeAlso: `.unsupportedMediaType`.
+            public var unsupportedMediaType: Components.Responses.FeatherCoreUnsupportedMediaType {
+                get throws {
+                    switch self {
+                    case let .unsupportedMediaType(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "unsupportedMediaType",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Unprocessable content
+            ///
+            /// - Remark: Generated from `#/paths//system/variables/delete(bulkDeleteSystemVariable)/responses/422`.
+            ///
+            /// HTTP response code: `422 unprocessableContent`.
+            case unprocessableContent(Components.Responses.FeatherCoreUnprocessableContent)
+            /// The associated value of the enum case if `self` is `.unprocessableContent`.
+            ///
+            /// - Throws: An error if `self` is not `.unprocessableContent`.
+            /// - SeeAlso: `.unprocessableContent`.
+            public var unprocessableContent: Components.Responses.FeatherCoreUnprocessableContent {
+                get throws {
+                    switch self {
+                    case let .unprocessableContent(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "unprocessableContent",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Undocumented response.
+            ///
+            /// A response with a code that is not documented in the OpenAPI document.
+            case undocumented(statusCode: Swift.Int, OpenAPIRuntime.UndocumentedPayload)
+        }
+        @frozen public enum AcceptableContentType: AcceptableProtocol {
+            case json
+            case other(Swift.String)
+            public init?(rawValue: Swift.String) {
+                switch rawValue.lowercased() {
+                case "application/json":
+                    self = .json
+                default:
+                    self = .other(rawValue)
+                }
+            }
+            public var rawValue: Swift.String {
+                switch self {
+                case let .other(string):
+                    return string
+                case .json:
+                    return "application/json"
+                }
+            }
+            public static var allCases: [Self] {
+                [
+                    .json
+                ]
+            }
+        }
+    }
+    /// System variable details
+    ///
+    /// Get the details of a system variable
+    ///
+    /// - Remark: HTTP `GET /system/variables/{key}`.
+    /// - Remark: Generated from `#/paths//system/variables/{key}/get(getSystemVariable)`.
+    public enum getSystemVariable {
+        public static let id: Swift.String = "getSystemVariable"
+        public struct Input: Sendable, Hashable {
+            /// - Remark: Generated from `#/paths/system/variables/{key}/GET/path`.
+            public struct Path: Sendable, Hashable {
+                /// System variable key
+                ///
+                /// - Remark: Generated from `#/paths/system/variables/{key}/GET/path/key`.
+                public var key: Components.Parameters.SystemVariableKey
+                /// Creates a new `Path`.
+                ///
+                /// - Parameters:
+                ///   - key: System variable key
+                public init(key: Components.Parameters.SystemVariableKey) {
+                    self.key = key
+                }
+            }
+            public var path: Operations.getSystemVariable.Input.Path
+            /// - Remark: Generated from `#/paths/system/variables/{key}/GET/header`.
+            public struct Headers: Sendable, Hashable {
+                public var accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.getSystemVariable.AcceptableContentType>]
+                /// Creates a new `Headers`.
+                ///
+                /// - Parameters:
+                ///   - accept:
+                public init(accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.getSystemVariable.AcceptableContentType>] = .defaultValues()) {
+                    self.accept = accept
+                }
+            }
+            public var headers: Operations.getSystemVariable.Input.Headers
+            /// Creates a new `Input`.
+            ///
+            /// - Parameters:
+            ///   - path:
+            ///   - headers:
+            public init(
+                path: Operations.getSystemVariable.Input.Path,
+                headers: Operations.getSystemVariable.Input.Headers = .init()
+            ) {
+                self.path = path
+                self.headers = headers
+            }
+        }
+        @frozen public enum Output: Sendable, Hashable {
+            /// System variable detail object
+            ///
+            /// - Remark: Generated from `#/paths//system/variables/{key}/get(getSystemVariable)/responses/200`.
+            ///
+            /// HTTP response code: `200 ok`.
+            case ok(Components.Responses.SystemVariableDetail)
+            /// The associated value of the enum case if `self` is `.ok`.
+            ///
+            /// - Throws: An error if `self` is not `.ok`.
+            /// - SeeAlso: `.ok`.
+            public var ok: Components.Responses.SystemVariableDetail {
+                get throws {
+                    switch self {
+                    case let .ok(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "ok",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Bad request
+            ///
+            /// - Remark: Generated from `#/paths//system/variables/{key}/get(getSystemVariable)/responses/400`.
+            ///
+            /// HTTP response code: `400 badRequest`.
+            case badRequest(Components.Responses.FeatherCoreBadRequest)
+            /// The associated value of the enum case if `self` is `.badRequest`.
+            ///
+            /// - Throws: An error if `self` is not `.badRequest`.
+            /// - SeeAlso: `.badRequest`.
+            public var badRequest: Components.Responses.FeatherCoreBadRequest {
+                get throws {
+                    switch self {
+                    case let .badRequest(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "badRequest",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Unauthorized
+            ///
+            /// - Remark: Generated from `#/paths//system/variables/{key}/get(getSystemVariable)/responses/401`.
+            ///
+            /// HTTP response code: `401 unauthorized`.
+            case unauthorized(Components.Responses.FeatherCoreUnauthorized)
+            /// The associated value of the enum case if `self` is `.unauthorized`.
+            ///
+            /// - Throws: An error if `self` is not `.unauthorized`.
+            /// - SeeAlso: `.unauthorized`.
+            public var unauthorized: Components.Responses.FeatherCoreUnauthorized {
+                get throws {
+                    switch self {
+                    case let .unauthorized(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "unauthorized",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Forbidden
+            ///
+            /// - Remark: Generated from `#/paths//system/variables/{key}/get(getSystemVariable)/responses/403`.
+            ///
+            /// HTTP response code: `403 forbidden`.
+            case forbidden(Components.Responses.FeatherCoreForbidden)
+            /// The associated value of the enum case if `self` is `.forbidden`.
+            ///
+            /// - Throws: An error if `self` is not `.forbidden`.
+            /// - SeeAlso: `.forbidden`.
+            public var forbidden: Components.Responses.FeatherCoreForbidden {
+                get throws {
+                    switch self {
+                    case let .forbidden(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "forbidden",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Not found
+            ///
+            /// - Remark: Generated from `#/paths//system/variables/{key}/get(getSystemVariable)/responses/404`.
+            ///
+            /// HTTP response code: `404 notFound`.
+            case notFound(Components.Responses.FeatherCoreNotFound)
+            /// The associated value of the enum case if `self` is `.notFound`.
+            ///
+            /// - Throws: An error if `self` is not `.notFound`.
+            /// - SeeAlso: `.notFound`.
+            public var notFound: Components.Responses.FeatherCoreNotFound {
+                get throws {
+                    switch self {
+                    case let .notFound(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "notFound",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Undocumented response.
+            ///
+            /// A response with a code that is not documented in the OpenAPI document.
+            case undocumented(statusCode: Swift.Int, OpenAPIRuntime.UndocumentedPayload)
+        }
+        @frozen public enum AcceptableContentType: AcceptableProtocol {
+            case json
+            case other(Swift.String)
+            public init?(rawValue: Swift.String) {
+                switch rawValue.lowercased() {
+                case "application/json":
+                    self = .json
+                default:
+                    self = .other(rawValue)
+                }
+            }
+            public var rawValue: Swift.String {
+                switch self {
+                case let .other(string):
+                    return string
+                case .json:
+                    return "application/json"
+                }
+            }
+            public static var allCases: [Self] {
+                [
+                    .json
+                ]
+            }
+        }
+    }
+    /// Patch a system variable
+    ///
+    /// Patches a system variable using an identifier
+    ///
+    /// - Remark: HTTP `PATCH /system/variables/{key}`.
+    /// - Remark: Generated from `#/paths//system/variables/{key}/patch(patchSystemVariable)`.
+    public enum patchSystemVariable {
+        public static let id: Swift.String = "patchSystemVariable"
+        public struct Input: Sendable, Hashable {
+            /// - Remark: Generated from `#/paths/system/variables/{key}/PATCH/path`.
+            public struct Path: Sendable, Hashable {
+                /// System variable key
+                ///
+                /// - Remark: Generated from `#/paths/system/variables/{key}/PATCH/path/key`.
+                public var key: Components.Parameters.SystemVariableKey
+                /// Creates a new `Path`.
+                ///
+                /// - Parameters:
+                ///   - key: System variable key
+                public init(key: Components.Parameters.SystemVariableKey) {
+                    self.key = key
+                }
+            }
+            public var path: Operations.patchSystemVariable.Input.Path
+            /// - Remark: Generated from `#/paths/system/variables/{key}/PATCH/header`.
+            public struct Headers: Sendable, Hashable {
+                public var accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.patchSystemVariable.AcceptableContentType>]
+                /// Creates a new `Headers`.
+                ///
+                /// - Parameters:
+                ///   - accept:
+                public init(accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.patchSystemVariable.AcceptableContentType>] = .defaultValues()) {
+                    self.accept = accept
+                }
+            }
+            public var headers: Operations.patchSystemVariable.Input.Headers
+            /// - Remark: Generated from `#/paths/system/variables/{key}/PATCH/requestBody`.
+            @frozen public enum Body: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/system/variables/{key}/PATCH/requestBody/content/application\/json`.
+                case json(Components.Schemas.SystemVariablePatch)
+            }
+            public var body: Operations.patchSystemVariable.Input.Body
+            /// Creates a new `Input`.
+            ///
+            /// - Parameters:
+            ///   - path:
+            ///   - headers:
+            ///   - body:
+            public init(
+                path: Operations.patchSystemVariable.Input.Path,
+                headers: Operations.patchSystemVariable.Input.Headers = .init(),
+                body: Operations.patchSystemVariable.Input.Body
+            ) {
+                self.path = path
+                self.headers = headers
+                self.body = body
+            }
+        }
+        @frozen public enum Output: Sendable, Hashable {
+            /// System variable detail object
+            ///
+            /// - Remark: Generated from `#/paths//system/variables/{key}/patch(patchSystemVariable)/responses/200`.
+            ///
+            /// HTTP response code: `200 ok`.
+            case ok(Components.Responses.SystemVariableDetail)
+            /// The associated value of the enum case if `self` is `.ok`.
+            ///
+            /// - Throws: An error if `self` is not `.ok`.
+            /// - SeeAlso: `.ok`.
+            public var ok: Components.Responses.SystemVariableDetail {
+                get throws {
+                    switch self {
+                    case let .ok(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "ok",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Bad request
+            ///
+            /// - Remark: Generated from `#/paths//system/variables/{key}/patch(patchSystemVariable)/responses/400`.
+            ///
+            /// HTTP response code: `400 badRequest`.
+            case badRequest(Components.Responses.FeatherCoreBadRequest)
+            /// The associated value of the enum case if `self` is `.badRequest`.
+            ///
+            /// - Throws: An error if `self` is not `.badRequest`.
+            /// - SeeAlso: `.badRequest`.
+            public var badRequest: Components.Responses.FeatherCoreBadRequest {
+                get throws {
+                    switch self {
+                    case let .badRequest(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "badRequest",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Unauthorized
+            ///
+            /// - Remark: Generated from `#/paths//system/variables/{key}/patch(patchSystemVariable)/responses/401`.
+            ///
+            /// HTTP response code: `401 unauthorized`.
+            case unauthorized(Components.Responses.FeatherCoreUnauthorized)
+            /// The associated value of the enum case if `self` is `.unauthorized`.
+            ///
+            /// - Throws: An error if `self` is not `.unauthorized`.
+            /// - SeeAlso: `.unauthorized`.
+            public var unauthorized: Components.Responses.FeatherCoreUnauthorized {
+                get throws {
+                    switch self {
+                    case let .unauthorized(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "unauthorized",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Forbidden
+            ///
+            /// - Remark: Generated from `#/paths//system/variables/{key}/patch(patchSystemVariable)/responses/403`.
+            ///
+            /// HTTP response code: `403 forbidden`.
+            case forbidden(Components.Responses.FeatherCoreForbidden)
+            /// The associated value of the enum case if `self` is `.forbidden`.
+            ///
+            /// - Throws: An error if `self` is not `.forbidden`.
+            /// - SeeAlso: `.forbidden`.
+            public var forbidden: Components.Responses.FeatherCoreForbidden {
+                get throws {
+                    switch self {
+                    case let .forbidden(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "forbidden",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Not found
+            ///
+            /// - Remark: Generated from `#/paths//system/variables/{key}/patch(patchSystemVariable)/responses/404`.
+            ///
+            /// HTTP response code: `404 notFound`.
+            case notFound(Components.Responses.FeatherCoreNotFound)
+            /// The associated value of the enum case if `self` is `.notFound`.
+            ///
+            /// - Throws: An error if `self` is not `.notFound`.
+            /// - SeeAlso: `.notFound`.
+            public var notFound: Components.Responses.FeatherCoreNotFound {
+                get throws {
+                    switch self {
+                    case let .notFound(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "notFound",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Unsupported media type
+            ///
+            /// - Remark: Generated from `#/paths//system/variables/{key}/patch(patchSystemVariable)/responses/415`.
+            ///
+            /// HTTP response code: `415 unsupportedMediaType`.
+            case unsupportedMediaType(Components.Responses.FeatherCoreUnsupportedMediaType)
+            /// The associated value of the enum case if `self` is `.unsupportedMediaType`.
+            ///
+            /// - Throws: An error if `self` is not `.unsupportedMediaType`.
+            /// - SeeAlso: `.unsupportedMediaType`.
+            public var unsupportedMediaType: Components.Responses.FeatherCoreUnsupportedMediaType {
+                get throws {
+                    switch self {
+                    case let .unsupportedMediaType(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "unsupportedMediaType",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Unprocessable content
+            ///
+            /// - Remark: Generated from `#/paths//system/variables/{key}/patch(patchSystemVariable)/responses/422`.
+            ///
+            /// HTTP response code: `422 unprocessableContent`.
+            case unprocessableContent(Components.Responses.FeatherCoreUnprocessableContent)
+            /// The associated value of the enum case if `self` is `.unprocessableContent`.
+            ///
+            /// - Throws: An error if `self` is not `.unprocessableContent`.
+            /// - SeeAlso: `.unprocessableContent`.
+            public var unprocessableContent: Components.Responses.FeatherCoreUnprocessableContent {
+                get throws {
+                    switch self {
+                    case let .unprocessableContent(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "unprocessableContent",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Undocumented response.
+            ///
+            /// A response with a code that is not documented in the OpenAPI document.
+            case undocumented(statusCode: Swift.Int, OpenAPIRuntime.UndocumentedPayload)
+        }
+        @frozen public enum AcceptableContentType: AcceptableProtocol {
+            case json
+            case other(Swift.String)
+            public init?(rawValue: Swift.String) {
+                switch rawValue.lowercased() {
+                case "application/json":
+                    self = .json
+                default:
+                    self = .other(rawValue)
+                }
+            }
+            public var rawValue: Swift.String {
+                switch self {
+                case let .other(string):
+                    return string
+                case .json:
+                    return "application/json"
+                }
+            }
+            public static var allCases: [Self] {
+                [
+                    .json
+                ]
+            }
+        }
+    }
+    /// Update a system variable
+    ///
+    /// Updates a system variable using an identifier
+    ///
+    /// - Remark: HTTP `PUT /system/variables/{key}`.
+    /// - Remark: Generated from `#/paths//system/variables/{key}/put(updateSystemVariable)`.
+    public enum updateSystemVariable {
+        public static let id: Swift.String = "updateSystemVariable"
+        public struct Input: Sendable, Hashable {
+            /// - Remark: Generated from `#/paths/system/variables/{key}/PUT/path`.
+            public struct Path: Sendable, Hashable {
+                /// System variable key
+                ///
+                /// - Remark: Generated from `#/paths/system/variables/{key}/PUT/path/key`.
+                public var key: Components.Parameters.SystemVariableKey
+                /// Creates a new `Path`.
+                ///
+                /// - Parameters:
+                ///   - key: System variable key
+                public init(key: Components.Parameters.SystemVariableKey) {
+                    self.key = key
+                }
+            }
+            public var path: Operations.updateSystemVariable.Input.Path
+            /// - Remark: Generated from `#/paths/system/variables/{key}/PUT/header`.
+            public struct Headers: Sendable, Hashable {
+                public var accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.updateSystemVariable.AcceptableContentType>]
+                /// Creates a new `Headers`.
+                ///
+                /// - Parameters:
+                ///   - accept:
+                public init(accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.updateSystemVariable.AcceptableContentType>] = .defaultValues()) {
+                    self.accept = accept
+                }
+            }
+            public var headers: Operations.updateSystemVariable.Input.Headers
+            /// - Remark: Generated from `#/paths/system/variables/{key}/PUT/requestBody`.
+            @frozen public enum Body: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/system/variables/{key}/PUT/requestBody/content/application\/json`.
+                case json(Components.Schemas.SystemVariableUpdate)
+            }
+            public var body: Operations.updateSystemVariable.Input.Body
+            /// Creates a new `Input`.
+            ///
+            /// - Parameters:
+            ///   - path:
+            ///   - headers:
+            ///   - body:
+            public init(
+                path: Operations.updateSystemVariable.Input.Path,
+                headers: Operations.updateSystemVariable.Input.Headers = .init(),
+                body: Operations.updateSystemVariable.Input.Body
+            ) {
+                self.path = path
+                self.headers = headers
+                self.body = body
+            }
+        }
+        @frozen public enum Output: Sendable, Hashable {
+            /// System variable detail object
+            ///
+            /// - Remark: Generated from `#/paths//system/variables/{key}/put(updateSystemVariable)/responses/200`.
+            ///
+            /// HTTP response code: `200 ok`.
+            case ok(Components.Responses.SystemVariableDetail)
+            /// The associated value of the enum case if `self` is `.ok`.
+            ///
+            /// - Throws: An error if `self` is not `.ok`.
+            /// - SeeAlso: `.ok`.
+            public var ok: Components.Responses.SystemVariableDetail {
+                get throws {
+                    switch self {
+                    case let .ok(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "ok",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Bad request
+            ///
+            /// - Remark: Generated from `#/paths//system/variables/{key}/put(updateSystemVariable)/responses/400`.
+            ///
+            /// HTTP response code: `400 badRequest`.
+            case badRequest(Components.Responses.FeatherCoreBadRequest)
+            /// The associated value of the enum case if `self` is `.badRequest`.
+            ///
+            /// - Throws: An error if `self` is not `.badRequest`.
+            /// - SeeAlso: `.badRequest`.
+            public var badRequest: Components.Responses.FeatherCoreBadRequest {
+                get throws {
+                    switch self {
+                    case let .badRequest(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "badRequest",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Unauthorized
+            ///
+            /// - Remark: Generated from `#/paths//system/variables/{key}/put(updateSystemVariable)/responses/401`.
+            ///
+            /// HTTP response code: `401 unauthorized`.
+            case unauthorized(Components.Responses.FeatherCoreUnauthorized)
+            /// The associated value of the enum case if `self` is `.unauthorized`.
+            ///
+            /// - Throws: An error if `self` is not `.unauthorized`.
+            /// - SeeAlso: `.unauthorized`.
+            public var unauthorized: Components.Responses.FeatherCoreUnauthorized {
+                get throws {
+                    switch self {
+                    case let .unauthorized(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "unauthorized",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Forbidden
+            ///
+            /// - Remark: Generated from `#/paths//system/variables/{key}/put(updateSystemVariable)/responses/403`.
+            ///
+            /// HTTP response code: `403 forbidden`.
+            case forbidden(Components.Responses.FeatherCoreForbidden)
+            /// The associated value of the enum case if `self` is `.forbidden`.
+            ///
+            /// - Throws: An error if `self` is not `.forbidden`.
+            /// - SeeAlso: `.forbidden`.
+            public var forbidden: Components.Responses.FeatherCoreForbidden {
+                get throws {
+                    switch self {
+                    case let .forbidden(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "forbidden",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Not found
+            ///
+            /// - Remark: Generated from `#/paths//system/variables/{key}/put(updateSystemVariable)/responses/404`.
+            ///
+            /// HTTP response code: `404 notFound`.
+            case notFound(Components.Responses.FeatherCoreNotFound)
+            /// The associated value of the enum case if `self` is `.notFound`.
+            ///
+            /// - Throws: An error if `self` is not `.notFound`.
+            /// - SeeAlso: `.notFound`.
+            public var notFound: Components.Responses.FeatherCoreNotFound {
+                get throws {
+                    switch self {
+                    case let .notFound(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "notFound",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Unsupported media type
+            ///
+            /// - Remark: Generated from `#/paths//system/variables/{key}/put(updateSystemVariable)/responses/415`.
+            ///
+            /// HTTP response code: `415 unsupportedMediaType`.
+            case unsupportedMediaType(Components.Responses.FeatherCoreUnsupportedMediaType)
+            /// The associated value of the enum case if `self` is `.unsupportedMediaType`.
+            ///
+            /// - Throws: An error if `self` is not `.unsupportedMediaType`.
+            /// - SeeAlso: `.unsupportedMediaType`.
+            public var unsupportedMediaType: Components.Responses.FeatherCoreUnsupportedMediaType {
+                get throws {
+                    switch self {
+                    case let .unsupportedMediaType(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "unsupportedMediaType",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Unprocessable content
+            ///
+            /// - Remark: Generated from `#/paths//system/variables/{key}/put(updateSystemVariable)/responses/422`.
+            ///
+            /// HTTP response code: `422 unprocessableContent`.
+            case unprocessableContent(Components.Responses.FeatherCoreUnprocessableContent)
+            /// The associated value of the enum case if `self` is `.unprocessableContent`.
+            ///
+            /// - Throws: An error if `self` is not `.unprocessableContent`.
+            /// - SeeAlso: `.unprocessableContent`.
+            public var unprocessableContent: Components.Responses.FeatherCoreUnprocessableContent {
+                get throws {
+                    switch self {
+                    case let .unprocessableContent(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "unprocessableContent",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Undocumented response.
+            ///
+            /// A response with a code that is not documented in the OpenAPI document.
+            case undocumented(statusCode: Swift.Int, OpenAPIRuntime.UndocumentedPayload)
+        }
+        @frozen public enum AcceptableContentType: AcceptableProtocol {
+            case json
+            case other(Swift.String)
+            public init?(rawValue: Swift.String) {
+                switch rawValue.lowercased() {
+                case "application/json":
+                    self = .json
+                default:
+                    self = .other(rawValue)
+                }
+            }
+            public var rawValue: Swift.String {
+                switch self {
+                case let .other(string):
+                    return string
+                case .json:
+                    return "application/json"
+                }
+            }
+            public static var allCases: [Self] {
+                [
+                    .json
+                ]
+            }
+        }
+    }
+    /// List system permissions
+    ///
+    /// List available system permissions
+    ///
+    /// - Remark: HTTP `GET /system/permissions`.
+    /// - Remark: Generated from `#/paths//system/permissions/get(listSystemPermission)`.
+    public enum listSystemPermission {
+        public static let id: Swift.String = "listSystemPermission"
+        public struct Input: Sendable, Hashable {
+            /// - Remark: Generated from `#/paths/system/permissions/GET/query`.
+            public struct Query: Sendable, Hashable {
+                /// Sort by parameter
+                ///
+                /// - Remark: Generated from `#/paths/system/permissions/GET/query/sort`.
+                public var sort: Components.Parameters.SystemPermissionListSort?
+                /// The list search value
+                ///
+                /// - Remark: Generated from `#/paths/system/permissions/GET/query/search`.
+                public var search: Components.Parameters.FeatherCoreListSearch?
+                /// The number of items per page
+                ///
+                /// - Remark: Generated from `#/paths/system/permissions/GET/query/pageSize`.
+                public var pageSize: Components.Parameters.FeatherCoreListPageSize?
+                /// The current page number
+                ///
+                /// - Remark: Generated from `#/paths/system/permissions/GET/query/pageIndex`.
+                public var pageIndex: Components.Parameters.FeatherCoreListPageIndex?
+                /// Sort order parameter
+                ///
+                /// - Remark: Generated from `#/paths/system/permissions/GET/query/order`.
+                public var order: Components.Parameters.FeatherCoreListOrder?
+                /// Creates a new `Query`.
+                ///
+                /// - Parameters:
+                ///   - sort: Sort by parameter
+                ///   - search: The list search value
+                ///   - pageSize: The number of items per page
+                ///   - pageIndex: The current page number
+                ///   - order: Sort order parameter
+                public init(
+                    sort: Components.Parameters.SystemPermissionListSort? = nil,
+                    search: Components.Parameters.FeatherCoreListSearch? = nil,
+                    pageSize: Components.Parameters.FeatherCoreListPageSize? = nil,
+                    pageIndex: Components.Parameters.FeatherCoreListPageIndex? = nil,
+                    order: Components.Parameters.FeatherCoreListOrder? = nil
+                ) {
+                    self.sort = sort
+                    self.search = search
+                    self.pageSize = pageSize
+                    self.pageIndex = pageIndex
+                    self.order = order
+                }
+            }
+            public var query: Operations.listSystemPermission.Input.Query
+            /// - Remark: Generated from `#/paths/system/permissions/GET/header`.
+            public struct Headers: Sendable, Hashable {
+                public var accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.listSystemPermission.AcceptableContentType>]
+                /// Creates a new `Headers`.
+                ///
+                /// - Parameters:
+                ///   - accept:
+                public init(accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.listSystemPermission.AcceptableContentType>] = .defaultValues()) {
+                    self.accept = accept
+                }
+            }
+            public var headers: Operations.listSystemPermission.Input.Headers
+            /// Creates a new `Input`.
+            ///
+            /// - Parameters:
+            ///   - query:
+            ///   - headers:
+            public init(
+                query: Operations.listSystemPermission.Input.Query = .init(),
+                headers: Operations.listSystemPermission.Input.Headers = .init()
+            ) {
+                self.query = query
+                self.headers = headers
+            }
+        }
+        @frozen public enum Output: Sendable, Hashable {
+            /// System Permission list object
+            ///
+            /// - Remark: Generated from `#/paths//system/permissions/get(listSystemPermission)/responses/200`.
+            ///
+            /// HTTP response code: `200 ok`.
+            case ok(Components.Responses.SystemPermissionList)
+            /// The associated value of the enum case if `self` is `.ok`.
+            ///
+            /// - Throws: An error if `self` is not `.ok`.
+            /// - SeeAlso: `.ok`.
+            public var ok: Components.Responses.SystemPermissionList {
+                get throws {
+                    switch self {
+                    case let .ok(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "ok",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Bad request
+            ///
+            /// - Remark: Generated from `#/paths//system/permissions/get(listSystemPermission)/responses/400`.
+            ///
+            /// HTTP response code: `400 badRequest`.
+            case badRequest(Components.Responses.FeatherCoreBadRequest)
+            /// The associated value of the enum case if `self` is `.badRequest`.
+            ///
+            /// - Throws: An error if `self` is not `.badRequest`.
+            /// - SeeAlso: `.badRequest`.
+            public var badRequest: Components.Responses.FeatherCoreBadRequest {
+                get throws {
+                    switch self {
+                    case let .badRequest(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "badRequest",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Unauthorized
+            ///
+            /// - Remark: Generated from `#/paths//system/permissions/get(listSystemPermission)/responses/401`.
+            ///
+            /// HTTP response code: `401 unauthorized`.
+            case unauthorized(Components.Responses.FeatherCoreUnauthorized)
+            /// The associated value of the enum case if `self` is `.unauthorized`.
+            ///
+            /// - Throws: An error if `self` is not `.unauthorized`.
+            /// - SeeAlso: `.unauthorized`.
+            public var unauthorized: Components.Responses.FeatherCoreUnauthorized {
+                get throws {
+                    switch self {
+                    case let .unauthorized(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "unauthorized",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Forbidden
+            ///
+            /// - Remark: Generated from `#/paths//system/permissions/get(listSystemPermission)/responses/403`.
+            ///
+            /// HTTP response code: `403 forbidden`.
+            case forbidden(Components.Responses.FeatherCoreForbidden)
+            /// The associated value of the enum case if `self` is `.forbidden`.
+            ///
+            /// - Throws: An error if `self` is not `.forbidden`.
+            /// - SeeAlso: `.forbidden`.
+            public var forbidden: Components.Responses.FeatherCoreForbidden {
+                get throws {
+                    switch self {
+                    case let .forbidden(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "forbidden",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Undocumented response.
+            ///
+            /// A response with a code that is not documented in the OpenAPI document.
+            case undocumented(statusCode: Swift.Int, OpenAPIRuntime.UndocumentedPayload)
+        }
+        @frozen public enum AcceptableContentType: AcceptableProtocol {
+            case json
+            case other(Swift.String)
+            public init?(rawValue: Swift.String) {
+                switch rawValue.lowercased() {
+                case "application/json":
+                    self = .json
+                default:
+                    self = .other(rawValue)
+                }
+            }
+            public var rawValue: Swift.String {
+                switch self {
+                case let .other(string):
+                    return string
+                case .json:
+                    return "application/json"
+                }
+            }
+            public static var allCases: [Self] {
+                [
+                    .json
+                ]
+            }
+        }
+    }
+    /// Create a system permission
+    ///
+    /// Creates a new system permission
+    ///
+    /// - Remark: HTTP `POST /system/permissions`.
+    /// - Remark: Generated from `#/paths//system/permissions/post(createSystemPermission)`.
+    public enum createSystemPermission {
+        public static let id: Swift.String = "createSystemPermission"
+        public struct Input: Sendable, Hashable {
+            /// - Remark: Generated from `#/paths/system/permissions/POST/header`.
+            public struct Headers: Sendable, Hashable {
+                public var accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.createSystemPermission.AcceptableContentType>]
+                /// Creates a new `Headers`.
+                ///
+                /// - Parameters:
+                ///   - accept:
+                public init(accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.createSystemPermission.AcceptableContentType>] = .defaultValues()) {
+                    self.accept = accept
+                }
+            }
+            public var headers: Operations.createSystemPermission.Input.Headers
+            /// - Remark: Generated from `#/paths/system/permissions/POST/requestBody`.
+            @frozen public enum Body: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/system/permissions/POST/requestBody/content/application\/json`.
+                case json(Components.Schemas.SystemPermissionCreate)
+            }
+            public var body: Operations.createSystemPermission.Input.Body
+            /// Creates a new `Input`.
+            ///
+            /// - Parameters:
+            ///   - headers:
+            ///   - body:
+            public init(
+                headers: Operations.createSystemPermission.Input.Headers = .init(),
+                body: Operations.createSystemPermission.Input.Body
+            ) {
+                self.headers = headers
+                self.body = body
+            }
+        }
+        @frozen public enum Output: Sendable, Hashable {
+            /// System Permission detail object
+            ///
+            /// - Remark: Generated from `#/paths//system/permissions/post(createSystemPermission)/responses/200`.
+            ///
+            /// HTTP response code: `200 ok`.
+            case ok(Components.Responses.SystemPermissionDetail)
+            /// The associated value of the enum case if `self` is `.ok`.
+            ///
+            /// - Throws: An error if `self` is not `.ok`.
+            /// - SeeAlso: `.ok`.
+            public var ok: Components.Responses.SystemPermissionDetail {
+                get throws {
+                    switch self {
+                    case let .ok(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "ok",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Bad request
+            ///
+            /// - Remark: Generated from `#/paths//system/permissions/post(createSystemPermission)/responses/400`.
+            ///
+            /// HTTP response code: `400 badRequest`.
+            case badRequest(Components.Responses.FeatherCoreBadRequest)
+            /// The associated value of the enum case if `self` is `.badRequest`.
+            ///
+            /// - Throws: An error if `self` is not `.badRequest`.
+            /// - SeeAlso: `.badRequest`.
+            public var badRequest: Components.Responses.FeatherCoreBadRequest {
+                get throws {
+                    switch self {
+                    case let .badRequest(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "badRequest",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Unauthorized
+            ///
+            /// - Remark: Generated from `#/paths//system/permissions/post(createSystemPermission)/responses/401`.
+            ///
+            /// HTTP response code: `401 unauthorized`.
+            case unauthorized(Components.Responses.FeatherCoreUnauthorized)
+            /// The associated value of the enum case if `self` is `.unauthorized`.
+            ///
+            /// - Throws: An error if `self` is not `.unauthorized`.
+            /// - SeeAlso: `.unauthorized`.
+            public var unauthorized: Components.Responses.FeatherCoreUnauthorized {
+                get throws {
+                    switch self {
+                    case let .unauthorized(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "unauthorized",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Forbidden
+            ///
+            /// - Remark: Generated from `#/paths//system/permissions/post(createSystemPermission)/responses/403`.
+            ///
+            /// HTTP response code: `403 forbidden`.
+            case forbidden(Components.Responses.FeatherCoreForbidden)
+            /// The associated value of the enum case if `self` is `.forbidden`.
+            ///
+            /// - Throws: An error if `self` is not `.forbidden`.
+            /// - SeeAlso: `.forbidden`.
+            public var forbidden: Components.Responses.FeatherCoreForbidden {
+                get throws {
+                    switch self {
+                    case let .forbidden(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "forbidden",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Unsupported media type
+            ///
+            /// - Remark: Generated from `#/paths//system/permissions/post(createSystemPermission)/responses/415`.
+            ///
+            /// HTTP response code: `415 unsupportedMediaType`.
+            case unsupportedMediaType(Components.Responses.FeatherCoreUnsupportedMediaType)
+            /// The associated value of the enum case if `self` is `.unsupportedMediaType`.
+            ///
+            /// - Throws: An error if `self` is not `.unsupportedMediaType`.
+            /// - SeeAlso: `.unsupportedMediaType`.
+            public var unsupportedMediaType: Components.Responses.FeatherCoreUnsupportedMediaType {
+                get throws {
+                    switch self {
+                    case let .unsupportedMediaType(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "unsupportedMediaType",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Unprocessable content
+            ///
+            /// - Remark: Generated from `#/paths//system/permissions/post(createSystemPermission)/responses/422`.
+            ///
+            /// HTTP response code: `422 unprocessableContent`.
+            case unprocessableContent(Components.Responses.FeatherCoreUnprocessableContent)
+            /// The associated value of the enum case if `self` is `.unprocessableContent`.
+            ///
+            /// - Throws: An error if `self` is not `.unprocessableContent`.
+            /// - SeeAlso: `.unprocessableContent`.
+            public var unprocessableContent: Components.Responses.FeatherCoreUnprocessableContent {
+                get throws {
+                    switch self {
+                    case let .unprocessableContent(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "unprocessableContent",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Undocumented response.
+            ///
+            /// A response with a code that is not documented in the OpenAPI document.
+            case undocumented(statusCode: Swift.Int, OpenAPIRuntime.UndocumentedPayload)
+        }
+        @frozen public enum AcceptableContentType: AcceptableProtocol {
+            case json
+            case other(Swift.String)
+            public init?(rawValue: Swift.String) {
+                switch rawValue.lowercased() {
+                case "application/json":
+                    self = .json
+                default:
+                    self = .other(rawValue)
+                }
+            }
+            public var rawValue: Swift.String {
+                switch self {
+                case let .other(string):
+                    return string
+                case .json:
+                    return "application/json"
+                }
+            }
+            public static var allCases: [Self] {
+                [
+                    .json
+                ]
+            }
+        }
+    }
+    /// Bulk delete system permissions
+    ///
+    /// Removes multiple system permissions at once
+    ///
+    /// - Remark: HTTP `DELETE /system/permissions`.
+    /// - Remark: Generated from `#/paths//system/permissions/delete(bulkDeleteSystemPermission)`.
+    public enum bulkDeleteSystemPermission {
+        public static let id: Swift.String = "bulkDeleteSystemPermission"
+        public struct Input: Sendable, Hashable {
+            /// - Remark: Generated from `#/paths/system/permissions/DELETE/header`.
+            public struct Headers: Sendable, Hashable {
+                public var accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.bulkDeleteSystemPermission.AcceptableContentType>]
+                /// Creates a new `Headers`.
+                ///
+                /// - Parameters:
+                ///   - accept:
+                public init(accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.bulkDeleteSystemPermission.AcceptableContentType>] = .defaultValues()) {
+                    self.accept = accept
+                }
+            }
+            public var headers: Operations.bulkDeleteSystemPermission.Input.Headers
+            /// - Remark: Generated from `#/paths/system/permissions/DELETE/requestBody`.
+            @frozen public enum Body: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/system/permissions/DELETE/requestBody/content/application\/json`.
+                case json(Components.Schemas.SystemPermissionBulkDelete)
+            }
+            public var body: Operations.bulkDeleteSystemPermission.Input.Body
+            /// Creates a new `Input`.
+            ///
+            /// - Parameters:
+            ///   - headers:
+            ///   - body:
+            public init(
+                headers: Operations.bulkDeleteSystemPermission.Input.Headers = .init(),
+                body: Operations.bulkDeleteSystemPermission.Input.Body
+            ) {
+                self.headers = headers
+                self.body = body
+            }
+        }
+        @frozen public enum Output: Sendable, Hashable {
+            /// No content
+            ///
+            /// - Remark: Generated from `#/paths//system/permissions/delete(bulkDeleteSystemPermission)/responses/204`.
+            ///
+            /// HTTP response code: `204 noContent`.
+            case noContent(Components.Responses.FeatherCoreNoContent)
+            /// The associated value of the enum case if `self` is `.noContent`.
+            ///
+            /// - Throws: An error if `self` is not `.noContent`.
+            /// - SeeAlso: `.noContent`.
+            public var noContent: Components.Responses.FeatherCoreNoContent {
+                get throws {
+                    switch self {
+                    case let .noContent(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "noContent",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Bad request
+            ///
+            /// - Remark: Generated from `#/paths//system/permissions/delete(bulkDeleteSystemPermission)/responses/400`.
+            ///
+            /// HTTP response code: `400 badRequest`.
+            case badRequest(Components.Responses.FeatherCoreBadRequest)
+            /// The associated value of the enum case if `self` is `.badRequest`.
+            ///
+            /// - Throws: An error if `self` is not `.badRequest`.
+            /// - SeeAlso: `.badRequest`.
+            public var badRequest: Components.Responses.FeatherCoreBadRequest {
+                get throws {
+                    switch self {
+                    case let .badRequest(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "badRequest",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Unauthorized
+            ///
+            /// - Remark: Generated from `#/paths//system/permissions/delete(bulkDeleteSystemPermission)/responses/401`.
+            ///
+            /// HTTP response code: `401 unauthorized`.
+            case unauthorized(Components.Responses.FeatherCoreUnauthorized)
+            /// The associated value of the enum case if `self` is `.unauthorized`.
+            ///
+            /// - Throws: An error if `self` is not `.unauthorized`.
+            /// - SeeAlso: `.unauthorized`.
+            public var unauthorized: Components.Responses.FeatherCoreUnauthorized {
+                get throws {
+                    switch self {
+                    case let .unauthorized(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "unauthorized",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Forbidden
+            ///
+            /// - Remark: Generated from `#/paths//system/permissions/delete(bulkDeleteSystemPermission)/responses/403`.
+            ///
+            /// HTTP response code: `403 forbidden`.
+            case forbidden(Components.Responses.FeatherCoreForbidden)
+            /// The associated value of the enum case if `self` is `.forbidden`.
+            ///
+            /// - Throws: An error if `self` is not `.forbidden`.
+            /// - SeeAlso: `.forbidden`.
+            public var forbidden: Components.Responses.FeatherCoreForbidden {
+                get throws {
+                    switch self {
+                    case let .forbidden(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "forbidden",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Not found
+            ///
+            /// - Remark: Generated from `#/paths//system/permissions/delete(bulkDeleteSystemPermission)/responses/404`.
+            ///
+            /// HTTP response code: `404 notFound`.
+            case notFound(Components.Responses.FeatherCoreNotFound)
+            /// The associated value of the enum case if `self` is `.notFound`.
+            ///
+            /// - Throws: An error if `self` is not `.notFound`.
+            /// - SeeAlso: `.notFound`.
+            public var notFound: Components.Responses.FeatherCoreNotFound {
+                get throws {
+                    switch self {
+                    case let .notFound(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "notFound",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Unsupported media type
+            ///
+            /// - Remark: Generated from `#/paths//system/permissions/delete(bulkDeleteSystemPermission)/responses/415`.
+            ///
+            /// HTTP response code: `415 unsupportedMediaType`.
+            case unsupportedMediaType(Components.Responses.FeatherCoreUnsupportedMediaType)
+            /// The associated value of the enum case if `self` is `.unsupportedMediaType`.
+            ///
+            /// - Throws: An error if `self` is not `.unsupportedMediaType`.
+            /// - SeeAlso: `.unsupportedMediaType`.
+            public var unsupportedMediaType: Components.Responses.FeatherCoreUnsupportedMediaType {
+                get throws {
+                    switch self {
+                    case let .unsupportedMediaType(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "unsupportedMediaType",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Unprocessable content
+            ///
+            /// - Remark: Generated from `#/paths//system/permissions/delete(bulkDeleteSystemPermission)/responses/422`.
+            ///
+            /// HTTP response code: `422 unprocessableContent`.
+            case unprocessableContent(Components.Responses.FeatherCoreUnprocessableContent)
+            /// The associated value of the enum case if `self` is `.unprocessableContent`.
+            ///
+            /// - Throws: An error if `self` is not `.unprocessableContent`.
+            /// - SeeAlso: `.unprocessableContent`.
+            public var unprocessableContent: Components.Responses.FeatherCoreUnprocessableContent {
+                get throws {
+                    switch self {
+                    case let .unprocessableContent(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "unprocessableContent",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Undocumented response.
+            ///
+            /// A response with a code that is not documented in the OpenAPI document.
+            case undocumented(statusCode: Swift.Int, OpenAPIRuntime.UndocumentedPayload)
+        }
+        @frozen public enum AcceptableContentType: AcceptableProtocol {
+            case json
+            case other(Swift.String)
+            public init?(rawValue: Swift.String) {
+                switch rawValue.lowercased() {
+                case "application/json":
+                    self = .json
+                default:
+                    self = .other(rawValue)
+                }
+            }
+            public var rawValue: Swift.String {
+                switch self {
+                case let .other(string):
+                    return string
+                case .json:
+                    return "application/json"
+                }
+            }
+            public static var allCases: [Self] {
+                [
+                    .json
+                ]
+            }
+        }
+    }
+    /// System permission details
+    ///
+    /// Get the details of a system permission
+    ///
+    /// - Remark: HTTP `GET /system/permissions/{permissionKey}`.
+    /// - Remark: Generated from `#/paths//system/permissions/{permissionKey}/get(detailSystemPermission)`.
+    public enum detailSystemPermission {
+        public static let id: Swift.String = "detailSystemPermission"
+        public struct Input: Sendable, Hashable {
+            /// - Remark: Generated from `#/paths/system/permissions/{permissionKey}/GET/path`.
+            public struct Path: Sendable, Hashable {
+                /// System permission key
+                ///
+                /// - Remark: Generated from `#/paths/system/permissions/{permissionKey}/GET/path/permissionKey`.
+                public var permissionKey: Components.Parameters.SystemPermissionKey
+                /// Creates a new `Path`.
+                ///
+                /// - Parameters:
+                ///   - permissionKey: System permission key
+                public init(permissionKey: Components.Parameters.SystemPermissionKey) {
+                    self.permissionKey = permissionKey
+                }
+            }
+            public var path: Operations.detailSystemPermission.Input.Path
+            /// - Remark: Generated from `#/paths/system/permissions/{permissionKey}/GET/header`.
+            public struct Headers: Sendable, Hashable {
+                public var accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.detailSystemPermission.AcceptableContentType>]
+                /// Creates a new `Headers`.
+                ///
+                /// - Parameters:
+                ///   - accept:
+                public init(accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.detailSystemPermission.AcceptableContentType>] = .defaultValues()) {
+                    self.accept = accept
+                }
+            }
+            public var headers: Operations.detailSystemPermission.Input.Headers
+            /// Creates a new `Input`.
+            ///
+            /// - Parameters:
+            ///   - path:
+            ///   - headers:
+            public init(
+                path: Operations.detailSystemPermission.Input.Path,
+                headers: Operations.detailSystemPermission.Input.Headers = .init()
+            ) {
+                self.path = path
+                self.headers = headers
+            }
+        }
+        @frozen public enum Output: Sendable, Hashable {
+            /// System Permission detail object
+            ///
+            /// - Remark: Generated from `#/paths//system/permissions/{permissionKey}/get(detailSystemPermission)/responses/200`.
+            ///
+            /// HTTP response code: `200 ok`.
+            case ok(Components.Responses.SystemPermissionDetail)
+            /// The associated value of the enum case if `self` is `.ok`.
+            ///
+            /// - Throws: An error if `self` is not `.ok`.
+            /// - SeeAlso: `.ok`.
+            public var ok: Components.Responses.SystemPermissionDetail {
+                get throws {
+                    switch self {
+                    case let .ok(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "ok",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Bad request
+            ///
+            /// - Remark: Generated from `#/paths//system/permissions/{permissionKey}/get(detailSystemPermission)/responses/400`.
+            ///
+            /// HTTP response code: `400 badRequest`.
+            case badRequest(Components.Responses.FeatherCoreBadRequest)
+            /// The associated value of the enum case if `self` is `.badRequest`.
+            ///
+            /// - Throws: An error if `self` is not `.badRequest`.
+            /// - SeeAlso: `.badRequest`.
+            public var badRequest: Components.Responses.FeatherCoreBadRequest {
+                get throws {
+                    switch self {
+                    case let .badRequest(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "badRequest",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Unauthorized
+            ///
+            /// - Remark: Generated from `#/paths//system/permissions/{permissionKey}/get(detailSystemPermission)/responses/401`.
+            ///
+            /// HTTP response code: `401 unauthorized`.
+            case unauthorized(Components.Responses.FeatherCoreUnauthorized)
+            /// The associated value of the enum case if `self` is `.unauthorized`.
+            ///
+            /// - Throws: An error if `self` is not `.unauthorized`.
+            /// - SeeAlso: `.unauthorized`.
+            public var unauthorized: Components.Responses.FeatherCoreUnauthorized {
+                get throws {
+                    switch self {
+                    case let .unauthorized(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "unauthorized",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Forbidden
+            ///
+            /// - Remark: Generated from `#/paths//system/permissions/{permissionKey}/get(detailSystemPermission)/responses/403`.
+            ///
+            /// HTTP response code: `403 forbidden`.
+            case forbidden(Components.Responses.FeatherCoreForbidden)
+            /// The associated value of the enum case if `self` is `.forbidden`.
+            ///
+            /// - Throws: An error if `self` is not `.forbidden`.
+            /// - SeeAlso: `.forbidden`.
+            public var forbidden: Components.Responses.FeatherCoreForbidden {
+                get throws {
+                    switch self {
+                    case let .forbidden(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "forbidden",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Not found
+            ///
+            /// - Remark: Generated from `#/paths//system/permissions/{permissionKey}/get(detailSystemPermission)/responses/404`.
+            ///
+            /// HTTP response code: `404 notFound`.
+            case notFound(Components.Responses.FeatherCoreNotFound)
+            /// The associated value of the enum case if `self` is `.notFound`.
+            ///
+            /// - Throws: An error if `self` is not `.notFound`.
+            /// - SeeAlso: `.notFound`.
+            public var notFound: Components.Responses.FeatherCoreNotFound {
+                get throws {
+                    switch self {
+                    case let .notFound(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "notFound",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Undocumented response.
+            ///
+            /// A response with a code that is not documented in the OpenAPI document.
+            case undocumented(statusCode: Swift.Int, OpenAPIRuntime.UndocumentedPayload)
+        }
+        @frozen public enum AcceptableContentType: AcceptableProtocol {
+            case json
+            case other(Swift.String)
+            public init?(rawValue: Swift.String) {
+                switch rawValue.lowercased() {
+                case "application/json":
+                    self = .json
+                default:
+                    self = .other(rawValue)
+                }
+            }
+            public var rawValue: Swift.String {
+                switch self {
+                case let .other(string):
+                    return string
+                case .json:
+                    return "application/json"
+                }
+            }
+            public static var allCases: [Self] {
+                [
+                    .json
+                ]
+            }
+        }
+    }
+    /// Patch a System Permission
+    ///
+    /// Patch a given System Permission
+    ///
+    /// - Remark: HTTP `PATCH /system/permissions/{permissionKey}`.
+    /// - Remark: Generated from `#/paths//system/permissions/{permissionKey}/patch(patchSystemPermission)`.
+    public enum patchSystemPermission {
+        public static let id: Swift.String = "patchSystemPermission"
+        public struct Input: Sendable, Hashable {
+            /// - Remark: Generated from `#/paths/system/permissions/{permissionKey}/PATCH/path`.
+            public struct Path: Sendable, Hashable {
+                /// System permission key
+                ///
+                /// - Remark: Generated from `#/paths/system/permissions/{permissionKey}/PATCH/path/permissionKey`.
+                public var permissionKey: Components.Parameters.SystemPermissionKey
+                /// Creates a new `Path`.
+                ///
+                /// - Parameters:
+                ///   - permissionKey: System permission key
+                public init(permissionKey: Components.Parameters.SystemPermissionKey) {
+                    self.permissionKey = permissionKey
+                }
+            }
+            public var path: Operations.patchSystemPermission.Input.Path
+            /// - Remark: Generated from `#/paths/system/permissions/{permissionKey}/PATCH/header`.
+            public struct Headers: Sendable, Hashable {
+                public var accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.patchSystemPermission.AcceptableContentType>]
+                /// Creates a new `Headers`.
+                ///
+                /// - Parameters:
+                ///   - accept:
+                public init(accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.patchSystemPermission.AcceptableContentType>] = .defaultValues()) {
+                    self.accept = accept
+                }
+            }
+            public var headers: Operations.patchSystemPermission.Input.Headers
+            /// - Remark: Generated from `#/paths/system/permissions/{permissionKey}/PATCH/requestBody`.
+            @frozen public enum Body: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/system/permissions/{permissionKey}/PATCH/requestBody/content/application\/json`.
+                case json(Components.Schemas.SystemPermissionPatch)
+            }
+            public var body: Operations.patchSystemPermission.Input.Body
+            /// Creates a new `Input`.
+            ///
+            /// - Parameters:
+            ///   - path:
+            ///   - headers:
+            ///   - body:
+            public init(
+                path: Operations.patchSystemPermission.Input.Path,
+                headers: Operations.patchSystemPermission.Input.Headers = .init(),
+                body: Operations.patchSystemPermission.Input.Body
+            ) {
+                self.path = path
+                self.headers = headers
+                self.body = body
+            }
+        }
+        @frozen public enum Output: Sendable, Hashable {
+            /// System Permission detail object
+            ///
+            /// - Remark: Generated from `#/paths//system/permissions/{permissionKey}/patch(patchSystemPermission)/responses/200`.
+            ///
+            /// HTTP response code: `200 ok`.
+            case ok(Components.Responses.SystemPermissionDetail)
+            /// The associated value of the enum case if `self` is `.ok`.
+            ///
+            /// - Throws: An error if `self` is not `.ok`.
+            /// - SeeAlso: `.ok`.
+            public var ok: Components.Responses.SystemPermissionDetail {
+                get throws {
+                    switch self {
+                    case let .ok(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "ok",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Bad request
+            ///
+            /// - Remark: Generated from `#/paths//system/permissions/{permissionKey}/patch(patchSystemPermission)/responses/400`.
+            ///
+            /// HTTP response code: `400 badRequest`.
+            case badRequest(Components.Responses.FeatherCoreBadRequest)
+            /// The associated value of the enum case if `self` is `.badRequest`.
+            ///
+            /// - Throws: An error if `self` is not `.badRequest`.
+            /// - SeeAlso: `.badRequest`.
+            public var badRequest: Components.Responses.FeatherCoreBadRequest {
+                get throws {
+                    switch self {
+                    case let .badRequest(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "badRequest",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Unauthorized
+            ///
+            /// - Remark: Generated from `#/paths//system/permissions/{permissionKey}/patch(patchSystemPermission)/responses/401`.
+            ///
+            /// HTTP response code: `401 unauthorized`.
+            case unauthorized(Components.Responses.FeatherCoreUnauthorized)
+            /// The associated value of the enum case if `self` is `.unauthorized`.
+            ///
+            /// - Throws: An error if `self` is not `.unauthorized`.
+            /// - SeeAlso: `.unauthorized`.
+            public var unauthorized: Components.Responses.FeatherCoreUnauthorized {
+                get throws {
+                    switch self {
+                    case let .unauthorized(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "unauthorized",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Forbidden
+            ///
+            /// - Remark: Generated from `#/paths//system/permissions/{permissionKey}/patch(patchSystemPermission)/responses/403`.
+            ///
+            /// HTTP response code: `403 forbidden`.
+            case forbidden(Components.Responses.FeatherCoreForbidden)
+            /// The associated value of the enum case if `self` is `.forbidden`.
+            ///
+            /// - Throws: An error if `self` is not `.forbidden`.
+            /// - SeeAlso: `.forbidden`.
+            public var forbidden: Components.Responses.FeatherCoreForbidden {
+                get throws {
+                    switch self {
+                    case let .forbidden(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "forbidden",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Not found
+            ///
+            /// - Remark: Generated from `#/paths//system/permissions/{permissionKey}/patch(patchSystemPermission)/responses/404`.
+            ///
+            /// HTTP response code: `404 notFound`.
+            case notFound(Components.Responses.FeatherCoreNotFound)
+            /// The associated value of the enum case if `self` is `.notFound`.
+            ///
+            /// - Throws: An error if `self` is not `.notFound`.
+            /// - SeeAlso: `.notFound`.
+            public var notFound: Components.Responses.FeatherCoreNotFound {
+                get throws {
+                    switch self {
+                    case let .notFound(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "notFound",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Unsupported media type
+            ///
+            /// - Remark: Generated from `#/paths//system/permissions/{permissionKey}/patch(patchSystemPermission)/responses/415`.
+            ///
+            /// HTTP response code: `415 unsupportedMediaType`.
+            case unsupportedMediaType(Components.Responses.FeatherCoreUnsupportedMediaType)
+            /// The associated value of the enum case if `self` is `.unsupportedMediaType`.
+            ///
+            /// - Throws: An error if `self` is not `.unsupportedMediaType`.
+            /// - SeeAlso: `.unsupportedMediaType`.
+            public var unsupportedMediaType: Components.Responses.FeatherCoreUnsupportedMediaType {
+                get throws {
+                    switch self {
+                    case let .unsupportedMediaType(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "unsupportedMediaType",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Unprocessable content
+            ///
+            /// - Remark: Generated from `#/paths//system/permissions/{permissionKey}/patch(patchSystemPermission)/responses/422`.
+            ///
+            /// HTTP response code: `422 unprocessableContent`.
+            case unprocessableContent(Components.Responses.FeatherCoreUnprocessableContent)
+            /// The associated value of the enum case if `self` is `.unprocessableContent`.
+            ///
+            /// - Throws: An error if `self` is not `.unprocessableContent`.
+            /// - SeeAlso: `.unprocessableContent`.
+            public var unprocessableContent: Components.Responses.FeatherCoreUnprocessableContent {
+                get throws {
+                    switch self {
+                    case let .unprocessableContent(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "unprocessableContent",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Undocumented response.
+            ///
+            /// A response with a code that is not documented in the OpenAPI document.
+            case undocumented(statusCode: Swift.Int, OpenAPIRuntime.UndocumentedPayload)
+        }
+        @frozen public enum AcceptableContentType: AcceptableProtocol {
+            case json
+            case other(Swift.String)
+            public init?(rawValue: Swift.String) {
+                switch rawValue.lowercased() {
+                case "application/json":
+                    self = .json
+                default:
+                    self = .other(rawValue)
+                }
+            }
+            public var rawValue: Swift.String {
+                switch self {
+                case let .other(string):
+                    return string
+                case .json:
+                    return "application/json"
+                }
+            }
+            public static var allCases: [Self] {
+                [
+                    .json
+                ]
+            }
+        }
+    }
+    /// Update a system permission
+    ///
+    /// Updates a system permission
+    ///
+    /// - Remark: HTTP `PUT /system/permissions/{permissionKey}`.
+    /// - Remark: Generated from `#/paths//system/permissions/{permissionKey}/put(updateSystemPermission)`.
+    public enum updateSystemPermission {
+        public static let id: Swift.String = "updateSystemPermission"
+        public struct Input: Sendable, Hashable {
+            /// - Remark: Generated from `#/paths/system/permissions/{permissionKey}/PUT/path`.
+            public struct Path: Sendable, Hashable {
+                /// System permission key
+                ///
+                /// - Remark: Generated from `#/paths/system/permissions/{permissionKey}/PUT/path/permissionKey`.
+                public var permissionKey: Components.Parameters.SystemPermissionKey
+                /// Creates a new `Path`.
+                ///
+                /// - Parameters:
+                ///   - permissionKey: System permission key
+                public init(permissionKey: Components.Parameters.SystemPermissionKey) {
+                    self.permissionKey = permissionKey
+                }
+            }
+            public var path: Operations.updateSystemPermission.Input.Path
+            /// - Remark: Generated from `#/paths/system/permissions/{permissionKey}/PUT/header`.
+            public struct Headers: Sendable, Hashable {
+                public var accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.updateSystemPermission.AcceptableContentType>]
+                /// Creates a new `Headers`.
+                ///
+                /// - Parameters:
+                ///   - accept:
+                public init(accept: [OpenAPIRuntime.AcceptHeaderContentType<Operations.updateSystemPermission.AcceptableContentType>] = .defaultValues()) {
+                    self.accept = accept
+                }
+            }
+            public var headers: Operations.updateSystemPermission.Input.Headers
+            /// - Remark: Generated from `#/paths/system/permissions/{permissionKey}/PUT/requestBody`.
+            @frozen public enum Body: Sendable, Hashable {
+                /// - Remark: Generated from `#/paths/system/permissions/{permissionKey}/PUT/requestBody/content/application\/json`.
+                case json(Components.Schemas.SystemPermissionUpdate)
+            }
+            public var body: Operations.updateSystemPermission.Input.Body
+            /// Creates a new `Input`.
+            ///
+            /// - Parameters:
+            ///   - path:
+            ///   - headers:
+            ///   - body:
+            public init(
+                path: Operations.updateSystemPermission.Input.Path,
+                headers: Operations.updateSystemPermission.Input.Headers = .init(),
+                body: Operations.updateSystemPermission.Input.Body
+            ) {
+                self.path = path
+                self.headers = headers
+                self.body = body
+            }
+        }
+        @frozen public enum Output: Sendable, Hashable {
+            /// System Permission detail object
+            ///
+            /// - Remark: Generated from `#/paths//system/permissions/{permissionKey}/put(updateSystemPermission)/responses/200`.
+            ///
+            /// HTTP response code: `200 ok`.
+            case ok(Components.Responses.SystemPermissionDetail)
+            /// The associated value of the enum case if `self` is `.ok`.
+            ///
+            /// - Throws: An error if `self` is not `.ok`.
+            /// - SeeAlso: `.ok`.
+            public var ok: Components.Responses.SystemPermissionDetail {
+                get throws {
+                    switch self {
+                    case let .ok(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "ok",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Bad request
+            ///
+            /// - Remark: Generated from `#/paths//system/permissions/{permissionKey}/put(updateSystemPermission)/responses/400`.
+            ///
+            /// HTTP response code: `400 badRequest`.
+            case badRequest(Components.Responses.FeatherCoreBadRequest)
+            /// The associated value of the enum case if `self` is `.badRequest`.
+            ///
+            /// - Throws: An error if `self` is not `.badRequest`.
+            /// - SeeAlso: `.badRequest`.
+            public var badRequest: Components.Responses.FeatherCoreBadRequest {
+                get throws {
+                    switch self {
+                    case let .badRequest(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "badRequest",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Unauthorized
+            ///
+            /// - Remark: Generated from `#/paths//system/permissions/{permissionKey}/put(updateSystemPermission)/responses/401`.
+            ///
+            /// HTTP response code: `401 unauthorized`.
+            case unauthorized(Components.Responses.FeatherCoreUnauthorized)
+            /// The associated value of the enum case if `self` is `.unauthorized`.
+            ///
+            /// - Throws: An error if `self` is not `.unauthorized`.
+            /// - SeeAlso: `.unauthorized`.
+            public var unauthorized: Components.Responses.FeatherCoreUnauthorized {
+                get throws {
+                    switch self {
+                    case let .unauthorized(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "unauthorized",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Forbidden
+            ///
+            /// - Remark: Generated from `#/paths//system/permissions/{permissionKey}/put(updateSystemPermission)/responses/403`.
+            ///
+            /// HTTP response code: `403 forbidden`.
+            case forbidden(Components.Responses.FeatherCoreForbidden)
+            /// The associated value of the enum case if `self` is `.forbidden`.
+            ///
+            /// - Throws: An error if `self` is not `.forbidden`.
+            /// - SeeAlso: `.forbidden`.
+            public var forbidden: Components.Responses.FeatherCoreForbidden {
+                get throws {
+                    switch self {
+                    case let .forbidden(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "forbidden",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Not found
+            ///
+            /// - Remark: Generated from `#/paths//system/permissions/{permissionKey}/put(updateSystemPermission)/responses/404`.
+            ///
+            /// HTTP response code: `404 notFound`.
+            case notFound(Components.Responses.FeatherCoreNotFound)
+            /// The associated value of the enum case if `self` is `.notFound`.
+            ///
+            /// - Throws: An error if `self` is not `.notFound`.
+            /// - SeeAlso: `.notFound`.
+            public var notFound: Components.Responses.FeatherCoreNotFound {
+                get throws {
+                    switch self {
+                    case let .notFound(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "notFound",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Unsupported media type
+            ///
+            /// - Remark: Generated from `#/paths//system/permissions/{permissionKey}/put(updateSystemPermission)/responses/415`.
+            ///
+            /// HTTP response code: `415 unsupportedMediaType`.
+            case unsupportedMediaType(Components.Responses.FeatherCoreUnsupportedMediaType)
+            /// The associated value of the enum case if `self` is `.unsupportedMediaType`.
+            ///
+            /// - Throws: An error if `self` is not `.unsupportedMediaType`.
+            /// - SeeAlso: `.unsupportedMediaType`.
+            public var unsupportedMediaType: Components.Responses.FeatherCoreUnsupportedMediaType {
+                get throws {
+                    switch self {
+                    case let .unsupportedMediaType(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "unsupportedMediaType",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Unprocessable content
+            ///
+            /// - Remark: Generated from `#/paths//system/permissions/{permissionKey}/put(updateSystemPermission)/responses/422`.
+            ///
+            /// HTTP response code: `422 unprocessableContent`.
+            case unprocessableContent(Components.Responses.FeatherCoreUnprocessableContent)
+            /// The associated value of the enum case if `self` is `.unprocessableContent`.
+            ///
+            /// - Throws: An error if `self` is not `.unprocessableContent`.
+            /// - SeeAlso: `.unprocessableContent`.
+            public var unprocessableContent: Components.Responses.FeatherCoreUnprocessableContent {
+                get throws {
+                    switch self {
+                    case let .unprocessableContent(response):
+                        return response
+                    default:
+                        try throwUnexpectedResponseStatus(
+                            expectedStatus: "unprocessableContent",
+                            response: self
+                        )
+                    }
+                }
+            }
+            /// Undocumented response.
+            ///
+            /// A response with a code that is not documented in the OpenAPI document.
+            case undocumented(statusCode: Swift.Int, OpenAPIRuntime.UndocumentedPayload)
+        }
+        @frozen public enum AcceptableContentType: AcceptableProtocol {
+            case json
+            case other(Swift.String)
+            public init?(rawValue: Swift.String) {
+                switch rawValue.lowercased() {
+                case "application/json":
+                    self = .json
+                default:
+                    self = .other(rawValue)
+                }
+            }
+            public var rawValue: Swift.String {
+                switch self {
+                case let .other(string):
+                    return string
+                case .json:
+                    return "application/json"
+                }
+            }
+            public static var allCases: [Self] {
+                [
+                    .json
+                ]
+            }
+        }
+    }
+}

@@ -1,6 +1,5 @@
 import FeatherOpenAPIKit
 
-
 extension System.Permission {
 
     public enum Parameters: Component {

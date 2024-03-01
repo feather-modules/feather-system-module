@@ -1,6 +1,5 @@
 import FeatherOpenAPIKit
 
-
 extension System.Variable {
 
     public enum Parameters: Component {

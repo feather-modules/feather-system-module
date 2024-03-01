@@ -4,7 +4,7 @@ import SystemInterfaceKit
 
 extension List.Order {
 
-    public func toAPI() -> Components.Schemas.GenericListOrder {
+    public func toAPI() -> Components.Schemas.FeatherCoreListOrder {
         switch self {
         case .asc:
             .asc

@@ -1,11 +1,10 @@
 import FeatherOpenAPIKit
 
-
-extension System.Permission {
+extension System.Variable {
 
     public enum Tags: Component {
         enum Main: Tag {
-            static let name = "System - Permission"
+            static let name = "System - Variable"
         }
     }
 }

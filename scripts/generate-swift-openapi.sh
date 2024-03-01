@@ -16,6 +16,7 @@ swift-openapi-generator generate \
     --mode types \
     --output-directory "${TYPES_OUTPUT}" \
     --access-modifier public \
+#    --additional-import "CoreOpenAPIRuntimeKit" \
     "${OPENAPI_YAML}"
 
 swift-openapi-generator generate \

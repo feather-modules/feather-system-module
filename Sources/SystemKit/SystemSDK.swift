@@ -1,7 +1,7 @@
-import Logging
+import CoreInterfaceKit
 import FeatherComponent
 import FeatherValidation
-import CoreInterfaceKit
+import Logging
 import SystemInterfaceKit
 
 public enum SystemSDKError: Error {

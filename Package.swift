@@ -62,6 +62,7 @@ let package = Package(
             name: "SystemOpenAPIRuntimeKit",
             dependencies: [
                 .product(name: "OpenAPIRuntime", package: "swift-openapi-runtime"),
+                .product(name: "CoreOpenAPIRuntimeKit", package: "feather-core-module"),
                 .target(name: "SystemInterfaceKit"),
             ]
         ),

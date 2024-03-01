@@ -1,5 +1,5 @@
-import FeatherOpenAPIKit
 import CoreOpenAPIGeneratorKit
+import FeatherOpenAPIKit
 
 extension System.Variable {
 

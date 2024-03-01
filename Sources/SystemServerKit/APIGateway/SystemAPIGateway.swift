@@ -13,7 +13,7 @@ public struct SystemAPIGateway: APIProtocol {
 
     public init(
         sdk: SystemInterface,
-        logger: Logger = .init(label: "api-gateway")
+        logger: Logger = .init(label: "system-api-gateway")
     ) {
         self.sdk = sdk
         self.logger = logger

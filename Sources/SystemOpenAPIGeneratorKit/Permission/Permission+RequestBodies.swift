@@ -1,6 +1,5 @@
 import FeatherOpenAPIKit
 
-
 extension System.Permission {
 
     public enum RequestBodies: Component {
