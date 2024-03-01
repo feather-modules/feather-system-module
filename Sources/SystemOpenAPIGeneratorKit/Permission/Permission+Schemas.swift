@@ -1,9 +1,9 @@
+import CoreOpenAPIGeneratorKit
 import FeatherOpenAPIKit
-import FeatherOpenAPIKitMacros
 
 extension System.Permission {
 
-    public enum Schemas {
+    public enum Schemas: Component {
 
         public enum Key: TextSchema {
             public static let description = "Key of the permission"
@@ -65,7 +65,7 @@ extension System.Permission {
                 [
                     .init("items", Items.self),
                     .init("sort", Sort.self, required: false),
-                ] + Generic.Component.Schemas.List.properties
+                ] + Feather.Core.Schemas.List.properties
         }
 
         // MARK: -

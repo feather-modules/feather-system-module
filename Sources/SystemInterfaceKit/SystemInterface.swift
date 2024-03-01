@@ -1,7 +1,7 @@
-import FeatherKit
+import CoreInterfaceKit
 
 public protocol SystemInterface:
-    FeatherInterface,
+    CoreInterface,
     SystemVariableInterface,
     SystemPermissionInterface
 {

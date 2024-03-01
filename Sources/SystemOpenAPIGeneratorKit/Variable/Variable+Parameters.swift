@@ -1,9 +1,8 @@
 import FeatherOpenAPIKit
-import FeatherOpenAPIKitMacros
 
 extension System.Variable {
 
-    enum Parameters {
+    public enum Parameters: Component {
 
         enum Key: PathParameter {
             static let name = "key"

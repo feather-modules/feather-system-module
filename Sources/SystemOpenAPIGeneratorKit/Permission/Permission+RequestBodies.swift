@@ -1,9 +1,8 @@
 import FeatherOpenAPIKit
-import FeatherOpenAPIKitMacros
 
-extension System.Variable {
+extension System.Permission {
 
-    enum RequestBodies {
+    public enum RequestBodies: Component {
 
         enum Create: JSONBody {
             static let description = "Create request body"

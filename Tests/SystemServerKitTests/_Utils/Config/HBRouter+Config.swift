@@ -1,4 +1,4 @@
-import FeatherKit
+import CoreInterfaceKit
 import Hummingbird
 import Logging
 import OpenAPIHummingbird

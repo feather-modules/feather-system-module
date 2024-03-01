@@ -1,5 +1,5 @@
+import CoreInterfaceKit
 import FeatherComponent
-import FeatherKit
 import FeatherValidation
 import Logging
 import SystemInterfaceKit

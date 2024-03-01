@@ -1,9 +1,8 @@
 import FeatherOpenAPIKit
-import FeatherOpenAPIKitMacros
 
 extension System.Variable {
 
-    enum Tags {
+    public enum Tags: Component {
         enum Main: Tag {
             static let name = "System - Variable"
         }

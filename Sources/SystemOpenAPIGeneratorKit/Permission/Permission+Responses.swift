@@ -1,9 +1,8 @@
 import FeatherOpenAPIKit
-import FeatherOpenAPIKitMacros
 
 extension System.Permission {
 
-    enum Responses {
+    public enum Responses: Component {
 
         enum List: JSONResponse {
             static let description = "System Permission list object"

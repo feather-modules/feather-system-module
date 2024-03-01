@@ -1,9 +1,8 @@
 import FeatherOpenAPIKit
-import FeatherOpenAPIKitMacros
 
 extension System.Permission {
 
-    enum Tags {
+    public enum Tags: Component {
         enum Main: Tag {
             static let name = "System - Permission"
         }
