@@ -190,4 +190,19 @@ extension SystemSDK {
             throw SystemSDKError.database(error)
         }
     }
+    
+    public func getPermissionReferences(
+        keys: [ID<System.Permission>]
+    ) async throws -> [System.Permission.Reference] {
+        do {
+            let db = try await components.relationalDatabase().connection()
+            let qb = System.Permission.Query(db: db)
+            return try await qb.select()
+                .filter { keys.contains($0.key.toID()) }
+                .map { $0.toReference() }
+        }
+        catch {
+            throw SystemSDKError.database(error)
+        }
+    }
 }

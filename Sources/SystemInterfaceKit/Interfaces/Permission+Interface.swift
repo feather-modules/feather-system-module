@@ -40,4 +40,11 @@ public protocol SystemPermissionInterface {
     func bulkDeletePermission(
         keys: [ID<System.Permission>]
     ) async throws
+    
+    // MARK: -
+    
+    func getPermissionReferences(
+        keys: [ID<System.Permission>]
+    ) async throws -> [System.Permission.Reference]
+    
 }
