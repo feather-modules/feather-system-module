@@ -12,7 +12,7 @@ extension System.Variable {
     public struct Reference: SystemVariableReference {
         public let key: ID<System.Variable>
         public let value: String
-        
+
         public init(key: ID<System.Variable>, value: String) {
             self.key = key
             self.value = value
@@ -24,7 +24,7 @@ extension System.Variable {
             public struct Sort: SystemVariableListSort {
                 public let by: SystemVariableListSortKeys
                 public let order: Order
-                
+
                 public init(by: SystemVariableListSortKeys, order: Order) {
                     self.by = by
                     self.order = order
@@ -34,7 +34,7 @@ extension System.Variable {
             public let search: String?
             public let sort: Sort
             public let page: Page
-            
+
             public init(
                 search: String? = nil,
                 sort: System.Variable.List.Query.Sort,
@@ -49,7 +49,7 @@ extension System.Variable {
         public struct Item: SystemVariableListItem, Equatable, Hashable {
             public let key: ID<System.Variable>
             public let value: String
-            
+
             public init(key: ID<System.Variable>, value: String) {
                 self.key = key
                 self.value = value
@@ -60,7 +60,7 @@ extension System.Variable {
         public let query: Query
         public let page: Page
         public let count: UInt
-        
+
         public init(
             items: [System.Variable.List.Item],
             query: System.Variable.List.Query,
@@ -80,7 +80,7 @@ extension System.Variable {
         public let value: String
         public let name: String?
         public let notes: String?
-        
+
         public init(
             key: ID<System.Variable>,
             value: String,
@@ -99,7 +99,7 @@ extension System.Variable {
         public let value: String
         public let name: String?
         public let notes: String?
-        
+
         public init(
             key: ID<System.Variable>,
             value: String,
@@ -118,7 +118,7 @@ extension System.Variable {
         public let value: String
         public let name: String?
         public let notes: String?
-        
+
         public init(
             key: ID<System.Variable>,
             value: String,
@@ -137,7 +137,7 @@ extension System.Variable {
         public let value: String?
         public let name: String?
         public let notes: String?
-        
+
         public init(
             key: ID<System.Variable>? = nil,
             value: String? = nil,

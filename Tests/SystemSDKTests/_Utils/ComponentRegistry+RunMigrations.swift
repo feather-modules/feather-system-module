@@ -21,7 +21,7 @@ extension ComponentRegistry {
 
         try await migrator.perform(
             groups: [
-                SystemMigrationGroup(),
+                SystemMigrationGroup()
             ]
         )
     }

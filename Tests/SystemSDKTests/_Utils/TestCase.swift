@@ -8,8 +8,8 @@
 import CoreSDKInterface
 import FeatherComponent
 import NIO
-import SystemSDKInterface
 import SystemSDK
+import SystemSDKInterface
 import XCTest
 
 class TestCase: XCTestCase {
