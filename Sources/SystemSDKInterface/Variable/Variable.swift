@@ -22,7 +22,7 @@ where
 {
 }
 
-public protocol SystemVariableListItem: Codable {
+public protocol SystemVariableListItem: Codable, Sendable {
     var key: ID<System.Variable> { get }
     var value: String { get }
 }
