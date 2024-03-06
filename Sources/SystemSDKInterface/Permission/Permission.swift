@@ -21,7 +21,7 @@ where
 {
 }
 
-public protocol SystemPermissionListItem: Codable {
+public protocol SystemPermissionListItem: Sendable, Codable {
     var key: ID<System.Permission> { get }
     var name: String { get }
 }
