@@ -19,7 +19,6 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/apple/swift-log", from: "1.5.0"),
         .package(url: "https://github.com/apple/swift-nio", from: "2.61.0"),
-        .package(url: "https://github.com/binarybirds/swift-nanoid", from: "1.0.0"),
         .package(url: "https://github.com/feather-framework/feather-validation", .upToNextMinor(from: "0.1.0")),
         .package(url: "https://github.com/feather-framework/feather-component", .upToNextMinor(from: "0.4.0")),
         .package(url: "https://github.com/feather-framework/feather-relational-database", .upToNextMinor(from: "0.2.0")),
@@ -38,9 +37,7 @@ let package = Package(
         .target(
             name: "SystemSDK",
             dependencies: [
-                .product(name: "NIO", package: "swift-nio"),
                 .product(name: "Logging", package: "swift-log"),
-                .product(name: "NanoID", package: "swift-nanoid"),
                 .product(name: "FeatherValidation", package: "feather-validation"),
                 .product(name: "FeatherComponent", package: "feather-component"),
                 .product(name: "FeatherRelationalDatabase", package: "feather-relational-database"),
@@ -83,6 +80,7 @@ let package = Package(
         .testTarget(
             name: "SystemSDKTests",
             dependencies: [
+                .product(name: "NIO", package: "swift-nio"),
                 .target(name: "SystemSDK"),
                 .target(name: "SystemSDKMigration"),
                 // drivers
@@ -92,6 +90,7 @@ let package = Package(
         .testTarget(
             name: "SystemSDKMigrationTests",
             dependencies: [
+                .product(name: "NIO", package: "swift-nio"),
                 .target(name: "SystemSDK"),
                 .target(name: "SystemSDKMigration"),
                 // drivers
