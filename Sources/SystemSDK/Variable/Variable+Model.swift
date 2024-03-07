@@ -3,14 +3,15 @@ import SystemSDKInterface
 
 extension System.Variable {
 
-    struct Model: Codable {
+    struct Model: QueryModel {
 
-        enum CodingKeys: String, DatabaseQueryCodingKey {
+        enum CodingKeys: String, QueryFieldKey {
             case key
             case value
             case name
             case notes
         }
+        static let fieldKeys = CodingKeys.self
 
         let key: Key<System.Variable>
         let value: String
