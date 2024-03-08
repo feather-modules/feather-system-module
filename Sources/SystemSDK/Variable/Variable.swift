@@ -28,35 +28,53 @@ extension SystemSDK {
         _ input: any SystemVariableListQuery
     ) async throws -> any SystemVariableList {
         do {
-            let rdb = try await components.relationalDatabase()
-            let db = try await rdb.database()
-            let queryBuilder = System.Variable.Query(db: db)
+            let queryBuilder = try await getQueryBuilder()
 
-            fatalError()
-            //            // TODO: fix sort & order
-            //            let result = try await queryBuilder.all(
-            //                query: .init(
-            //                    page: .init(
-            //                        size: Int(input.page.size),
-            //                        index: Int(input.page.index)
-            //                    ),
-            //                    filter: .init(relation: .and, conditions: []),
-            //                    sort: []
-            //                )
-            //            )
-            //
-            //            return try System.Variable.List(
-            //                items: result.data.map {
-            //                    try $0.convert(to: System.Variable.List.Item.self)
-            //                },
-            //                query: .init(
-            //                    search: input.search,
-            //                    sort: .init(by: input.sort.by, order: input.sort.order),
-            //                    page: .init(size: input.page.size, index: input.page.index)
-            //                ),
-            //                page: .init(size: input.page.size, index: input.page.index),
-            //                count: UInt(result.count)
-            //            )
+            var field: System.Variable.Model.FieldKeys
+            switch input.sort.by {
+            case .key:
+                field = .key
+            case .name:
+                field = .name
+            case .value:
+                field = .value
+            }
+
+            let search = input.search.flatMap { value in
+                QueryFilter<System.Variable.Model.CodingKeys>(
+                    field: .key,
+                    method: .like,
+                    value: "%\(value)%"
+                )
+            }
+
+            let result = try await queryBuilder.list(
+                .init(
+                    page: .init(
+                        size: input.page.size,
+                        index: input.page
+                            .index
+                    ),
+                    sort: .init(
+                        field: field,
+                        direction: input.sort.order.queryDirection
+                    ),
+                    search: search
+                )
+            )
+
+            return try System.Variable.List(
+                items: result.items.map {
+                    try $0.convert(to: System.Variable.List.Item.self)
+                },
+                query: .init(
+                    search: input.search,
+                    sort: .init(by: input.sort.by, order: input.sort.order),
+                    page: .init(size: input.page.size, index: input.page.index)
+                ),
+                page: .init(size: input.page.size, index: input.page.index),
+                count: UInt(result.total)
+            )
         }
         catch {
             throw SystemSDKError.database(error)
@@ -64,17 +82,13 @@ extension SystemSDK {
     }
 
     public func referenceVariables(
-        keys: [CoreSDKInterface.ID<System.Variable>]
+        keys: [ID<System.Variable>]
     ) async throws -> [SystemVariableReference] {
         do {
-            let rdb = try await components.relationalDatabase()
-            let db = try await rdb.database()
-            let qb = System.Variable.Query(db: db)
+            let queryBuilder = try await getQueryBuilder()
 
-            fatalError()
-            //            return try await qb.select()
-            //                .filter { keys.contains($0.key.toID()) }
-            //                .map { try $0.convert(to: System.Variable.Reference.self) }
+            return try await queryBuilder.all(.key, .in, keys)
+                .convert(to: [System.Variable.Reference].self)
         }
         catch {
             throw SystemSDKError.database(error)
@@ -85,11 +99,8 @@ extension SystemSDK {
         _ input: SystemVariableCreate
     ) async throws -> SystemVariableDetail {
         do {
-            let rdb = try await components.relationalDatabase()
-            let db = try await rdb.database()
-            let qb = System.Variable.Query(db: db)
+            let queryBuilder = try await getQueryBuilder()
 
-            fatalError()
             //            // NOTE: unique key validation workaround
             //            try await KeyValueValidator(
             //                key: "key",
@@ -114,9 +125,10 @@ extension SystemSDK {
             //            // TODO: proper validation
             //            //            try await input.validate()
             //
-            //            let model = try input.convert(to: System.Variable.Model.self)
-            //            try await qb.insert(model)
-            //            return try model.convert(to: System.Variable.Detail.self)
+
+            let model = try input.convert(to: System.Variable.Model.self)
+            try await queryBuilder.insert(model)
+            return try model.convert(to: System.Variable.Detail.self)
         }
         catch let error as ValidatorError {
             throw SystemSDKError.validation(error.failures)
@@ -127,17 +139,14 @@ extension SystemSDK {
     }
 
     public func getVariable(
-        key: CoreSDKInterface.ID<System.Variable>
+        key: ID<System.Variable>
     ) async throws -> SystemVariableDetail {
         do {
-            let rdb = try await components.relationalDatabase()
-            let db = try await rdb.database()
-            let qb = System.Variable.Query(db: db)
-            fatalError()
-            //            guard let model = try await qb.firstById(value: key.rawValue) else {
-            //                throw SystemSDKError.unknown
-            //            }
-            //            return try model.convert(to: System.Variable.Detail.self)
+            let queryBuilder = try await getQueryBuilder()
+            guard let model = try await queryBuilder.get(key) else {
+                throw SystemSDKError.unknown
+            }
+            return try model.convert(to: System.Variable.Detail.self)
         }
         catch {
             throw SystemSDKError.database(error)
@@ -145,27 +154,25 @@ extension SystemSDK {
     }
 
     public func updateVariable(
-        key: CoreSDKInterface.ID<System.Variable>,
+        key: ID<System.Variable>,
         _ input: SystemVariableUpdate
     ) async throws -> SystemVariableDetail {
         do {
-            let rdb = try await components.relationalDatabase()
-            let db = try await rdb.database()
-            let qb = System.Variable.Query(db: db)
+            let queryBuilder = try await getQueryBuilder()
 
-            fatalError()
-            //            guard let model = try await qb.firstById(value: key.rawValue) else {
-            //                throw SystemSDKError.unknown
-            //            }
-            //            //TODO: validate input
-            //            let newModel = System.Variable.Model(
-            //                key: input.key.toKey(),
-            //                value: input.value,
-            //                name: input.name,
-            //                notes: input.notes ?? model.notes
-            //            )
-            //            try await qb.update(key.rawValue, newModel)
-            //            return try model.convert(to: System.Variable.Detail.self)
+            guard try await queryBuilder.get(key) != nil else {
+                throw SystemSDKError.unknown
+            }
+            //TODO: validate input
+            let newModel = System.Variable.Model(
+                key: input.key.toKey(),
+                value: input.value,
+                name: input.name,
+                notes: input.notes
+            )
+            try await queryBuilder.update(key, newModel)
+            return try newModel.convert(to: System.Variable.Detail.self)
+
         }
         catch let error as ValidatorError {
             throw SystemSDKError.validation(error.failures)
@@ -176,27 +183,25 @@ extension SystemSDK {
     }
 
     public func patchVariable(
-        key: CoreSDKInterface.ID<System.Variable>,
+        key: ID<System.Variable>,
         _ input: SystemVariablePatch
     ) async throws -> SystemVariableDetail {
         do {
-            let rdb = try await components.relationalDatabase()
-            let db = try await rdb.database()
-            let qb = System.Variable.Query(db: db)
+            let queryBuilder = try await getQueryBuilder()
 
-            fatalError()
-            //            guard let model = try await qb.firstById(value: key.rawValue) else {
-            //                throw SystemSDKError.unknown
-            //            }
-            //            //TODO: validate input
-            //            let newModel = System.Variable.Model(
-            //                key: input.key?.toKey() ?? model.key,
-            //                value: input.value ?? model.value,
-            //                name: input.name ?? model.name,
-            //                notes: input.notes ?? model.notes
-            //            )
-            //            try await qb.update(key.rawValue, newModel)
-            //            return try model.convert(to: System.Variable.Detail.self)
+            guard let oldModel = try await queryBuilder.get(key) else {
+                throw SystemSDKError.unknown
+            }
+            //TODO: validate input
+            let newModel = System.Variable.Model(
+                key: input.key?.toKey() ?? oldModel.key,
+                value: input.value ?? oldModel.value,
+                name: input.name ?? oldModel.name,
+                notes: input.notes ?? oldModel.notes
+            )
+            try await queryBuilder.update(key, newModel)
+            return try newModel.convert(to: System.Variable.Detail.self)
+
         }
         catch let error as ValidatorError {
             throw SystemSDKError.validation(error.failures)
@@ -207,13 +212,11 @@ extension SystemSDK {
     }
 
     public func bulkDeleteVariable(
-        keys: [CoreSDKInterface.ID<System.Variable>]
+        keys: [ID<System.Variable>]
     ) async throws {
         do {
-            let rdb = try await components.relationalDatabase()
-            let db = try await rdb.database()
-            let qb = System.Variable.Query(db: db)
-            //            try await qb.delete(keys.map { $0.rawValue })
+            let queryBuilder = try await getQueryBuilder()
+            try await queryBuilder.delete(keys)
         }
         catch {
             throw SystemSDKError.database(error)

@@ -25,7 +25,7 @@ extension System.Permission.Create {
 final class PermissionTests: TestCase {
 
     func testList() async throws {
-        try await sdk.createPermission(
+        _ = try await sdk.createPermission(
             System.Permission.Create.mock()
         )
 
