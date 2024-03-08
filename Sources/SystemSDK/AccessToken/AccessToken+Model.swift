@@ -3,11 +3,12 @@ import SystemSDKInterface
 
 extension System.AccessToken {
 
-    struct Model: Codable {
+    struct Model: QueryModel {
 
-        enum CodingKeys: String, DatabaseQueryCodingKey {
+        enum CodingKeys: String, QueryFieldKey {
             case token
         }
+        static let fieldKeys = CodingKeys.self
 
         let token: String
     }

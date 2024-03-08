@@ -13,14 +13,23 @@ import SystemSDKInterface
 extension System.AccessToken {
 
     struct Query:
-        InsertQueryBuilder,
-        SelectQueryBuilder,
-        ListQueryBuilder
+        QueryBuilderSchema,
+        QueryBuilderAll,
+        QueryBuilderCount,
+        QueryBuilderDelete,
+        QueryBuilderFirst,
+        QueryBuilderInsert,
+        QueryBuilderList,
+        QueryBuilderPrimaryKey,
+        QueryBuilderPrimaryKeyDelete,
+        QueryBuilderPrimaryKeyGet,
+        QueryBuilderPrimaryKeyUpdate
     {
         typealias Row = Model
-        typealias FieldKeys = Row.CodingKeys
+        static var primaryKey = Model.FieldKeys.token
+        let db: Database
 
         static let tableName = "system_access_token"
-        let db: SQLDatabase
+
     }
 }

@@ -10,13 +10,14 @@ import SystemSDKInterface
 
 extension System.Permission {
 
-    struct Model: Codable {
+    struct Model: QueryModel {
 
-        enum CodingKeys: String, DatabaseQueryCodingKey {
+        enum CodingKeys: String, QueryFieldKey {
             case key
             case name
             case notes
         }
+        static let fieldKeys = CodingKeys.self
 
         let key: Key<System.Permission>
         let name: String

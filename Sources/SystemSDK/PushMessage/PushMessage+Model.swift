@@ -8,9 +8,9 @@ extension System {
 
 extension System.PushMessage {
 
-    struct Model: Codable {
+    struct Model: QueryModel {
 
-        enum CodingKeys: String, DatabaseQueryCodingKey {
+        enum CodingKeys: String, QueryFieldKey {
             case id
             case title
             case message
@@ -18,6 +18,7 @@ extension System.PushMessage {
             case date
             case recipients
         }
+        static let fieldKeys = CodingKeys.self
 
         let id: UUID
         let title: String

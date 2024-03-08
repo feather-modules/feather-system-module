@@ -15,27 +15,56 @@ import SystemSDKInterface
 
 extension SystemSDK {
 
+    private func getQueryBuilder() async throws -> System.Variable.Query {
+        let rdb = try await components.relationalDatabase()
+        let db = try await rdb.database()
+        return System.Variable.Query(db: db)
+    }
+}
+
+extension SystemSDK {
+
     public func listVariables(
         _ input: any SystemVariableListQuery
     ) async throws -> any SystemVariableList {
         do {
-            let db = try await components.relationalDatabase().connection()
-            let queryBuilder = System.Variable.Query(db: db)
+            let queryBuilder = try await getQueryBuilder()
 
-            // TODO: fix sort & order
-            let result = try await queryBuilder.all(
-                query: .init(
+            var field: System.Variable.Model.FieldKeys
+            switch input.sort.by {
+            case .key:
+                field = .key
+            case .name:
+                field = .name
+            case .value:
+                field = .value
+            }
+
+            let search = input.search.flatMap { value in
+                QueryFilter<System.Variable.Model.CodingKeys>(
+                    field: .key,
+                    method: .like,
+                    value: "%\(value)%"
+                )
+            }
+
+            let result = try await queryBuilder.list(
+                .init(
                     page: .init(
-                        size: Int(input.page.size),
-                        index: Int(input.page.index)
+                        size: input.page.size,
+                        index: input.page
+                            .index
                     ),
-                    filter: .init(relation: .and, conditions: []),
-                    sort: []
+                    sort: .init(
+                        field: field,
+                        direction: input.sort.order.queryDirection
+                    ),
+                    search: search
                 )
             )
 
             return try System.Variable.List(
-                items: result.data.map {
+                items: result.items.map {
                     try $0.convert(to: System.Variable.List.Item.self)
                 },
                 query: .init(
@@ -44,7 +73,7 @@ extension SystemSDK {
                     page: .init(size: input.page.size, index: input.page.index)
                 ),
                 page: .init(size: input.page.size, index: input.page.index),
-                count: UInt(result.count)
+                count: UInt(result.total)
             )
         }
         catch {
@@ -53,15 +82,13 @@ extension SystemSDK {
     }
 
     public func referenceVariables(
-        keys: [CoreSDKInterface.ID<System.Variable>]
+        keys: [ID<System.Variable>]
     ) async throws -> [SystemVariableReference] {
         do {
-            let db = try await components.relationalDatabase().connection()
-            let qb = System.Variable.Query(db: db)
+            let queryBuilder = try await getQueryBuilder()
 
-            return try await qb.select()
-                .filter { keys.contains($0.key.toID()) }
-                .map { try $0.convert(to: System.Variable.Reference.self) }
+            return try await queryBuilder.all(.key, .in, keys)
+                .convert(to: [System.Variable.Reference].self)
         }
         catch {
             throw SystemSDKError.database(error)
@@ -72,35 +99,35 @@ extension SystemSDK {
         _ input: SystemVariableCreate
     ) async throws -> SystemVariableDetail {
         do {
-            let db = try await components.relationalDatabase().connection()
-            let qb = System.Variable.Query(db: db)
+            let queryBuilder = try await getQueryBuilder()
 
-            // NOTE: unique key validation workaround
-            try await KeyValueValidator(
-                key: "key",
-                value: input.key.rawValue,
-                rules: [
-                    .init(
-                        message: "Key needs to be unique",
-                        { value in
-                            guard
-                                try await qb.firstById(
-                                    value: input.key.rawValue
-                                ) == nil
-                            else {
-                                throw RuleError.invalid
-                            }
-                        }
-                    )
-                ]
-            )
-            .validate()
-
-            // TODO: proper validation
-            //            try await input.validate()
+            //            // NOTE: unique key validation workaround
+            //            try await KeyValueValidator(
+            //                key: "key",
+            //                value: input.key.rawValue,
+            //                rules: [
+            //                    .init(
+            //                        message: "Key needs to be unique",
+            //                        { value in
+            //                            guard
+            //                                try await qb.firstById(
+            //                                    value: input.key.rawValue
+            //                                ) == nil
+            //                            else {
+            //                                throw RuleError.invalid
+            //                            }
+            //                        }
+            //                    )
+            //                ]
+            //            )
+            //            .validate()
+            //
+            //            // TODO: proper validation
+            //            //            try await input.validate()
+            //
 
             let model = try input.convert(to: System.Variable.Model.self)
-            try await qb.insert(model)
+            try await queryBuilder.insert(model)
             return try model.convert(to: System.Variable.Detail.self)
         }
         catch let error as ValidatorError {
@@ -112,12 +139,11 @@ extension SystemSDK {
     }
 
     public func getVariable(
-        key: CoreSDKInterface.ID<System.Variable>
+        key: ID<System.Variable>
     ) async throws -> SystemVariableDetail {
         do {
-            let db = try await components.relationalDatabase().connection()
-            let qb = System.Variable.Query(db: db)
-            guard let model = try await qb.firstById(value: key.rawValue) else {
+            let queryBuilder = try await getQueryBuilder()
+            guard let model = try await queryBuilder.get(key) else {
                 throw SystemSDKError.unknown
             }
             return try model.convert(to: System.Variable.Detail.self)
@@ -128,14 +154,13 @@ extension SystemSDK {
     }
 
     public func updateVariable(
-        key: CoreSDKInterface.ID<System.Variable>,
+        key: ID<System.Variable>,
         _ input: SystemVariableUpdate
     ) async throws -> SystemVariableDetail {
         do {
-            let db = try await components.relationalDatabase().connection()
-            let qb = System.Variable.Query(db: db)
+            let queryBuilder = try await getQueryBuilder()
 
-            guard let model = try await qb.firstById(value: key.rawValue) else {
+            guard try await queryBuilder.get(key) != nil else {
                 throw SystemSDKError.unknown
             }
             //TODO: validate input
@@ -143,10 +168,11 @@ extension SystemSDK {
                 key: input.key.toKey(),
                 value: input.value,
                 name: input.name,
-                notes: input.notes ?? model.notes
+                notes: input.notes
             )
-            try await qb.update(key.rawValue, newModel)
-            return try model.convert(to: System.Variable.Detail.self)
+            try await queryBuilder.update(key, newModel)
+            return try newModel.convert(to: System.Variable.Detail.self)
+
         }
         catch let error as ValidatorError {
             throw SystemSDKError.validation(error.failures)
@@ -157,25 +183,25 @@ extension SystemSDK {
     }
 
     public func patchVariable(
-        key: CoreSDKInterface.ID<System.Variable>,
+        key: ID<System.Variable>,
         _ input: SystemVariablePatch
     ) async throws -> SystemVariableDetail {
         do {
-            let db = try await components.relationalDatabase().connection()
-            let qb = System.Variable.Query(db: db)
+            let queryBuilder = try await getQueryBuilder()
 
-            guard let model = try await qb.firstById(value: key.rawValue) else {
+            guard let oldModel = try await queryBuilder.get(key) else {
                 throw SystemSDKError.unknown
             }
             //TODO: validate input
             let newModel = System.Variable.Model(
-                key: input.key?.toKey() ?? model.key,
-                value: input.value ?? model.value,
-                name: input.name ?? model.name,
-                notes: input.notes ?? model.notes
+                key: input.key?.toKey() ?? oldModel.key,
+                value: input.value ?? oldModel.value,
+                name: input.name ?? oldModel.name,
+                notes: input.notes ?? oldModel.notes
             )
-            try await qb.update(key.rawValue, newModel)
-            return try model.convert(to: System.Variable.Detail.self)
+            try await queryBuilder.update(key, newModel)
+            return try newModel.convert(to: System.Variable.Detail.self)
+
         }
         catch let error as ValidatorError {
             throw SystemSDKError.validation(error.failures)
@@ -186,12 +212,11 @@ extension SystemSDK {
     }
 
     public func bulkDeleteVariable(
-        keys: [CoreSDKInterface.ID<System.Variable>]
+        keys: [ID<System.Variable>]
     ) async throws {
         do {
-            let db = try await components.relationalDatabase().connection()
-            let qb = System.Variable.Query(db: db)
-            try await qb.delete(keys.map { $0.rawValue })
+            let queryBuilder = try await getQueryBuilder()
+            try await queryBuilder.delete(keys)
         }
         catch {
             throw SystemSDKError.database(error)
