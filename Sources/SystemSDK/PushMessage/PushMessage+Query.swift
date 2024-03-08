@@ -28,7 +28,7 @@ extension System.PushMessage {
         typealias Row = Model
         static var primaryKey = Model.FieldKeys.id
         let db: Database
-        
+
         static let tableName = "system_push_message"
     }
 }

@@ -28,9 +28,8 @@ extension System.AccessToken {
         typealias Row = Model
         static var primaryKey = Model.FieldKeys.token
         let db: Database
-        
+
         static let tableName = "system_access_token"
-        
-        
+
     }
 }

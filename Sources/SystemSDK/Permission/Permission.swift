@@ -13,6 +13,23 @@ import FeatherValidation
 import Logging
 import SystemSDKInterface
 
+extension SystemSDK {
+
+    private func getQueryBuilder() async throws -> System.Permission.Query {
+        let rdb = try await components.relationalDatabase()
+        let db = try await rdb.database()
+        return System.Permission.Query(db: db)
+    }
+}
+
+extension Order {
+    var queryDirection: QueryDirection {
+        switch self {
+        case .asc: .asc
+        case .desc: .desc
+        }
+    }
+}
 
 extension SystemSDK {
 
@@ -20,35 +37,51 @@ extension SystemSDK {
         _ input: any SystemPermissionListQuery
     ) async throws -> any SystemPermissionList {
         do {
-            let rdb = try await components.relationalDatabase()
-            let db = try await rdb.database()
-            let queryBuilder = System.Permission.Query(db: db)
+            let queryBuilder = try await getQueryBuilder()
 
-            fatalError()
-//            // TODO: fix sort & order
-//            let result = try await queryBuilder.all(
-//                query: .init(
-//                    page: .init(
-//                        size: Int(input.page.size),
-//                        index: Int(input.page.index)
-//                    ),
-//                    filter: .init(relation: .and, conditions: []),
-//                    sort: []
-//                )
-//            )
-//
-//            return try System.Permission.List(
-//                items: result.data.map {
-//                    try $0.convert(to: System.Permission.List.Item.self)
-//                },
-//                query: .init(
-//                    search: input.search,
-//                    sort: .init(by: input.sort.by, order: input.sort.order),
-//                    page: .init(size: input.page.size, index: input.page.index)
-//                ),
-//                page: .init(size: input.page.size, index: input.page.index),
-//                count: UInt(result.count)
-//            )
+            var field: System.Permission.Model.FieldKeys
+            switch input.sort.by {
+            case .key:
+                field = .key
+            case .name:
+                field = .name
+            }
+
+            let search = input.search.flatMap { value in
+                QueryFilter<System.Permission.Model.CodingKeys>(
+                    field: .key,
+                    method: .like,
+                    value: "%\(value)%"
+                )
+            }
+
+            let result = try await queryBuilder.list(
+                .init(
+                    page: .init(
+                        size: input.page.size,
+                        index: input.page
+                            .index
+                    ),
+                    sort: .init(
+                        field: field,
+                        direction: input.sort.order.queryDirection
+                    ),
+                    search: search
+                )
+            )
+
+            return try System.Permission.List(
+                items: result.items.map {
+                    try $0.convert(to: System.Permission.List.Item.self)
+                },
+                query: .init(
+                    search: input.search,
+                    sort: .init(by: input.sort.by, order: input.sort.order),
+                    page: .init(size: input.page.size, index: input.page.index)
+                ),
+                page: .init(size: input.page.size, index: input.page.index),
+                count: UInt(result.total)
+            )
         }
         catch {
             throw SystemSDKError.database(error)
@@ -56,17 +89,13 @@ extension SystemSDK {
     }
 
     public func referencePermissions(
-        keys: [CoreSDKInterface.ID<System.Permission>]
+        keys: [ID<System.Permission>]
     ) async throws -> [SystemPermissionReference] {
         do {
-            let rdb = try await components.relationalDatabase()
-            let db = try await rdb.database()
-            let qb = System.Permission.Query(db: db)
+            let queryBuilder = try await getQueryBuilder()
 
-            fatalError()
-//            return try await qb.select()
-//                .filter { keys.contains($0.key.toID()) }
-//                .map { try $0.convert(to: System.Permission.Reference.self) }
+            return try await queryBuilder.all(.key, .in, keys)
+                .convert(to: [System.Permission.Reference].self)
         }
         catch {
             throw SystemSDKError.database(error)
@@ -77,38 +106,35 @@ extension SystemSDK {
         _ input: SystemPermissionCreate
     ) async throws -> SystemPermissionDetail {
         do {
-            let rdb = try await components.relationalDatabase()
-            let db = try await rdb.database()
-            let qb = System.Permission.Query(db: db)
+            let queryBuilder = try await getQueryBuilder()
 
-            fatalError()
-//            // NOTE: unique key validation workaround
-//            try await KeyValueValidator(
-//                key: "key",
-//                value: input.key.rawValue,
-//                rules: [
-//                    .init(
-//                        message: "Key needs to be unique",
-//                        { value in
-//                            guard
-//                                try await qb.firstById(
-//                                    value: input.key.rawValue
-//                                ) == nil
-//                            else {
-//                                throw RuleError.invalid
-//                            }
-//                        }
-//                    )
-//                ]
-//            )
-//            .validate()
-//
-//            // TODO: proper validation
-//            //            try await input.validate()
-//
-//            let model = try input.convert(to: System.Permission.Model.self)
-//            try await qb.insert(model)
-//            return try model.convert(to: System.Permission.Detail.self)
+            //            // NOTE: unique key validation workaround
+            //            try await KeyValueValidator(
+            //                key: "key",
+            //                value: input.key.rawValue,
+            //                rules: [
+            //                    .init(
+            //                        message: "Key needs to be unique",
+            //                        { value in
+            //                            guard
+            //                                try await qb.firstById(
+            //                                    value: input.key.rawValue
+            //                                ) == nil
+            //                            else {
+            //                                throw RuleError.invalid
+            //                            }
+            //                        }
+            //                    )
+            //                ]
+            //            )
+            //            .validate()
+            //
+            //            // TODO: proper validation
+            //            //            try await input.validate()
+            //
+            let model = try input.convert(to: System.Permission.Model.self)
+            try await queryBuilder.insert(model)
+            return try model.convert(to: System.Permission.Detail.self)
         }
         catch let error as ValidatorError {
             throw SystemSDKError.validation(error.failures)
@@ -119,18 +145,15 @@ extension SystemSDK {
     }
 
     public func getPermission(
-        key: CoreSDKInterface.ID<System.Permission>
+        key: ID<System.Permission>
     ) async throws -> SystemPermissionDetail {
         do {
-            let rdb = try await components.relationalDatabase()
-            let db = try await rdb.database()
-            let qb = System.Permission.Query(db: db)
-            
-            fatalError()
-//            guard let model = try await qb.firstById(value: key.rawValue) else {
-//                throw SystemSDKError.unknown
-//            }
-//            return try model.convert(to: System.Permission.Detail.self)
+            let queryBuilder = try await getQueryBuilder()
+
+            guard let model = try await queryBuilder.get(key) else {
+                throw SystemSDKError.unknown
+            }
+            return try model.convert(to: System.Permission.Detail.self)
         }
         catch {
             throw SystemSDKError.database(error)
@@ -138,26 +161,23 @@ extension SystemSDK {
     }
 
     public func updatePermission(
-        key: CoreSDKInterface.ID<System.Permission>,
+        key: ID<System.Permission>,
         _ input: SystemPermissionUpdate
     ) async throws -> SystemPermissionDetail {
         do {
-            let rdb = try await components.relationalDatabase()
-            let db = try await rdb.database()
-            let qb = System.Permission.Query(db: db)
+            let queryBuilder = try await getQueryBuilder()
 
-            fatalError()
-//            guard let model = try await qb.firstById(value: key.rawValue) else {
-//                throw SystemSDKError.unknown
-//            }
-//            //TODO: validate input
-//            let newModel = System.Permission.Model(
-//                key: input.key.toKey(),
-//                name: input.name,
-//                notes: input.notes ?? model.notes
-//            )
-//            try await qb.update(key.rawValue, newModel)
-//            return try model.convert(to: System.Permission.Detail.self)
+            guard try await queryBuilder.get(key) != nil else {
+                throw SystemSDKError.unknown
+            }
+            //TODO: validate input
+            let newModel = System.Permission.Model(
+                key: input.key.toKey(),
+                name: input.name,
+                notes: input.notes
+            )
+            try await queryBuilder.update(key, newModel)
+            return try newModel.convert(to: System.Permission.Detail.self)
         }
         catch let error as ValidatorError {
             throw SystemSDKError.validation(error.failures)
@@ -168,26 +188,23 @@ extension SystemSDK {
     }
 
     public func patchPermission(
-        key: CoreSDKInterface.ID<System.Permission>,
+        key: ID<System.Permission>,
         _ input: SystemPermissionPatch
     ) async throws -> SystemPermissionDetail {
         do {
-            let rdb = try await components.relationalDatabase()
-            let db = try await rdb.database()
-            let qb = System.Permission.Query(db: db)
+            let queryBuilder = try await getQueryBuilder()
 
-            fatalError()
-//            guard let model = try await qb.firstById(value: key.rawValue) else {
-//                throw SystemSDKError.unknown
-//            }
-//            //TODO: validate input
-//            let newModel = System.Permission.Model(
-//                key: input.key?.toKey() ?? model.key,
-//                name: input.name ?? model.name,
-//                notes: input.notes ?? model.notes
-//            )
-//            try await qb.update(key.rawValue, newModel)
-//            return try model.convert(to: System.Permission.Detail.self)
+            guard let oldModel = try await queryBuilder.get(key) else {
+                throw SystemSDKError.unknown
+            }
+            //TODO: validate input
+            let newModel = System.Permission.Model(
+                key: input.key?.toKey() ?? oldModel.key,
+                name: input.name ?? oldModel.name,
+                notes: input.notes ?? oldModel.notes
+            )
+            try await queryBuilder.update(key, newModel)
+            return try newModel.convert(to: System.Permission.Detail.self)
         }
         catch let error as ValidatorError {
             throw SystemSDKError.validation(error.failures)
@@ -198,13 +215,11 @@ extension SystemSDK {
     }
 
     public func bulkDeletePermission(
-        keys: [CoreSDKInterface.ID<System.Permission>]
+        keys: [ID<System.Permission>]
     ) async throws {
         do {
-            let rdb = try await components.relationalDatabase()
-            let db = try await rdb.database()
-            let qb = System.Permission.Query(db: db)
-            try await qb.delete(keys.map { $0.rawValue })
+            let queryBuilder = try await getQueryBuilder()
+            try await queryBuilder.delete(keys)
         }
         catch {
             throw SystemSDKError.database(error)
