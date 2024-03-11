@@ -20,23 +20,21 @@ extension System.Variable {
     }
 
     public struct List: CoreSDKInterface.List {
-        
-        public typealias Item = _Item
-        
-        public struct Query: Sendable, Equatable, Hashable, Codable {
 
-            public struct Sort: Sendable, Equatable, Hashable, Codable {
-                
-                public enum SortKeys: SortKeyInterface {
+        public struct Query: Object {
+
+            public struct Sort: Object {
+
+                public enum Keys: SortKeyInterface {
                     case key
                     case value
                     case name
                 }
 
-                public let by: SortKeys
+                public let by: Keys
                 public let order: Order
 
-                public init(by: SortKeys, order: Order) {
+                public init(by: Keys, order: Order) {
                     self.by = by
                     self.order = order
                 }
@@ -57,7 +55,7 @@ extension System.Variable {
             }
         }
 
-        public struct _Item: Sendable, Equatable, Hashable, Codable {
+        public struct Item: Object {
             public let key: ID<System.Variable>
             public let value: String
 

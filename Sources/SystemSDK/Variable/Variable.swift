@@ -13,7 +13,7 @@ import FeatherValidation
 import Logging
 import SystemSDKInterface
 
-extension SystemSDK {
+extension SystemVariableSDK {
 
     private func getQueryBuilder() async throws -> System.Variable.Query {
         let rdb = try await components.relationalDatabase()
@@ -22,12 +22,23 @@ extension SystemSDK {
     }
 }
 
-extension SystemSDK {
+struct SystemVariableSDK: SystemVariableInterface {
 
-    public func listVariables(
+    let components: ComponentRegistry
+    let logger: Logger
+
+    public init(
+        components: ComponentRegistry,
+        logger: Logger = .init(label: "system-variable-sdk")
+    ) {
+        self.components = components
+        self.logger = logger
+    }
+
+    public func list(
         _ input: System.Variable.List.Query
     ) async throws -> System.Variable.List {
-    
+
         let queryBuilder = try await getQueryBuilder()
 
         var field: System.Variable.Model.FieldKeys
@@ -39,8 +50,8 @@ extension SystemSDK {
         case .value:
             field = .value
         }
-        
-        let filterGroup = input.search.flatMap { value  in
+
+        let filterGroup = input.search.flatMap { value in
             QueryFilterGroup<System.Variable.Model.CodingKeys>(
                 relation: .or,
                 filters: [
@@ -78,7 +89,7 @@ extension SystemSDK {
                     .init(
                         field: field,
                         direction: input.sort.order.queryDirection
-                    ),
+                    )
                 ],
                 filterGroup: filterGroup
             )
@@ -92,26 +103,27 @@ extension SystemSDK {
         )
     }
 
-    public func referenceVariables(
+    public func reference(
         keys: [ID<System.Variable>]
     ) async throws -> [System.Variable.Reference] {
-        
+
         let queryBuilder = try await getQueryBuilder()
 
-        return try await queryBuilder.all(
-            filter: .init(
-                field: .key,
-                operator: .in,
-                value: keys
+        return
+            try await queryBuilder.all(
+                filter: .init(
+                    field: .key,
+                    operator: .in,
+                    value: keys
+                )
             )
-        )
-        .convert(to: [System.Variable.Reference].self)
+            .convert(to: [System.Variable.Reference].self)
     }
 
-    public func createVariable(
+    public func create(
         _ input: System.Variable.Create
     ) async throws -> System.Variable.Detail {
-    
+
         let queryBuilder = try await getQueryBuilder()
 
         //            // NOTE: unique key validation workaround
@@ -142,13 +154,13 @@ extension SystemSDK {
         let model = try input.convert(to: System.Variable.Model.self)
         try await queryBuilder.insert(model)
         return try model.convert(to: System.Variable.Detail.self)
-        
+
     }
 
-    public func getVariable(
+    public func get(
         key: ID<System.Variable>
     ) async throws -> System.Variable.Detail {
-        
+
         let queryBuilder = try await getQueryBuilder()
         guard let model = try await queryBuilder.get(key) else {
             throw SystemSDKError.unknown
@@ -156,11 +168,11 @@ extension SystemSDK {
         return try model.convert(to: System.Variable.Detail.self)
     }
 
-    public func updateVariable(
+    public func update(
         key: ID<System.Variable>,
         _ input: System.Variable.Update
     ) async throws -> System.Variable.Detail {
-        
+
         let queryBuilder = try await getQueryBuilder()
 
         guard try await queryBuilder.get(key) != nil else {
@@ -177,11 +189,11 @@ extension SystemSDK {
         return try newModel.convert(to: System.Variable.Detail.self)
     }
 
-    public func patchVariable(
+    public func patch(
         key: ID<System.Variable>,
         _ input: System.Variable.Patch
     ) async throws -> System.Variable.Detail {
-        
+
         let queryBuilder = try await getQueryBuilder()
 
         guard let oldModel = try await queryBuilder.get(key) else {
@@ -198,7 +210,7 @@ extension SystemSDK {
         return try newModel.convert(to: System.Variable.Detail.self)
     }
 
-    public func bulkDeleteVariable(
+    public func bulkDelete(
         keys: [ID<System.Variable>]
     ) async throws {
         let queryBuilder = try await getQueryBuilder()
@@ -211,4 +223,3 @@ extension SystemSDK {
         )
     }
 }
-

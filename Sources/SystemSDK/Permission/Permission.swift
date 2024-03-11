@@ -13,7 +13,7 @@ import FeatherValidation
 import Logging
 import SystemSDKInterface
 
-extension SystemSDK {
+extension SystemPermissionSDK {
 
     private func getQueryBuilder() async throws -> System.Permission.Query {
         let rdb = try await components.relationalDatabase()
@@ -22,21 +22,22 @@ extension SystemSDK {
     }
 }
 
-extension Order {
-    var queryDirection: QueryDirection {
-        switch self {
-        case .asc: .asc
-        case .desc: .desc
-        }
+struct SystemPermissionSDK: SystemPermissionInterface {
+    let components: ComponentRegistry
+    let logger: Logger
+
+    public init(
+        components: ComponentRegistry,
+        logger: Logger = .init(label: "system-permission-sdk")
+    ) {
+        self.components = components
+        self.logger = logger
     }
-}
 
-extension SystemSDK {
-
-    public func listPermissions(
+    public func list(
         _ input: System.Permission.List.Query
     ) async throws -> System.Permission.List {
-        
+
         let queryBuilder = try await getQueryBuilder()
 
         var field: System.Permission.Model.FieldKeys
@@ -47,7 +48,7 @@ extension SystemSDK {
             field = .name
         }
 
-        let filterGroup = input.search.flatMap { value  in
+        let filterGroup = input.search.flatMap { value in
             QueryFilterGroup<System.Permission.Model.CodingKeys>(
                 relation: .or,
                 filters: [
@@ -80,7 +81,7 @@ extension SystemSDK {
                     .init(
                         field: field,
                         direction: input.sort.order.queryDirection
-                    ),
+                    )
                 ],
                 filterGroup: filterGroup
             )
@@ -94,25 +95,26 @@ extension SystemSDK {
         )
     }
 
-    public func referencePermissions(
+    public func reference(
         keys: [ID<System.Permission>]
     ) async throws -> [System.Permission.Reference] {
         let queryBuilder = try await getQueryBuilder()
 
-        return try await queryBuilder.all(
-            filter: .init(
-                field: .key,
-                operator: .in,
-                value: keys
+        return
+            try await queryBuilder.all(
+                filter: .init(
+                    field: .key,
+                    operator: .in,
+                    value: keys
+                )
             )
-        )
-        .convert(to: [System.Permission.Reference].self)
+            .convert(to: [System.Permission.Reference].self)
     }
 
-    public func createPermission(
+    public func create(
         _ input: System.Permission.Create
     ) async throws -> System.Permission.Detail {
-        
+
         let queryBuilder = try await getQueryBuilder()
 
         //            // NOTE: unique key validation workaround
@@ -144,7 +146,7 @@ extension SystemSDK {
         return try model.convert(to: System.Permission.Detail.self)
     }
 
-    public func getPermission(
+    public func get(
         key: ID<System.Permission>
     ) async throws -> System.Permission.Detail {
         let queryBuilder = try await getQueryBuilder()
@@ -155,7 +157,7 @@ extension SystemSDK {
         return try model.convert(to: System.Permission.Detail.self)
     }
 
-    public func updatePermission(
+    public func update(
         key: ID<System.Permission>,
         _ input: System.Permission.Update
     ) async throws -> System.Permission.Detail {
@@ -174,7 +176,7 @@ extension SystemSDK {
         return try newModel.convert(to: System.Permission.Detail.self)
     }
 
-    public func patchPermission(
+    public func patch(
         key: ID<System.Permission>,
         _ input: System.Permission.Patch
     ) async throws -> System.Permission.Detail {
@@ -193,10 +195,10 @@ extension SystemSDK {
         return try newModel.convert(to: System.Permission.Detail.self)
     }
 
-    public func bulkDeletePermission(
+    public func bulkDelete(
         keys: [ID<System.Permission>]
     ) async throws {
-        
+
         let queryBuilder = try await getQueryBuilder()
         try await queryBuilder.delete(
             filter: .init(

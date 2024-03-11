@@ -8,10 +8,7 @@ public enum System {
     public enum Variable: Identifiable {}
 }
 
-public protocol SystemInterface:
-    CoreInterface,
-    SystemPermissionInterface,
-    SystemVariableInterface
-{
-
+public protocol SystemInterface: CoreInterface {
+    var permission: SystemPermissionInterface { get }
+    var variable: SystemVariableInterface { get }
 }

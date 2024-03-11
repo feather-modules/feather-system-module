@@ -26,11 +26,11 @@ extension System.Variable.Create {
 final class VariableTests: TestCase {
 
     func testList() async throws {
-        _ = try await sdk.createVariable(
+        _ = try await sdk.variable.create(
             System.Variable.Create.mock()
         )
 
-        let list = try await sdk.listVariables(
+        let list = try await sdk.variable.list(
             System.Variable.List.Query(
                 search: nil,
                 sort: .init(by: .key, order: .asc),
@@ -42,7 +42,7 @@ final class VariableTests: TestCase {
     }
 
     func testCreate() async throws {
-        let detail = try await sdk.createVariable(
+        let detail = try await sdk.variable.create(
             System.Variable.Create.mock()
         )
 
@@ -53,11 +53,11 @@ final class VariableTests: TestCase {
     }
 
     func testReference() async throws {
-        let detail = try await sdk.createVariable(
+        let detail = try await sdk.variable.create(
             System.Variable.Create.mock()
         )
 
-        let variables = try await sdk.referenceVariables(
+        let variables = try await sdk.variable.reference(
             keys: [
                 detail.key
             ]
@@ -68,20 +68,20 @@ final class VariableTests: TestCase {
     }
 
     func testDetail() async throws {
-        let detail = try await sdk.createVariable(
+        let detail = try await sdk.variable.create(
             System.Variable.Create.mock()
         )
 
-        let variable = try await sdk.getVariable(key: detail.key)
+        let variable = try await sdk.variable.get(key: detail.key)
         XCTAssertEqual(variable.key, detail.key)
     }
 
     func testUpdate() async throws {
-        let detail = try await sdk.createVariable(
+        let detail = try await sdk.variable.create(
             System.Variable.Create.mock()
         )
 
-        let variable = try await sdk.updateVariable(
+        let variable = try await sdk.variable.update(
             key: detail.key,
             System.Variable.Update(
                 key: detail.key,
@@ -97,11 +97,11 @@ final class VariableTests: TestCase {
     }
 
     func testPatch() async throws {
-        let detail = try await sdk.createVariable(
+        let detail = try await sdk.variable.create(
             System.Variable.Create.mock()
         )
 
-        let variable = try await sdk.patchVariable(
+        let variable = try await sdk.variable.patch(
             key: detail.key,
             System.Variable.Patch(
                 key: detail.key,
@@ -116,15 +116,15 @@ final class VariableTests: TestCase {
     }
 
     func testDelete() async throws {
-        let detail = try await sdk.createVariable(
+        let detail = try await sdk.variable.create(
             System.Variable.Create.mock()
         )
 
-        try await sdk.bulkDeleteVariable(
+        try await sdk.variable.bulkDelete(
             keys: [detail.key]
         )
 
-        let variables = try await sdk.referenceVariables(
+        let variables = try await sdk.variable.reference(
             keys: [
                 detail.key
             ]
