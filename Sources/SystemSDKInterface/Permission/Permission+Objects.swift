@@ -9,7 +9,7 @@ import CoreSDKInterface
 
 extension System.Permission {
 
-    public struct Reference: Codable {
+    public struct Reference: Object {
         public let key: ID<System.Permission>
         public let name: String
 
@@ -77,29 +77,13 @@ extension System.Permission {
 
     }
 
-    public struct Detail: Codable {
+    public struct Detail: Object {
         public let key: ID<System.Permission>
         public let name: String
         public let notes: String?
     }
 
-    public struct Create: Codable {
-        public let key: ID<System.Permission>
-        public let name: String
-        public let notes: String?
-
-        public init(
-            key: ID<System.Permission>,
-            name: String,
-            notes: String? = nil
-        ) {
-            self.key = key
-            self.name = name
-            self.notes = notes
-        }
-    }
-
-    public struct Update: Codable {
+    public struct Create: Object {
         public let key: ID<System.Permission>
         public let name: String
         public let notes: String?
@@ -115,7 +99,23 @@ extension System.Permission {
         }
     }
 
-    public struct Patch: Codable {
+    public struct Update: Object {
+        public let key: ID<System.Permission>
+        public let name: String
+        public let notes: String?
+
+        public init(
+            key: ID<System.Permission>,
+            name: String,
+            notes: String? = nil
+        ) {
+            self.key = key
+            self.name = name
+            self.notes = notes
+        }
+    }
+
+    public struct Patch: Object {
         public let key: ID<System.Permission>?
         public let name: String?
         public let notes: String?
