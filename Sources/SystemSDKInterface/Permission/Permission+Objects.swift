@@ -9,7 +9,7 @@ import CoreSDKInterface
 
 extension System.Permission {
 
-    public struct Reference: SystemPermissionReference {
+    public struct Reference: Codable {
         public let key: ID<System.Permission>
         public let name: String
 
@@ -19,13 +19,22 @@ extension System.Permission {
         }
     }
 
-    public struct List: SystemPermissionList {
-        public struct Query: SystemPermissionListQuery {
-            public struct Sort: SystemPermissionListSort {
-                public let by: SystemPermissionListSortKeys
+    public struct List: CoreSDKInterface.List {
+        public typealias Item = _Item
+
+        public struct Query: Sendable, Equatable, Hashable, Codable {
+
+            public struct Sort: Sendable, Equatable, Hashable, Codable {
+                
+                public enum SortKeys: SortKeyInterface {
+                    case key
+                    case name
+                }
+                
+                public let by: SortKeys
                 public let order: Order
 
-                public init(by: SystemPermissionListSortKeys, order: Order) {
+                public init(by: SortKeys, order: Order) {
                     self.by = by
                     self.order = order
                 }
@@ -46,7 +55,7 @@ extension System.Permission {
             }
         }
 
-        public struct Item: SystemPermissionListItem, Equatable, Hashable {
+        public struct _Item: Sendable, Equatable, Hashable, Codable {
             public let key: ID<System.Permission>
             public let name: String
 
@@ -57,47 +66,25 @@ extension System.Permission {
         }
 
         public let items: [Item]
-        public let query: Query
-        public let page: Page
         public let count: UInt
 
         public init(
             items: [System.Permission.List.Item],
-            query: System.Permission.List.Query,
-            page: Page,
             count: UInt
         ) {
             self.items = items
-            self.query = query
-            self.page = page
             self.count = count
         }
 
     }
 
-    public struct Detail: SystemPermissionDetail {
+    public struct Detail: Codable {
         public let key: ID<System.Permission>
         public let name: String
         public let notes: String?
     }
 
-    public struct Create: SystemPermissionCreate {
-        public let key: ID<System.Permission>
-        public let name: String
-        public let notes: String?
-
-        public init(
-            key: ID<System.Permission>,
-            name: String,
-            notes: String? = nil
-        ) {
-            self.key = key
-            self.name = name
-            self.notes = notes
-        }
-    }
-
-    public struct Update: SystemPermissionUpdate {
+    public struct Create: Codable {
         public let key: ID<System.Permission>
         public let name: String
         public let notes: String?
@@ -113,7 +100,23 @@ extension System.Permission {
         }
     }
 
-    public struct Patch: SystemPermissionPatch {
+    public struct Update: Codable {
+        public let key: ID<System.Permission>
+        public let name: String
+        public let notes: String?
+
+        public init(
+            key: ID<System.Permission>,
+            name: String,
+            notes: String? = nil
+        ) {
+            self.key = key
+            self.name = name
+            self.notes = notes
+        }
+    }
+
+    public struct Patch: Codable {
         public let key: ID<System.Permission>?
         public let name: String?
         public let notes: String?

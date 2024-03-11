@@ -34,195 +34,176 @@ extension Order {
 extension SystemSDK {
 
     public func listPermissions(
-        _ input: any SystemPermissionListQuery
-    ) async throws -> any SystemPermissionList {
-        do {
-            let queryBuilder = try await getQueryBuilder()
+        _ input: System.Permission.List.Query
+    ) async throws -> System.Permission.List {
+        
+        let queryBuilder = try await getQueryBuilder()
 
-            var field: System.Permission.Model.FieldKeys
-            switch input.sort.by {
-            case .key:
-                field = .key
-            case .name:
-                field = .name
-            }
+        var field: System.Permission.Model.FieldKeys
+        switch input.sort.by {
+        case .key:
+            field = .key
+        case .name:
+            field = .name
+        }
 
-            let search = input.search.flatMap { value in
-                QueryFilter<System.Permission.Model.CodingKeys>(
-                    field: .key,
-                    method: .like,
-                    value: "%\(value)%"
-                )
-            }
-
-            let result = try await queryBuilder.list(
-                .init(
-                    page: .init(
-                        size: input.page.size,
-                        index: input.page
-                            .index
+        let filterGroup = input.search.flatMap { value  in
+            QueryFilterGroup<System.Permission.Model.CodingKeys>(
+                relation: .or,
+                filters: [
+                    .init(
+                        field: .key,
+                        operator: .like,
+                        value: "%\(value)%"
                     ),
-                    sort: .init(
+                    .init(
+                        field: .name,
+                        operator: .like,
+                        value: "%\(value)%"
+                    ),
+                    .init(
+                        field: .notes,
+                        operator: .like,
+                        value: "%\(value)%"
+                    ),
+                ]
+            )
+        }
+
+        let result = try await queryBuilder.list(
+            .init(
+                page: .init(
+                    size: input.page.size,
+                    index: input.page.index
+                ),
+                orders: [
+                    .init(
                         field: field,
                         direction: input.sort.order.queryDirection
                     ),
-                    search: search
-                )
+                ],
+                filterGroup: filterGroup
             )
+        )
 
-            return try System.Permission.List(
-                items: result.items.map {
-                    try $0.convert(to: System.Permission.List.Item.self)
-                },
-                query: .init(
-                    search: input.search,
-                    sort: .init(by: input.sort.by, order: input.sort.order),
-                    page: .init(size: input.page.size, index: input.page.index)
-                ),
-                page: .init(size: input.page.size, index: input.page.index),
-                count: UInt(result.total)
-            )
-        }
-        catch {
-            throw SystemSDKError.database(error)
-        }
+        return try System.Permission.List(
+            items: result.items.map {
+                try $0.convert(to: System.Permission.List.Item.self)
+            },
+            count: UInt(result.total)
+        )
     }
 
     public func referencePermissions(
         keys: [ID<System.Permission>]
-    ) async throws -> [SystemPermissionReference] {
-        do {
-            let queryBuilder = try await getQueryBuilder()
+    ) async throws -> [System.Permission.Reference] {
+        let queryBuilder = try await getQueryBuilder()
 
-            return try await queryBuilder.all(.key, .in, keys)
-                .convert(to: [System.Permission.Reference].self)
-        }
-        catch {
-            throw SystemSDKError.database(error)
-        }
+        return try await queryBuilder.all(
+            filter: .init(
+                field: .key,
+                operator: .in,
+                value: keys
+            )
+        )
+        .convert(to: [System.Permission.Reference].self)
     }
 
     public func createPermission(
-        _ input: SystemPermissionCreate
-    ) async throws -> SystemPermissionDetail {
-        do {
-            let queryBuilder = try await getQueryBuilder()
+        _ input: System.Permission.Create
+    ) async throws -> System.Permission.Detail {
+        
+        let queryBuilder = try await getQueryBuilder()
 
-            //            // NOTE: unique key validation workaround
-            //            try await KeyValueValidator(
-            //                key: "key",
-            //                value: input.key.rawValue,
-            //                rules: [
-            //                    .init(
-            //                        message: "Key needs to be unique",
-            //                        { value in
-            //                            guard
-            //                                try await qb.firstById(
-            //                                    value: input.key.rawValue
-            //                                ) == nil
-            //                            else {
-            //                                throw RuleError.invalid
-            //                            }
-            //                        }
-            //                    )
-            //                ]
-            //            )
-            //            .validate()
-            //
-            //            // TODO: proper validation
-            //            //            try await input.validate()
-            //
-            let model = try input.convert(to: System.Permission.Model.self)
-            try await queryBuilder.insert(model)
-            return try model.convert(to: System.Permission.Detail.self)
-        }
-        catch let error as ValidatorError {
-            throw SystemSDKError.validation(error.failures)
-        }
-        catch {
-            throw SystemSDKError.database(error)
-        }
+        //            // NOTE: unique key validation workaround
+        //            try await KeyValueValidator(
+        //                key: "key",
+        //                value: input.key.rawValue,
+        //                rules: [
+        //                    .init(
+        //                        message: "Key needs to be unique",
+        //                        { value in
+        //                            guard
+        //                                try await qb.firstById(
+        //                                    value: input.key.rawValue
+        //                                ) == nil
+        //                            else {
+        //                                throw RuleError.invalid
+        //                            }
+        //                        }
+        //                    )
+        //                ]
+        //            )
+        //            .validate()
+        //
+        //            // TODO: proper validation
+        //            //            try await input.validate()
+        //
+        let model = try input.convert(to: System.Permission.Model.self)
+        try await queryBuilder.insert(model)
+        return try model.convert(to: System.Permission.Detail.self)
     }
 
     public func getPermission(
         key: ID<System.Permission>
-    ) async throws -> SystemPermissionDetail {
-        do {
-            let queryBuilder = try await getQueryBuilder()
+    ) async throws -> System.Permission.Detail {
+        let queryBuilder = try await getQueryBuilder()
 
-            guard let model = try await queryBuilder.get(key) else {
-                throw SystemSDKError.unknown
-            }
-            return try model.convert(to: System.Permission.Detail.self)
+        guard let model = try await queryBuilder.get(key) else {
+            throw SystemSDKError.unknown
         }
-        catch {
-            throw SystemSDKError.database(error)
-        }
+        return try model.convert(to: System.Permission.Detail.self)
     }
 
     public func updatePermission(
         key: ID<System.Permission>,
-        _ input: SystemPermissionUpdate
-    ) async throws -> SystemPermissionDetail {
-        do {
-            let queryBuilder = try await getQueryBuilder()
+        _ input: System.Permission.Update
+    ) async throws -> System.Permission.Detail {
+        let queryBuilder = try await getQueryBuilder()
 
-            guard try await queryBuilder.get(key) != nil else {
-                throw SystemSDKError.unknown
-            }
-            //TODO: validate input
-            let newModel = System.Permission.Model(
-                key: input.key.toKey(),
-                name: input.name,
-                notes: input.notes
-            )
-            try await queryBuilder.update(key, newModel)
-            return try newModel.convert(to: System.Permission.Detail.self)
+        guard try await queryBuilder.get(key) != nil else {
+            throw SystemSDKError.unknown
         }
-        catch let error as ValidatorError {
-            throw SystemSDKError.validation(error.failures)
-        }
-        catch {
-            throw SystemSDKError.database(error)
-        }
+        //TODO: validate input
+        let newModel = System.Permission.Model(
+            key: input.key.toKey(),
+            name: input.name,
+            notes: input.notes
+        )
+        try await queryBuilder.update(key, newModel)
+        return try newModel.convert(to: System.Permission.Detail.self)
     }
 
     public func patchPermission(
         key: ID<System.Permission>,
-        _ input: SystemPermissionPatch
-    ) async throws -> SystemPermissionDetail {
-        do {
-            let queryBuilder = try await getQueryBuilder()
+        _ input: System.Permission.Patch
+    ) async throws -> System.Permission.Detail {
+        let queryBuilder = try await getQueryBuilder()
 
-            guard let oldModel = try await queryBuilder.get(key) else {
-                throw SystemSDKError.unknown
-            }
-            //TODO: validate input
-            let newModel = System.Permission.Model(
-                key: input.key?.toKey() ?? oldModel.key,
-                name: input.name ?? oldModel.name,
-                notes: input.notes ?? oldModel.notes
-            )
-            try await queryBuilder.update(key, newModel)
-            return try newModel.convert(to: System.Permission.Detail.self)
+        guard let oldModel = try await queryBuilder.get(key) else {
+            throw SystemSDKError.unknown
         }
-        catch let error as ValidatorError {
-            throw SystemSDKError.validation(error.failures)
-        }
-        catch {
-            throw SystemSDKError.database(error)
-        }
+        //TODO: validate input
+        let newModel = System.Permission.Model(
+            key: input.key?.toKey() ?? oldModel.key,
+            name: input.name ?? oldModel.name,
+            notes: input.notes ?? oldModel.notes
+        )
+        try await queryBuilder.update(key, newModel)
+        return try newModel.convert(to: System.Permission.Detail.self)
     }
 
     public func bulkDeletePermission(
         keys: [ID<System.Permission>]
     ) async throws {
-        do {
-            let queryBuilder = try await getQueryBuilder()
-            try await queryBuilder.delete(keys)
-        }
-        catch {
-            throw SystemSDKError.database(error)
-        }
+        
+        let queryBuilder = try await getQueryBuilder()
+        try await queryBuilder.delete(
+            filter: .init(
+                field: .key,
+                operator: .in,
+                value: keys
+            )
+        )
     }
 }

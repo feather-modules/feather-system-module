@@ -23,8 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/feather-modules/feather-core-module",
       "state" : {
-        "revision" : "c2260379ef23a2bbabf2e91f036ccf2dc91fcd44",
-        "version" : "0.4.0"
+        "revision" : "78457e2c1a6f871ef308a3c5736381eaf43a25f3",
+        "version" : "0.5.0"
       }
     },
     {
@@ -32,8 +32,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/feather-framework/feather-database-kit",
       "state" : {
-        "revision" : "d8e26b7eb99ef1dd19aef413666e369cdad021c1",
-        "version" : "0.2.0"
+        "revision" : "727d78e6d21d22c7eff02f6f57a262773aefd0af",
+        "version" : "0.3.0"
       }
     },
     {
