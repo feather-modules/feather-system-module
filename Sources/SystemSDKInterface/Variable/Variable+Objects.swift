@@ -9,7 +9,7 @@ import CoreSDKInterface
 
 extension System.Variable {
 
-    public struct Reference: Codable {
+    public struct Reference: Object {
         public let key: ID<System.Variable>
         public let value: String
 
@@ -78,7 +78,7 @@ extension System.Variable {
 
     }
 
-    public struct Detail: Codable {
+    public struct Detail: Object {
         public let key: ID<System.Variable>
         public let value: String
         public let name: String?
@@ -97,7 +97,7 @@ extension System.Variable {
         }
     }
 
-    public struct Create: Codable {
+    public struct Create: Object {
         public let key: ID<System.Variable>
         public let value: String
         public let name: String?
@@ -116,7 +116,7 @@ extension System.Variable {
         }
     }
 
-    public struct Update: Codable {
+    public struct Update: Object {
         public let key: ID<System.Variable>
         public let value: String
         public let name: String?
@@ -135,7 +135,7 @@ extension System.Variable {
         }
     }
 
-    public struct Patch: Codable {
+    public struct Patch: Object {
         public let key: ID<System.Variable>?
         public let value: String?
         public let name: String?
