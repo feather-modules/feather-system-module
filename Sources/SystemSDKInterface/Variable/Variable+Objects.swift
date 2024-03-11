@@ -9,7 +9,7 @@ import CoreSDKInterface
 
 extension System.Variable {
 
-    public struct Reference: SystemVariableReference {
+    public struct Reference: Codable {
         public let key: ID<System.Variable>
         public let value: String
 
@@ -19,13 +19,22 @@ extension System.Variable {
         }
     }
 
-    public struct List: SystemVariableList {
-        public struct Query: SystemVariableListQuery {
-            public struct Sort: SystemVariableListSort {
-                public let by: SystemVariableListSortKeys
+    public struct List: CoreSDKInterface.List {
+
+        public struct Query: Object {
+
+            public struct Sort: Object {
+
+                public enum Keys: SortKeyInterface {
+                    case key
+                    case value
+                    case name
+                }
+
+                public let by: Keys
                 public let order: Order
 
-                public init(by: SystemVariableListSortKeys, order: Order) {
+                public init(by: Keys, order: Order) {
                     self.by = by
                     self.order = order
                 }
@@ -46,7 +55,7 @@ extension System.Variable {
             }
         }
 
-        public struct Item: SystemVariableListItem, Equatable, Hashable {
+        public struct Item: Object {
             public let key: ID<System.Variable>
             public let value: String
 
@@ -57,25 +66,19 @@ extension System.Variable {
         }
 
         public let items: [Item]
-        public let query: Query
-        public let page: Page
         public let count: UInt
 
         public init(
             items: [System.Variable.List.Item],
-            query: System.Variable.List.Query,
-            page: Page,
             count: UInt
         ) {
             self.items = items
-            self.query = query
-            self.page = page
             self.count = count
         }
 
     }
 
-    public struct Detail: SystemVariableDetail {
+    public struct Detail: Codable {
         public let key: ID<System.Variable>
         public let value: String
         public let name: String?
@@ -94,7 +97,7 @@ extension System.Variable {
         }
     }
 
-    public struct Create: SystemVariableCreate {
+    public struct Create: Codable {
         public let key: ID<System.Variable>
         public let value: String
         public let name: String?
@@ -113,7 +116,7 @@ extension System.Variable {
         }
     }
 
-    public struct Update: SystemVariableUpdate {
+    public struct Update: Codable {
         public let key: ID<System.Variable>
         public let value: String
         public let name: String?
@@ -132,7 +135,7 @@ extension System.Variable {
         }
     }
 
-    public struct Patch: SystemVariablePatch {
+    public struct Patch: Codable {
         public let key: ID<System.Variable>?
         public let value: String?
         public let name: String?

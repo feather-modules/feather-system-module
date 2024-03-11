@@ -6,9 +6,6 @@ import SystemSDKInterface
 
 public enum SystemSDKError: Error {
     case unknown
-    case database(Error)
-
-    case validation([Failure])
 }
 
 public struct SystemSDK: SystemInterface {
@@ -24,4 +21,17 @@ public struct SystemSDK: SystemInterface {
         self.logger = logger
     }
 
+    public var permission: SystemPermissionInterface {
+        SystemPermissionSDK(
+            components: components,
+            logger: logger
+        )
+    }
+
+    public var variable: SystemVariableInterface {
+        SystemVariableSDK(
+            components: components,
+            logger: logger
+        )
+    }
 }

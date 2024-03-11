@@ -7,35 +7,35 @@
 
 import CoreSDKInterface
 
-public protocol SystemVariableInterface {
+public protocol SystemVariableInterface: CoreInterface {
 
-    func listVariables(
-        _ input: any SystemVariableListQuery
-    ) async throws -> any SystemVariableList
+    func list(
+        _ input: System.Variable.List.Query
+    ) async throws -> System.Variable.List
 
-    func referenceVariables(
+    func reference(
         keys: [ID<System.Variable>]
-    ) async throws -> [SystemVariableReference]
+    ) async throws -> [System.Variable.Reference]
 
-    func createVariable(
-        _ input: SystemVariableCreate
-    ) async throws -> SystemVariableDetail
+    func create(
+        _ input: System.Variable.Create
+    ) async throws -> System.Variable.Detail
 
-    func getVariable(
+    func get(
         key: ID<System.Variable>
-    ) async throws -> SystemVariableDetail
+    ) async throws -> System.Variable.Detail
 
-    func updateVariable(
+    func update(
         key: ID<System.Variable>,
-        _ input: SystemVariableUpdate
-    ) async throws -> SystemVariableDetail
+        _ input: System.Variable.Update
+    ) async throws -> System.Variable.Detail
 
-    func patchVariable(
+    func patch(
         key: ID<System.Variable>,
-        _ input: SystemVariablePatch
-    ) async throws -> SystemVariableDetail
+        _ input: System.Variable.Patch
+    ) async throws -> System.Variable.Detail
 
-    func bulkDeleteVariable(
+    func bulkDelete(
         keys: [ID<System.Variable>]
     ) async throws
 

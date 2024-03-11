@@ -7,35 +7,35 @@
 
 import CoreSDKInterface
 
-public protocol SystemPermissionInterface {
+public protocol SystemPermissionInterface: CoreInterface {
 
-    func listPermissions(
-        _ input: any SystemPermissionListQuery
-    ) async throws -> any SystemPermissionList
+    func list(
+        _ input: System.Permission.List.Query
+    ) async throws -> System.Permission.List
 
-    func referencePermissions(
+    func reference(
         keys: [ID<System.Permission>]
-    ) async throws -> [SystemPermissionReference]
+    ) async throws -> [System.Permission.Reference]
 
-    func createPermission(
-        _ input: SystemPermissionCreate
-    ) async throws -> SystemPermissionDetail
+    func create(
+        _ input: System.Permission.Create
+    ) async throws -> System.Permission.Detail
 
-    func getPermission(
+    func get(
         key: ID<System.Permission>
-    ) async throws -> SystemPermissionDetail
+    ) async throws -> System.Permission.Detail
 
-    func updatePermission(
+    func update(
         key: ID<System.Permission>,
-        _ input: SystemPermissionUpdate
-    ) async throws -> SystemPermissionDetail
+        _ input: System.Permission.Update
+    ) async throws -> System.Permission.Detail
 
-    func patchPermission(
+    func patch(
         key: ID<System.Permission>,
-        _ input: SystemPermissionPatch
-    ) async throws -> SystemPermissionDetail
+        _ input: System.Permission.Patch
+    ) async throws -> System.Permission.Detail
 
-    func bulkDeletePermission(
+    func bulkDelete(
         keys: [ID<System.Permission>]
     ) async throws
 
