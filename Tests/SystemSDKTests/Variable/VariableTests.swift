@@ -32,7 +32,7 @@ final class VariableTests: TestCase {
         )
 
         let list = try await sdk.variable.list(
-            System.Variable.List.Query(
+            .init(
                 search: nil,
                 sort: .init(by: .key, order: .asc),
                 page: .init()
@@ -76,7 +76,7 @@ final class VariableTests: TestCase {
     }
 
     func testCreateInvalidUnique() async throws {
-        let detail = try await sdk.variable.create(
+        _ = try await sdk.variable.create(
             System.Variable.Create.mock()
         )
 
@@ -132,7 +132,7 @@ final class VariableTests: TestCase {
 
         let variable = try await sdk.variable.update(
             key: detail.key,
-            System.Variable.Update(
+            .init(
                 key: detail.key,
                 value: "value-2",
                 name: "name-2",
@@ -144,6 +144,36 @@ final class VariableTests: TestCase {
         XCTAssertEqual(variable.name, "name-2")
         XCTAssertEqual(variable.notes, nil)
     }
+    
+    func testUpdateInvalidUnique() async throws {
+        let detail1 = try await sdk.variable.create(
+            System.Variable.Create.mock(1)
+        )
+        let detail2 = try await sdk.variable.create(
+            System.Variable.Create.mock(2)
+        )
+
+        do {
+            _ = try await sdk.variable.update(
+                key: detail1.key,
+                .init(
+                    key: detail2.key,
+                    value: "",
+                    name: nil,
+                    notes: nil
+                )
+            )
+            XCTFail("Validation test should fail.")
+        }
+        catch let error as ValidatorError {
+            XCTAssertEqual(error.failures.count, 2)
+            let keys = error.failures.map(\.key).sorted()
+            XCTAssertEqual(keys, ["key", "value"])
+        }
+        catch {
+            XCTFail("\(error)")
+        }
+    }
 
     func testPatch() async throws {
         let detail = try await sdk.variable.create(
@@ -152,7 +182,7 @@ final class VariableTests: TestCase {
 
         let variable = try await sdk.variable.patch(
             key: detail.key,
-            System.Variable.Patch(
+            .init(
                 key: detail.key,
                 name: "name-2",
                 notes: "notes-2"
@@ -162,6 +192,65 @@ final class VariableTests: TestCase {
         XCTAssertEqual(variable.value, "value-1")
         XCTAssertEqual(variable.name, "name-2")
         XCTAssertEqual(variable.notes, "notes-2")
+    }
+    
+    func testPatchValidUnique() async throws {
+        let detail = try await sdk.variable.create(
+            System.Variable.Create.mock()
+        )
+
+        let variable = try await sdk.variable.patch(
+            key: detail.key,
+            .init(
+                key: .init(rawValue: "id-2"),
+                name: "name-2",
+                notes: "notes-2"
+            )
+        )
+        do {
+            _ = try await sdk.variable.get(key: detail.key)
+        }
+        catch System.Error.variableNotFound {
+            // ok
+        }
+        catch {
+            XCTFail("\(error)")
+        }
+
+        XCTAssertEqual(variable.key, .init(rawValue: "id-2"))
+        XCTAssertEqual(variable.value, "value-1")
+        XCTAssertEqual(variable.name, "name-2")
+        XCTAssertEqual(variable.notes, "notes-2")
+    }
+    
+    func testPatchInvalidUnique() async throws {
+        let detail1 = try await sdk.variable.create(
+            System.Variable.Create.mock(1)
+        )
+        let detail2 = try await sdk.variable.create(
+            System.Variable.Create.mock(2)
+        )
+
+        do {
+            _ = try await sdk.variable.patch(
+                key: detail1.key,
+                .init(
+                    key: detail2.key,
+                    value: "",
+                    name: nil,
+                    notes: nil
+                )
+            )
+            XCTFail("Validation test should fail.")
+        }
+        catch let error as ValidatorError {
+            XCTAssertEqual(error.failures.count, 2)
+            let keys = error.failures.map(\.key).sorted()
+            XCTAssertEqual(keys, ["key", "value"])
+        }
+        catch {
+            XCTFail("\(error)")
+        }
     }
 
     func testDelete() async throws {

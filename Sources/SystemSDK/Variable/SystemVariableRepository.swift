@@ -154,7 +154,7 @@ struct SystemVariableRepository: SystemVariableInterface {
         guard try await queryBuilder.get(key) != nil else {
             throw System.Error.variableNotFound
         }
-        //TODO: validate input
+        try await input.validate(key, queryBuilder)
         let newModel = System.Variable.Model(
             key: input.key.toKey(),
             value: input.value,
@@ -175,7 +175,7 @@ struct SystemVariableRepository: SystemVariableInterface {
         guard let oldModel = try await queryBuilder.get(key) else {
             throw System.Error.variableNotFound
         }
-        //TODO: validate input
+        try await input.validate(key, queryBuilder)
         let newModel = System.Variable.Model(
             key: input.key?.toKey() ?? oldModel.key,
             value: input.value ?? oldModel.value,
