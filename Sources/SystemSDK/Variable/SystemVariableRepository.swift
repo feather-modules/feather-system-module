@@ -13,16 +13,7 @@ import FeatherValidation
 import Logging
 import SystemSDKInterface
 
-extension SystemVariableSDK {
-
-    private func getQueryBuilder() async throws -> System.Variable.Query {
-        let rdb = try await components.relationalDatabase()
-        let db = try await rdb.database()
-        return System.Variable.Query(db: db)
-    }
-}
-
-struct SystemVariableSDK: SystemVariableInterface {
+struct SystemVariableRepository: SystemVariableInterface {
 
     let components: ComponentRegistry
     let logger: Logger
@@ -34,6 +25,16 @@ struct SystemVariableSDK: SystemVariableInterface {
         self.components = components
         self.logger = logger
     }
+
+    // MARK: -
+
+    private func getQueryBuilder() async throws -> System.Variable.Query {
+        let rdb = try await components.relationalDatabase()
+        let db = try await rdb.database()
+        return System.Variable.Query(db: db)
+    }
+
+    // MARK: -
 
     public func list(
         _ input: System.Variable.List.Query
@@ -125,32 +126,7 @@ struct SystemVariableSDK: SystemVariableInterface {
     ) async throws -> System.Variable.Detail {
 
         let queryBuilder = try await getQueryBuilder()
-
-        //            // NOTE: unique key validation workaround
-        //            try await KeyValueValidator(
-        //                key: "key",
-        //                value: input.key.rawValue,
-        //                rules: [
-        //                    .init(
-        //                        message: "Key needs to be unique",
-        //                        { value in
-        //                            guard
-        //                                try await qb.firstById(
-        //                                    value: input.key.rawValue
-        //                                ) == nil
-        //                            else {
-        //                                throw RuleError.invalid
-        //                            }
-        //                        }
-        //                    )
-        //                ]
-        //            )
-        //            .validate()
-        //
-        //            // TODO: proper validation
-        //            //            try await input.validate()
-        //
-
+        try await input.validate(queryBuilder)
         let model = try input.convert(to: System.Variable.Model.self)
         try await queryBuilder.insert(model)
         return try model.convert(to: System.Variable.Detail.self)
@@ -163,7 +139,7 @@ struct SystemVariableSDK: SystemVariableInterface {
 
         let queryBuilder = try await getQueryBuilder()
         guard let model = try await queryBuilder.get(key) else {
-            throw SystemSDKError.unknown
+            throw System.Error.variableNotFound
         }
         return try model.convert(to: System.Variable.Detail.self)
     }
@@ -176,7 +152,7 @@ struct SystemVariableSDK: SystemVariableInterface {
         let queryBuilder = try await getQueryBuilder()
 
         guard try await queryBuilder.get(key) != nil else {
-            throw SystemSDKError.unknown
+            throw System.Error.variableNotFound
         }
         //TODO: validate input
         let newModel = System.Variable.Model(
@@ -197,7 +173,7 @@ struct SystemVariableSDK: SystemVariableInterface {
         let queryBuilder = try await getQueryBuilder()
 
         guard let oldModel = try await queryBuilder.get(key) else {
-            throw SystemSDKError.unknown
+            throw System.Error.variableNotFound
         }
         //TODO: validate input
         let newModel = System.Variable.Model(

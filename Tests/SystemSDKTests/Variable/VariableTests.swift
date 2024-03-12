@@ -6,6 +6,7 @@
 //
 
 import CoreSDKInterface
+import FeatherValidation
 import SystemSDKInterface
 import XCTest
 
@@ -50,6 +51,54 @@ final class VariableTests: TestCase {
         XCTAssertEqual(detail.value, "value-1")
         XCTAssertEqual(detail.name, "name-1")
         XCTAssertEqual(detail.notes, "notes-1")
+    }
+
+    func testCreateInvalid() async throws {
+        do {
+            _ = try await sdk.variable.create(
+                .init(
+                    key: .init(rawValue: "a"),
+                    value: "",
+                    name: nil,
+                    notes: nil
+                )
+            )
+            XCTFail("Validation test should fail.")
+        }
+        catch let error as ValidatorError {
+            XCTAssertEqual(error.failures.count, 2)
+            let keys = error.failures.map(\.key).sorted()
+            XCTAssertEqual(keys, ["key", "value"])
+        }
+        catch {
+            XCTFail("\(error)")
+        }
+    }
+
+    func testCreateInvalidUnique() async throws {
+        let detail = try await sdk.variable.create(
+            System.Variable.Create.mock()
+        )
+
+        do {
+            _ = try await sdk.variable.create(
+                .init(
+                    key: .init(rawValue: "key-1"),
+                    value: "",
+                    name: nil,
+                    notes: nil
+                )
+            )
+            XCTFail("Validation test should fail.")
+        }
+        catch let error as ValidatorError {
+            XCTAssertEqual(error.failures.count, 2)
+            let keys = error.failures.map(\.key).sorted()
+            XCTAssertEqual(keys, ["key", "value"])
+        }
+        catch {
+            XCTFail("\(error)")
+        }
     }
 
     func testReference() async throws {

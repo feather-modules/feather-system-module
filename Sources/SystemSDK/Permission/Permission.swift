@@ -152,7 +152,7 @@ struct SystemPermissionSDK: SystemPermissionInterface {
         let queryBuilder = try await getQueryBuilder()
 
         guard let model = try await queryBuilder.get(key) else {
-            throw SystemSDKError.unknown
+            throw System.Error.permissionNotFound
         }
         return try model.convert(to: System.Permission.Detail.self)
     }
@@ -164,7 +164,7 @@ struct SystemPermissionSDK: SystemPermissionInterface {
         let queryBuilder = try await getQueryBuilder()
 
         guard try await queryBuilder.get(key) != nil else {
-            throw SystemSDKError.unknown
+            throw System.Error.permissionNotFound
         }
         //TODO: validate input
         let newModel = System.Permission.Model(
@@ -183,7 +183,7 @@ struct SystemPermissionSDK: SystemPermissionInterface {
         let queryBuilder = try await getQueryBuilder()
 
         guard let oldModel = try await queryBuilder.get(key) else {
-            throw SystemSDKError.unknown
+            throw System.Error.permissionNotFound
         }
         //TODO: validate input
         let newModel = System.Permission.Model(

@@ -4,10 +4,6 @@ import FeatherValidation
 import Logging
 import SystemSDKInterface
 
-public enum SystemSDKError: Error {
-    case unknown
-}
-
 public struct SystemSDK: SystemInterface {
 
     let components: ComponentRegistry
@@ -29,7 +25,7 @@ public struct SystemSDK: SystemInterface {
     }
 
     public var variable: SystemVariableInterface {
-        SystemVariableSDK(
+        SystemVariableRepository(
             components: components,
             logger: logger
         )

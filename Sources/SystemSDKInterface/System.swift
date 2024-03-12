@@ -2,6 +2,11 @@ import CoreSDKInterface
 
 public enum System {
 
+    public enum Error: Swift.Error {
+        case permissionNotFound
+        case variableNotFound
+    }
+
     public enum AccessToken {}
     public enum Mobile {}
     public enum Permission: Identifiable {}
