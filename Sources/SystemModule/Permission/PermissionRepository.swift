@@ -118,31 +118,7 @@ struct PermissionRepository: SystemPermissionInterface {
     ) async throws -> System.Permission.Detail {
 
         let queryBuilder = try await getQueryBuilder()
-
-        //            // NOTE: unique key validation workaround
-        //            try await KeyValueValidator(
-        //                key: "key",
-        //                value: input.key.rawValue,
-        //                rules: [
-        //                    .init(
-        //                        message: "Key needs to be unique",
-        //                        { value in
-        //                            guard
-        //                                try await qb.firstById(
-        //                                    value: input.key.rawValue
-        //                                ) == nil
-        //                            else {
-        //                                throw RuleError.invalid
-        //                            }
-        //                        }
-        //                    )
-        //                ]
-        //            )
-        //            .validate()
-        //
-        //            // TODO: proper validation
-        //            //            try await input.validate()
-        //
+        try await input.validate(queryBuilder)
         let model = try input.convert(to: System.Permission.Model.self)
         try await queryBuilder.insert(model)
         return try model.convert(to: System.Permission.Detail.self)
@@ -168,7 +144,7 @@ struct PermissionRepository: SystemPermissionInterface {
         guard try await queryBuilder.get(key) != nil else {
             throw System.Error.permissionNotFound
         }
-        //TODO: validate input
+        try await input.validate(key, queryBuilder)
         let newModel = System.Permission.Model(
             key: input.key.toKey(),
             name: input.name,
@@ -187,7 +163,7 @@ struct PermissionRepository: SystemPermissionInterface {
         guard let oldModel = try await queryBuilder.get(key) else {
             throw System.Error.permissionNotFound
         }
-        //TODO: validate input
+        try await input.validate(key, queryBuilder)
         let newModel = System.Permission.Model(
             key: input.key?.toKey() ?? oldModel.key,
             name: input.name ?? oldModel.name,

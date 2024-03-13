@@ -39,7 +39,6 @@ extension ServiceKitTests {
         //        )
 
         //        let list = try await qb.select()
-        // TODO: don't run seed migrations
         //        XCTAssertEqual(list.count, 6)
     }
 
