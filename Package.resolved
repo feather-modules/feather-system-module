@@ -10,6 +10,15 @@
       }
     },
     {
+      "identity" : "feather-access-control",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/feather-framework/feather-access-control",
+      "state" : {
+        "revision" : "e9d6dc80a29381bf6fec1cbef16485bcbd657fc7",
+        "version" : "0.1.0"
+      }
+    },
+    {
       "identity" : "feather-component",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/feather-framework/feather-component",
@@ -23,8 +32,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/feather-modules/feather-core-module",
       "state" : {
-        "revision" : "2ed79c223ee79918702ae21ddea76a9e4b0ff6c6",
-        "version" : "0.5.1"
+        "revision" : "02f3dd523f56444270398b79ac799b7b2f43d0a9",
+        "version" : "0.6.2"
       }
     },
     {
@@ -32,8 +41,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/feather-framework/feather-database-kit",
       "state" : {
-        "revision" : "727d78e6d21d22c7eff02f6f57a262773aefd0af",
-        "version" : "0.3.0"
+        "revision" : "0c8ab9fbeef4758daf4f8e3e5bda6b29ac2b7bdc",
+        "version" : "0.4.0"
       }
     },
     {
@@ -113,8 +122,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/vapor/sqlite-nio.git",
       "state" : {
-        "revision" : "f3164216b0161f63e609e75f9a28a6f542dd9123",
-        "version" : "1.8.6"
+        "revision" : "2102da7e204fa3b6eeac09a2d01b7aaa1f66c39a",
+        "version" : "1.8.7"
       }
     },
     {
@@ -176,8 +185,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-nio",
       "state" : {
-        "revision" : "635b2589494c97e48c62514bc8b37ced762e0a62",
-        "version" : "2.63.0"
+        "revision" : "fc63f0cf4e55a4597407a9fc95b16a2bc44b4982",
+        "version" : "2.64.0"
       }
     },
     {
