@@ -27,7 +27,7 @@ extension System.Variable {
                     .unique(
                         queryBuilder: queryBuilder,
                         fieldKey: .key,
-                        originalKey: originalKey
+                        originalValue: originalKey
                     )
                 ]
             )

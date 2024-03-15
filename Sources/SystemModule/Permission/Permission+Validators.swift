@@ -27,7 +27,7 @@ extension System.Permission {
                     .unique(
                         queryBuilder: queryBuilder,
                         fieldKey: .key,
-                        originalKey: originalKey
+                        originalValue: originalKey
                     )
                 ]
             )
