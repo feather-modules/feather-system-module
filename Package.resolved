@@ -59,8 +59,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/feather-framework/feather-openapi-kit",
       "state" : {
-        "revision" : "8b7b2e6e99b502bedec277dedab727a3219e0b73",
-        "version" : "0.8.0"
+        "revision" : "1cf41039c23e4fb68a74cce788dd848125c7a397",
+        "version" : "0.8.1"
       }
     },
     {
@@ -122,8 +122,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/vapor/sqlite-nio.git",
       "state" : {
-        "revision" : "f3164216b0161f63e609e75f9a28a6f542dd9123",
-        "version" : "1.8.6"
+        "revision" : "2102da7e204fa3b6eeac09a2d01b7aaa1f66c39a",
+        "version" : "1.8.7"
       }
     },
     {
@@ -185,8 +185,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-nio",
       "state" : {
-        "revision" : "635b2589494c97e48c62514bc8b37ced762e0a62",
-        "version" : "2.63.0"
+        "revision" : "fc63f0cf4e55a4597407a9fc95b16a2bc44b4982",
+        "version" : "2.64.0"
       }
     },
     {
