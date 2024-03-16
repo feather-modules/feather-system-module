@@ -1,8 +1,8 @@
-import CoreModuleInterface
+import CoreModuleKit
 import FeatherComponent
 import FeatherValidation
 import Logging
-import SystemModuleInterface
+import SystemModuleKit
 
 public struct SystemModule: SystemModuleInterface {
 

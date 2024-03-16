@@ -1,6 +1,6 @@
 import DatabaseQueryKit
 import Foundation
-import SystemModuleInterface
+import SystemModuleKit
 
 extension System {
     enum PushMessage {}

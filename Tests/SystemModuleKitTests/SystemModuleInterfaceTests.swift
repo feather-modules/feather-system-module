@@ -7,9 +7,9 @@
 
 import XCTest
 
-@testable import SystemModuleInterface
+@testable import SystemModuleKit
 
-final class SystemModuleInterfaceTests: XCTestCase {
+final class SystemModuleKitTests: XCTestCase {
 
     func testExample() async throws {
         XCTAssertTrue(true)

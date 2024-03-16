@@ -13,7 +13,7 @@ import Logging
 import MigrationKit
 import NIO
 import SQLKit
-import SystemModuleMigration
+import SystemModuleMigrationKit
 import XCTest
 
 extension XCTestCase {

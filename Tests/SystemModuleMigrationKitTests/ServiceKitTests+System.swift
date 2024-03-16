@@ -11,8 +11,8 @@ import FeatherRelationalDatabaseDriverSQLite
 import Logging
 import NIO
 import SQLKit
-import SystemModuleInterface
-import SystemModuleMigration
+import SystemModuleKit
+import SystemModuleMigrationKit
 import XCTest
 
 @testable import SystemModule

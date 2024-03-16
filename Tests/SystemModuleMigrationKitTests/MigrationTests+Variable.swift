@@ -6,7 +6,7 @@
 //
 
 import SQLiteNIO
-import SystemModuleInterface
+import SystemModuleKit
 import XCTest
 
 @testable import SystemModule
