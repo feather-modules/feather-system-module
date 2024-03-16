@@ -18,11 +18,11 @@ extension System.Variable {
 
     public enum ACL: ACLSet {
 
-        public static let list: Permission = .systemPermission(.list)
-        public static let detail: Permission = .systemPermission(.detail)
-        public static let create: Permission = .systemPermission(.create)
-        public static let update: Permission = .systemPermission(.update)
-        public static let delete: Permission = .systemPermission(.delete)
+        public static let list: Permission = .systemVariable(.list)
+        public static let detail: Permission = .systemVariable(.detail)
+        public static let create: Permission = .systemVariable(.create)
+        public static let update: Permission = .systemVariable(.update)
+        public static let delete: Permission = .systemVariable(.delete)
 
         public static var all: [Permission] = [
             Self.list,
