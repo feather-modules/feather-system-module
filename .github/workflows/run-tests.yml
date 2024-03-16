@@ -36,12 +36,12 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
-    - name: Cache
-      uses: actions/cache@v4
-      with:
-        path: .build
-        key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
-        restore-keys: ${{ runner.os }}-spm-
+    # - name: Cache
+    #   uses: actions/cache@v4
+    #   with:
+    #     path: .build
+    #     key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+    #     restore-keys: ${{ runner.os }}-spm-
     
     - name: Test
       run: swift test --parallel --enable-code-coverage
