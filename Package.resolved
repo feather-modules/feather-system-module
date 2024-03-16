@@ -32,8 +32,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/feather-modules/feather-core-module",
       "state" : {
-        "revision" : "f86cb9e39ca71c4af33c89a6838f1377b1267a2f",
-        "version" : "0.6.4"
+        "revision" : "eaad3bfebee207fa576dbc4cb5159a8baec2208c",
+        "version" : "0.7.0"
       }
     },
     {

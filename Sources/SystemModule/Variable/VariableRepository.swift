@@ -6,12 +6,12 @@
 //
 
 import CoreModule
-import CoreModuleInterface
+import CoreModuleKit
 import DatabaseQueryKit
 import FeatherComponent
 import FeatherValidation
 import Logging
-import SystemModuleInterface
+import SystemModuleKit
 
 struct VariableRepository: SystemVariableInterface {
 

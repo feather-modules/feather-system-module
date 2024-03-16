@@ -5,11 +5,11 @@
 //  Created by Tibor Bodecs on 16/02/2024.
 //
 
-import CoreModuleInterface
+import CoreModuleKit
 import FeatherComponent
 import NIO
 import SystemModule
-import SystemModuleInterface
+import SystemModuleKit
 import XCTest
 
 class TestCase: XCTestCase {

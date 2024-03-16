@@ -5,7 +5,7 @@
 //  Created by Tibor Bodecs on 30/01/2024.
 //
 
-import CoreModuleInterface
+import CoreModuleKit
 
 public protocol SystemVariableInterface: Sendable {
 

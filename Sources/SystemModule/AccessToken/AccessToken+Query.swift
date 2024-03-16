@@ -8,7 +8,7 @@
 import DatabaseQueryKit
 import FeatherRelationalDatabase
 import SQLKit
-import SystemModuleInterface
+import SystemModuleKit
 
 extension System.AccessToken {
 

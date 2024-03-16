@@ -1,5 +1,5 @@
 import DatabaseQueryKit
-import SystemModuleInterface
+import SystemModuleKit
 
 extension System.Variable {
 

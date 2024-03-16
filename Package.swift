@@ -13,8 +13,8 @@ let package = Package(
     products: [
         .library(name: "SystemOpenAPIGeneratorKit", targets: ["SystemOpenAPIGeneratorKit"]),
         .library(name: "SystemModule", targets: ["SystemModule"]),
-        .library(name: "SystemModuleInterface", targets: ["SystemModuleInterface"]),
-        .library(name: "SystemModuleMigration", targets: ["SystemModuleMigration"]),
+        .library(name: "SystemModuleKit", targets: ["SystemModuleKit"]),
+        .library(name: "SystemModuleMigrationKit", targets: ["SystemModuleMigrationKit"]),
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-log", from: "1.5.0"),
@@ -25,13 +25,13 @@ let package = Package(
         .package(url: "https://github.com/feather-framework/feather-relational-database-driver-sqlite", .upToNextMinor(from: "0.2.0")),
         .package(url: "https://github.com/feather-framework/feather-openapi-kit", .upToNextMinor(from: "0.8.0")),
         .package(url: "https://github.com/feather-framework/feather-database-kit", .upToNextMinor(from: "0.4.0")),
-        .package(url: "https://github.com/feather-modules/feather-core-module", .upToNextMinor(from: "0.6.0")),
+        .package(url: "https://github.com/feather-modules/feather-core-module", .upToNextMinor(from: "0.7.0")),
     ],
     targets: [
         .target(
-            name: "SystemModuleInterface",
+            name: "SystemModuleKit",
             dependencies: [
-                .product(name: "CoreModuleInterface", package: "feather-core-module"),
+                .product(name: "CoreModuleKit", package: "feather-core-module"),
             ]
         ),
         .target(
@@ -43,18 +43,18 @@ let package = Package(
                 .product(name: "FeatherRelationalDatabase", package: "feather-relational-database"),
                 .product(name: "DatabaseQueryKit", package: "feather-database-kit"),
                 .product(name: "CoreModule", package: "feather-core-module"),
-                .target(name: "SystemModuleInterface"),
+                .target(name: "SystemModuleKit"),
                 
             ]
         ),
 
         .target(
-            name: "SystemModuleMigration",
+            name: "SystemModuleMigrationKit",
             dependencies: [
                 .product(name: "FeatherComponent", package: "feather-component"),
                 .product(name: "FeatherRelationalDatabase", package: "feather-relational-database"),
                 .product(name: "DatabaseMigrationKit", package: "feather-database-kit"),
-                .target(name: "SystemModuleInterface"),
+                .target(name: "SystemModuleKit"),
             ]
         ),
 
@@ -72,9 +72,9 @@ let package = Package(
 
         // MARK: - tests
         .testTarget(
-            name: "SystemModuleInterfaceTests",
+            name: "SystemModuleKitTests",
             dependencies: [
-                .target(name: "SystemModuleInterface")
+                .target(name: "SystemModuleKit")
             ]
         ),
         .testTarget(
@@ -82,17 +82,17 @@ let package = Package(
             dependencies: [
                 .product(name: "NIO", package: "swift-nio"),
                 .target(name: "SystemModule"),
-                .target(name: "SystemModuleMigration"),
+                .target(name: "SystemModuleMigrationKit"),
                 // drivers
                 .product(name: "FeatherRelationalDatabaseDriverSQLite", package: "feather-relational-database-driver-sqlite"),
             ]
         ),
         .testTarget(
-            name: "SystemModuleMigrationTests",
+            name: "SystemModuleMigrationKitTests",
             dependencies: [
                 .product(name: "NIO", package: "swift-nio"),
                 .target(name: "SystemModule"),
-                .target(name: "SystemModuleMigration"),
+                .target(name: "SystemModuleMigrationKit"),
                 // drivers
                 .product(name: "FeatherRelationalDatabaseDriverSQLite", package: "feather-relational-database-driver-sqlite"),
             ]

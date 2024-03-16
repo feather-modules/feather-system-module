@@ -13,8 +13,8 @@ import Logging
 import MigrationKit
 import NIO
 import SQLKit
-import SystemModuleInterface
-import SystemModuleMigration
+import SystemModuleKit
+import SystemModuleMigrationKit
 import XCTest
 
 @testable import SystemModule

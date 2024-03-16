@@ -5,8 +5,8 @@
 //  Created by Tibor Bodecs on 06/03/2024.
 //
 
-import CoreModuleInterface
-import SystemModuleInterface
+import CoreModuleKit
+import SystemModuleKit
 import XCTest
 
 @testable import SystemModule
