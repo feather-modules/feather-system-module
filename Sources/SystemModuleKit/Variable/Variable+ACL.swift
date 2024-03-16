@@ -14,7 +14,6 @@ extension Permission {
     }
 }
 
-
 extension System.Variable {
 
     public enum ACL: ACLSet {

@@ -12,11 +12,10 @@ public enum System {
     public enum ACL: ACLSet {
 
         public static var all: [CoreModuleKit.Permission] {
-            Permission.ACL.all +
-            Variable.ACL.all
+            Permission.ACL.all + Variable.ACL.all
         }
     }
-    
+
     public enum Error: Swift.Error {
         case permissionNotFound
         case variableNotFound
@@ -32,5 +31,3 @@ public protocol SystemModuleInterface: ModuleInterface {
     var permission: SystemPermissionInterface { get }
     var variable: SystemVariableInterface { get }
 }
-
-
