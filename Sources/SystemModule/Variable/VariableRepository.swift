@@ -55,7 +55,7 @@ struct VariableRepository: SystemVariableInterface {
         let filterGroup = input.search.flatMap { value in
             QueryFilterGroup<System.Variable.Model.CodingKeys>(
                 relation: .or,
-                filters: [
+                fields: [
                     .init(
                         field: .key,
                         operator: .like,
@@ -92,7 +92,7 @@ struct VariableRepository: SystemVariableInterface {
                         direction: input.sort.order.queryDirection
                     )
                 ],
-                filterGroup: filterGroup
+                filter: filterGroup.map { .init(groups: [$0]) }
             )
         )
 
