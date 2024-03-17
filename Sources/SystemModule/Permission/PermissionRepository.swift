@@ -53,7 +53,7 @@ struct PermissionRepository: SystemPermissionInterface {
         let filterGroup = input.search.flatMap { value in
             QueryFilterGroup<System.Permission.Model.CodingKeys>(
                 relation: .or,
-                filters: [
+                fields: [
                     .init(
                         field: .key,
                         operator: .like,
@@ -85,7 +85,7 @@ struct PermissionRepository: SystemPermissionInterface {
                         direction: input.sort.order.queryDirection
                     )
                 ],
-                filterGroup: filterGroup
+                filter: filterGroup.map { .init(groups: [$0]) }
             )
         )
 
