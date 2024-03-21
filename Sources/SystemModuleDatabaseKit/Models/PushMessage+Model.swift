@@ -2,15 +2,11 @@ import DatabaseQueryKit
 import Foundation
 import SystemModuleKit
 
-extension System {
-    enum PushMessage {}
-}
-
 extension System.PushMessage {
 
-    struct Model: QueryModel {
+    public struct Model: QueryModel {
 
-        enum CodingKeys: String, QueryFieldKey {
+        public enum CodingKeys: String, QueryFieldKey {
             case id
             case title
             case message
@@ -18,16 +14,16 @@ extension System.PushMessage {
             case date
             case recipients
         }
-        static let fieldKeys = CodingKeys.self
+        public static let fieldKeys = CodingKeys.self
 
-        let id: UUID
-        let title: String
-        let message: String
-        let topic: String
-        let date: Date
-        let recipients: String?
+        public let id: UUID
+        public let title: String
+        public let message: String
+        public let topic: String
+        public let date: Date
+        public let recipients: String?
 
-        init(
+        public init(
             id: UUID,
             title: String,
             message: String,

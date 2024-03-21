@@ -1,27 +1,32 @@
 import DatabaseMigrationKit
 import MigrationKit
 import SQLKit
+import SystemModuleDatabaseKit
+import SystemModuleKit
 
-extension SystemMigrationGroup.Version1 {
+extension System.PushMessage {
 
-    public struct PushMessage: RelationalDatabaseTableMigration {
+    public enum Migrations {
 
-        public let tableName: String
+        public struct V1: RelationalDatabaseTableMigration {
 
-        public init() {
-            self.tableName = "system_push_message"
-        }
+            public let tableName: String
 
-        public func statements(
-            _ builder: SQLCreateTableBuilder
-        ) -> SQLCreateTableBuilder {
-            builder
-                .primaryId()
-                .text("title")
-                .text("message")
-                .text("topic")
-                .date("date")
-                .text("recipients", isMandatory: false)
+            public init() {
+                self.tableName = "system_push_message"
+            }
+
+            public func statements(
+                _ builder: SQLCreateTableBuilder
+            ) -> SQLCreateTableBuilder {
+                builder
+                    .primaryId()
+                    .text("title")
+                    .text("message")
+                    .text("topic")
+                    .date("date")
+                    .text("recipients", isMandatory: false)
+            }
         }
     }
 }

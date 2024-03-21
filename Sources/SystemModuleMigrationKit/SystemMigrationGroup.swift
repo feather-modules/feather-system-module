@@ -1,20 +1,28 @@
 import DatabaseMigrationKit
 import MigrationKit
+import SystemModuleDatabaseKit
+import SystemModuleKit
 
-public struct SystemMigrationGroup: MigrationGroup {
+extension System {
 
-    public init() {}
+    public enum MigrationGroups {
 
-    public func migrations() -> [Migration] {
-        [
-            Version1.AccessToken(),
-            Version1.Permission(),
-            Version1.PushMessage(),
-            Version1.Variable(),
-        ]
+        public static var all: [MigrationGroup] {
+            [
+                Structural()
+            ]
+        }
+
+        public struct Structural: MigrationGroup {
+
+            public init() {}
+
+            public func migrations() -> [Migration] {
+                [
+                    Permission.Migrations.V1(),
+                    Variable.Migrations.V1(),
+                ]
+            }
+        }
     }
-}
-
-extension SystemMigrationGroup {
-    enum Version1 {}
 }

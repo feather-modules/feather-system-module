@@ -1,6 +1,7 @@
 import CoreModuleKit
+import FeatherACL
 
-extension Permission {
+extension FeatherACL.Permission {
 
     static func system(_ context: String, action: Action) -> Self {
         .init(namespace: "system", context: context, action: action)
@@ -11,7 +12,7 @@ public enum System {
 
     public enum ACL: ACLSet {
 
-        public static var all: [CoreModuleKit.Permission] {
+        public static var all: [FeatherACL.Permission] {
             Permission.ACL.all + Variable.ACL.all
         }
     }
@@ -21,8 +22,9 @@ public enum System {
         case variableNotFound
     }
 
-    public enum AccessToken {}
     public enum Mobile {}
+    public enum AccessToken: Identifiable {}
+    public enum PushMessage: Identifiable {}
     public enum Permission: Identifiable {}
     public enum Variable: Identifiable {}
 }

@@ -9,6 +9,7 @@ import CoreModule
 import CoreModuleKit
 import DatabaseQueryKit
 import FeatherValidation
+import SystemModuleDatabaseKit
 import SystemModuleKit
 
 extension System.Variable {

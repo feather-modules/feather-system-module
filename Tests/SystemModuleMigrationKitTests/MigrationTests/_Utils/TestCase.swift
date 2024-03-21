@@ -12,20 +12,20 @@ import FeatherRelationalDatabaseDriverSQLite
 import Logging
 import MigrationKit
 import NIO
-import SQLKit
-import SystemModuleMigrationKit
 import XCTest
 
-extension XCTestCase {
+class TestCase: XCTestCase {
 
-    func runSQLDatabaseTest(
-        _ block: ((SQLDatabase) async throws -> Void)
-    ) async throws {
-        let eventLoopGroup = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+    var eventLoopGroup: EventLoopGroup!
+    var components: ComponentRegistry!
+    var migrator: Migrator!
+
+    override func setUp() async throws {
+        self.components = ComponentRegistry()
+        self.eventLoopGroup = MultiThreadedEventLoopGroup(numberOfThreads: 1)
         let threadPool = NIOThreadPool(numberOfThreads: 1)
         threadPool.start()
 
-        let components = ComponentRegistry()
         try await components.addRelationalDatabase(
             SQLiteRelationalDatabaseComponentContext(
                 eventLoopGroup: eventLoopGroup,
@@ -41,26 +41,13 @@ extension XCTestCase {
 
         try await components.run()
 
-        //        setenv("FEATHER_SERVICE_MIGRATOR_LOG_LEVEL", "trace", 1)
-
-        let migrator = Migrator(
+        self.migrator = Migrator(
             components: components,
             storage: MigrationEntryStorageEphemeral()
         )
-        try await migrator.perform(
-            groups: [
-                SystemMigrationGroup()
-            ]
-        )
+    }
 
-        do {
-            let db = try await components.relationalDatabase().connection()
-            try await block(db)
-        }
-        catch {
-            XCTFail("\(error)")
-        }
-
+    override func tearDown() async throws {
         try await components.shutdown()
         try await eventLoopGroup.shutdownGracefully()
     }
