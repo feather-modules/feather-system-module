@@ -3,22 +3,22 @@ import SystemModuleKit
 
 extension System.Variable {
 
-    struct Model: QueryModel {
+    public struct Model: QueryModel {
 
-        enum CodingKeys: String, QueryFieldKey {
+        public enum CodingKeys: String, QueryFieldKey {
             case key
             case value
             case name
             case notes
         }
-        static let fieldKeys = CodingKeys.self
+        public static let fieldKeys = CodingKeys.self
 
-        let key: Key<System.Variable>
-        let value: String
-        let name: String?
-        let notes: String?
+        public let key: Key<System.Variable>
+        public let value: String
+        public let name: String?
+        public let notes: String?
 
-        init(
+        public init(
             key: Key<System.Variable>,
             value: String,
             name: String? = nil,

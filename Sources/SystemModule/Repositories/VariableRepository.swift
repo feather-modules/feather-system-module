@@ -11,6 +11,7 @@ import DatabaseQueryKit
 import FeatherComponent
 import FeatherValidation
 import Logging
+import SystemModuleDatabaseKit
 import SystemModuleKit
 
 struct VariableRepository: SystemVariableInterface {

@@ -10,20 +10,20 @@ import SystemModuleKit
 
 extension System.Permission {
 
-    struct Model: QueryModel {
+    public struct Model: QueryModel {
 
-        enum CodingKeys: String, QueryFieldKey {
+        public enum CodingKeys: String, QueryFieldKey {
             case key
             case name
             case notes
         }
-        static let fieldKeys = CodingKeys.self
+        public static let fieldKeys = CodingKeys.self
 
-        let key: Key<System.Permission>
-        let name: String
-        let notes: String?
+        public let key: Key<System.Permission>
+        public let name: String
+        public let notes: String?
 
-        init(
+        public init(
             key: Key<System.Permission>,
             name: String,
             notes: String? = nil
@@ -40,7 +40,9 @@ extension System.Permission {
 }
 
 extension System.Permission.Model {
-    var namespace: String { .init(key.rawValue.split(separator: ".")[0]) }
-    var context: String { .init(key.rawValue.split(separator: ".")[1]) }
-    var action: String { .init(key.rawValue.split(separator: ".")[2]) }
+    public var namespace: String {
+        .init(key.rawValue.split(separator: ".")[0])
+    }
+    public var context: String { .init(key.rawValue.split(separator: ".")[1]) }
+    public var action: String { .init(key.rawValue.split(separator: ".")[2]) }
 }

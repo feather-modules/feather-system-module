@@ -5,9 +5,9 @@
 //  Created by Tibor Bodecs on 21/02/2024.
 //
 
-import CoreModuleKit
+import FeatherACL
 
-extension Permission {
+extension FeatherACL.Permission {
 
     static func systemPermission(_ action: Action) -> Self {
         .system("permission", action: action)

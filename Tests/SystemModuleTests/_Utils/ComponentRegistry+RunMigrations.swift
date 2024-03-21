@@ -8,6 +8,7 @@
 import DatabaseMigrationKit
 import FeatherComponent
 import MigrationKit
+import SystemModuleKit
 import SystemModuleMigrationKit
 
 extension ComponentRegistry {
@@ -21,7 +22,7 @@ extension ComponentRegistry {
 
         try await migrator.perform(
             groups: [
-                SystemMigrationGroup()
+                System.MigrationGroups.Structural()
             ]
         )
     }

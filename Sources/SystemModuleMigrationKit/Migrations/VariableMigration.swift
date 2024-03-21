@@ -1,26 +1,31 @@
 import DatabaseMigrationKit
 import MigrationKit
 import SQLKit
+import SystemModuleDatabaseKit
+import SystemModuleKit
 
-extension SystemMigrationGroup.Version1 {
+extension System.Variable {
 
-    public struct Variable: RelationalDatabaseTableMigration {
+    public enum Migrations {
 
-        public let tableName: String
+        public struct V1: RelationalDatabaseTableMigration {
 
-        public init() {
-            self.tableName = "system_variable"
-        }
+            public let tableName: String
 
-        public func statements(
-            _ builder: SQLCreateTableBuilder
-        ) -> SQLCreateTableBuilder {
-            builder
-                .text("key")
-                .text("value")
-                .text("name", isMandatory: false)
-                .text("notes", isMandatory: false)
-                .unique("key")
+            public init() {
+                self.tableName = "system_variable"
+            }
+
+            public func statements(
+                _ builder: SQLCreateTableBuilder
+            ) -> SQLCreateTableBuilder {
+                builder
+                    .text("key")
+                    .text("value")
+                    .text("name", isMandatory: false)
+                    .text("notes", isMandatory: false)
+                    .unique("key")
+            }
         }
     }
 }

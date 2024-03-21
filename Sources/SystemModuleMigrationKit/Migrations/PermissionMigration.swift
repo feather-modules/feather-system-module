@@ -1,25 +1,30 @@
 import DatabaseMigrationKit
 import MigrationKit
 import SQLKit
+import SystemModuleDatabaseKit
+import SystemModuleKit
 
-extension SystemMigrationGroup.Version1 {
+extension System.Permission {
 
-    public struct Permission: RelationalDatabaseTableMigration {
+    public enum Migrations {
 
-        public let tableName: String
+        public struct V1: RelationalDatabaseTableMigration {
 
-        public init() {
-            self.tableName = "system_permission"
-        }
+            public let tableName: String
 
-        public func statements(
-            _ builder: SQLCreateTableBuilder
-        ) -> SQLCreateTableBuilder {
-            builder
-                .text("key")
-                .text("name")
-                .text("notes", isMandatory: false)
-                .unique("key")
+            public init() {
+                self.tableName = "system_permission"
+            }
+
+            public func statements(
+                _ builder: SQLCreateTableBuilder
+            ) -> SQLCreateTableBuilder {
+                builder
+                    .text("key")
+                    .text("name")
+                    .text("notes", isMandatory: false)
+                    .unique("key")
+            }
         }
     }
 }
