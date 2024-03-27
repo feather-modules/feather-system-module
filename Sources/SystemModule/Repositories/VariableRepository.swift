@@ -99,7 +99,7 @@ struct VariableRepository: SystemVariableInterface {
 
         return try System.Variable.List(
             items: result.items.map {
-                try $0.convert(to: System.Variable.List.Item.self)
+                try $0.toListItem()
             },
             count: UInt(result.total)
         )
@@ -119,7 +119,9 @@ struct VariableRepository: SystemVariableInterface {
                     value: keys
                 )
             )
-            .convert(to: [System.Variable.Reference].self)
+            .map {
+                try $0.toReference()
+            }
     }
 
     public func create(
@@ -128,9 +130,14 @@ struct VariableRepository: SystemVariableInterface {
 
         let queryBuilder = try await getQueryBuilder()
         try await input.validate(queryBuilder)
-        let model = try input.convert(to: System.Variable.Model.self)
+        let model = System.Variable.Model(
+            key: input.key.toKey(),
+            value: input.value,
+            name: input.name,
+            notes: input.notes
+        )
         try await queryBuilder.insert(model)
-        return try model.convert(to: System.Variable.Detail.self)
+        return try model.toDetail()
 
     }
 
@@ -142,7 +149,7 @@ struct VariableRepository: SystemVariableInterface {
         guard let model = try await queryBuilder.get(key) else {
             throw System.Error.variableNotFound
         }
-        return try model.convert(to: System.Variable.Detail.self)
+        return try model.toDetail()
     }
 
     public func update(
@@ -163,7 +170,7 @@ struct VariableRepository: SystemVariableInterface {
             notes: input.notes
         )
         try await queryBuilder.update(key, newModel)
-        return try newModel.convert(to: System.Variable.Detail.self)
+        return try newModel.toDetail()
     }
 
     public func patch(
@@ -184,7 +191,7 @@ struct VariableRepository: SystemVariableInterface {
             notes: input.notes ?? oldModel.notes
         )
         try await queryBuilder.update(key, newModel)
-        return try newModel.convert(to: System.Variable.Detail.self)
+        return try newModel.toDetail()
     }
 
     public func bulkDelete(

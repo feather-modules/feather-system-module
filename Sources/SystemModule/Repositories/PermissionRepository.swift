@@ -92,7 +92,7 @@ struct PermissionRepository: SystemPermissionInterface {
 
         return try System.Permission.List(
             items: result.items.map {
-                try $0.convert(to: System.Permission.List.Item.self)
+                try $0.toListItem()
             },
             count: UInt(result.total)
         )
@@ -111,7 +111,9 @@ struct PermissionRepository: SystemPermissionInterface {
                     value: keys
                 )
             )
-            .convert(to: [System.Permission.Reference].self)
+            .map {
+                try $0.toReference()
+            }
     }
 
     public func create(
@@ -120,9 +122,13 @@ struct PermissionRepository: SystemPermissionInterface {
 
         let queryBuilder = try await getQueryBuilder()
         try await input.validate(queryBuilder)
-        let model = try input.convert(to: System.Permission.Model.self)
+        let model = System.Permission.Model(
+            key: input.key.toKey(),
+            name: input.name,
+            notes: input.notes
+        )
         try await queryBuilder.insert(model)
-        return try model.convert(to: System.Permission.Detail.self)
+        return try model.toDetail()
     }
 
     public func get(
@@ -133,7 +139,7 @@ struct PermissionRepository: SystemPermissionInterface {
         guard let model = try await queryBuilder.get(key) else {
             throw System.Error.permissionNotFound
         }
-        return try model.convert(to: System.Permission.Detail.self)
+        return try model.toDetail()
     }
 
     public func update(
@@ -152,7 +158,7 @@ struct PermissionRepository: SystemPermissionInterface {
             notes: input.notes
         )
         try await queryBuilder.update(key, newModel)
-        return try newModel.convert(to: System.Permission.Detail.self)
+        return try newModel.toDetail()
     }
 
     public func patch(
@@ -171,7 +177,7 @@ struct PermissionRepository: SystemPermissionInterface {
             notes: input.notes ?? oldModel.notes
         )
         try await queryBuilder.update(key, newModel)
-        return try newModel.convert(to: System.Permission.Detail.self)
+        return try newModel.toDetail()
     }
 
     public func bulkDelete(

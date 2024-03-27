@@ -81,6 +81,12 @@ extension System.Permission {
         public let key: ID<System.Permission>
         public let name: String
         public let notes: String?
+
+        public init(key: ID<System.Permission>, name: String, notes: String?) {
+            self.key = key
+            self.name = name
+            self.notes = notes
+        }
     }
 
     public struct Create: Object {
