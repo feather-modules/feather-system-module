@@ -1,5 +1,5 @@
-import CoreModuleKit
 import FeatherComponent
+import FeatherModuleKit
 import FeatherValidation
 import Logging
 import SystemModuleKit

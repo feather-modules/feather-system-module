@@ -19,8 +19,8 @@ extension System.AccessToken {
                 _ builder: SQLCreateTableBuilder
             ) -> SQLCreateTableBuilder {
                 builder
-                    .text(System.AccessToken.Model.fieldKeys.token.rawValue)
-                    .unique(System.AccessToken.Model.fieldKeys.token.rawValue)
+                    .text(Model.fieldKeys.token.rawValue)
+                    .unique(Model.fieldKeys.token.rawValue)
             }
         }
     }

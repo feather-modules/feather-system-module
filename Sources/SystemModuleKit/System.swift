@@ -1,5 +1,5 @@
-import CoreModuleKit
 import FeatherACL
+import FeatherModuleKit
 
 extension FeatherACL.Permission {
 
