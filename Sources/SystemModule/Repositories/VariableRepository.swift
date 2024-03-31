@@ -5,10 +5,9 @@
 //  Created by Tibor Bodecs on 06/01/2024.
 //
 
-import CoreModule
-import CoreModuleKit
 import DatabaseQueryKit
 import FeatherComponent
+import FeatherModuleKit
 import FeatherValidation
 import Logging
 import SystemModuleDatabaseKit

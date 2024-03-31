@@ -20,11 +20,11 @@ extension System.Variable {
                 _ builder: SQLCreateTableBuilder
             ) -> SQLCreateTableBuilder {
                 builder
-                    .text("key")
-                    .text("value")
-                    .text("name", isMandatory: false)
-                    .text("notes", isMandatory: false)
-                    .unique("key")
+                    .text(Model.fieldKeys.key.rawValue)
+                    .text(Model.fieldKeys.value.rawValue)
+                    .text(Model.fieldKeys.name.rawValue, isMandatory: false)
+                    .text(Model.fieldKeys.notes.rawValue, isMandatory: false)
+                    .unique(Model.fieldKeys.key.rawValue)
             }
         }
     }

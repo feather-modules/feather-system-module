@@ -5,8 +5,8 @@
 //  Created by Tibor Bodecs on 16/02/2024.
 //
 
-import CoreModuleKit
 import FeatherComponent
+import FeatherModuleKit
 import NIO
 import SystemModule
 import SystemModuleKit
@@ -16,13 +16,13 @@ class TestCase: XCTestCase {
 
     var eventLoopGroup: EventLoopGroup!
     var components: ComponentRegistry!
-    var sdk: SystemModuleInterface!
+    var system: SystemModuleInterface!
 
     override func setUp() async throws {
         self.eventLoopGroup = MultiThreadedEventLoopGroup(numberOfThreads: 1)
         components = ComponentRegistry()
 
-        sdk = SystemModule(components: components)
+        system = SystemModule(components: components)
 
         try await components.configure(.singleton, eventLoopGroup)
         try await components.run()

@@ -5,7 +5,7 @@
 //  Created by Tibor Bodecs on 06/03/2024.
 //
 
-import CoreModuleKit
+import FeatherModuleKit
 import SystemModuleKit
 import XCTest
 
@@ -25,11 +25,11 @@ extension System.Permission.Create {
 final class PermissionTests: TestCase {
 
     func testList() async throws {
-        _ = try await sdk.permission.create(
+        _ = try await system.permission.create(
             System.Permission.Create.mock()
         )
 
-        let list = try await sdk.permission.list(
+        let list = try await system.permission.list(
             System.Permission.List.Query(
                 search: nil,
                 sort: .init(by: .key, order: .asc),
@@ -41,7 +41,7 @@ final class PermissionTests: TestCase {
     }
 
     func testCreate() async throws {
-        let detail = try await sdk.permission.create(
+        let detail = try await system.permission.create(
             System.Permission.Create.mock()
         )
 
@@ -51,11 +51,11 @@ final class PermissionTests: TestCase {
     }
 
     func testReference() async throws {
-        let detail = try await sdk.permission.create(
+        let detail = try await system.permission.create(
             System.Permission.Create.mock()
         )
 
-        let permissions = try await sdk.permission.reference(
+        let permissions = try await system.permission.reference(
             keys: [
                 detail.key
             ]
@@ -66,20 +66,20 @@ final class PermissionTests: TestCase {
     }
 
     func testDetail() async throws {
-        let detail = try await sdk.permission.create(
+        let detail = try await system.permission.create(
             System.Permission.Create.mock()
         )
 
-        let permission = try await sdk.permission.get(key: detail.key)
+        let permission = try await system.permission.get(key: detail.key)
         XCTAssertEqual(permission.key, detail.key)
     }
 
     func testUpdate() async throws {
-        let detail = try await sdk.permission.create(
+        let detail = try await system.permission.create(
             System.Permission.Create.mock()
         )
 
-        let permission = try await sdk.permission.update(
+        let permission = try await system.permission.update(
             key: detail.key,
             System.Permission.Update(
                 key: detail.key,
@@ -93,11 +93,11 @@ final class PermissionTests: TestCase {
     }
 
     func testPatch() async throws {
-        let detail = try await sdk.permission.create(
+        let detail = try await system.permission.create(
             System.Permission.Create.mock()
         )
 
-        let permission = try await sdk.permission.patch(
+        let permission = try await system.permission.patch(
             key: detail.key,
             System.Permission.Patch(
                 key: detail.key,
@@ -111,15 +111,15 @@ final class PermissionTests: TestCase {
     }
 
     func testDelete() async throws {
-        let detail = try await sdk.permission.create(
+        let detail = try await system.permission.create(
             System.Permission.Create.mock()
         )
 
-        try await sdk.permission.bulkDelete(
+        try await system.permission.bulkDelete(
             keys: [detail.key]
         )
 
-        let permissions = try await sdk.permission.reference(
+        let permissions = try await system.permission.reference(
             keys: [
                 detail.key
             ]

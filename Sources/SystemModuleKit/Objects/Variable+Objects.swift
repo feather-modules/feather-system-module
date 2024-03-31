@@ -5,7 +5,7 @@
 //  Created by Tibor Bodecs on 06/03/2024.
 //
 
-import CoreModuleKit
+import FeatherModuleKit
 
 extension System.Variable {
 
@@ -19,7 +19,7 @@ extension System.Variable {
         }
     }
 
-    public struct List: CoreModuleKit.List {
+    public struct List: FeatherModuleKit.List {
 
         public struct Query: Object {
 

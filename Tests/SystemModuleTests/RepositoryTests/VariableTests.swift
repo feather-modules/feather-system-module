@@ -5,7 +5,7 @@
 //  Created by Tibor Bodecs on 06/03/2024.
 //
 
-import CoreModuleKit
+import FeatherModuleKit
 import FeatherValidation
 import SystemModuleKit
 import XCTest
@@ -27,11 +27,11 @@ extension System.Variable.Create {
 final class VariableTests: TestCase {
 
     func testList() async throws {
-        _ = try await sdk.variable.create(
+        _ = try await system.variable.create(
             System.Variable.Create.mock()
         )
 
-        let list = try await sdk.variable.list(
+        let list = try await system.variable.list(
             .init(
                 search: nil,
                 sort: .init(by: .key, order: .asc),
@@ -43,7 +43,7 @@ final class VariableTests: TestCase {
     }
 
     func testCreate() async throws {
-        let detail = try await sdk.variable.create(
+        let detail = try await system.variable.create(
             System.Variable.Create.mock()
         )
 
@@ -55,7 +55,7 @@ final class VariableTests: TestCase {
 
     func testCreateInvalid() async throws {
         do {
-            _ = try await sdk.variable.create(
+            _ = try await system.variable.create(
                 .init(
                     key: .init(rawValue: "a"),
                     value: "",
@@ -76,12 +76,12 @@ final class VariableTests: TestCase {
     }
 
     func testCreateInvalidUnique() async throws {
-        _ = try await sdk.variable.create(
+        _ = try await system.variable.create(
             System.Variable.Create.mock()
         )
 
         do {
-            _ = try await sdk.variable.create(
+            _ = try await system.variable.create(
                 .init(
                     key: .init(rawValue: "key-1"),
                     value: "",
@@ -102,11 +102,11 @@ final class VariableTests: TestCase {
     }
 
     func testReference() async throws {
-        let detail = try await sdk.variable.create(
+        let detail = try await system.variable.create(
             System.Variable.Create.mock()
         )
 
-        let variables = try await sdk.variable.reference(
+        let variables = try await system.variable.reference(
             keys: [
                 detail.key
             ]
@@ -117,20 +117,20 @@ final class VariableTests: TestCase {
     }
 
     func testDetail() async throws {
-        let detail = try await sdk.variable.create(
+        let detail = try await system.variable.create(
             System.Variable.Create.mock()
         )
 
-        let variable = try await sdk.variable.get(key: detail.key)
+        let variable = try await system.variable.get(key: detail.key)
         XCTAssertEqual(variable.key, detail.key)
     }
 
     func testUpdate() async throws {
-        let detail = try await sdk.variable.create(
+        let detail = try await system.variable.create(
             System.Variable.Create.mock()
         )
 
-        let variable = try await sdk.variable.update(
+        let variable = try await system.variable.update(
             key: detail.key,
             .init(
                 key: detail.key,
@@ -146,15 +146,15 @@ final class VariableTests: TestCase {
     }
 
     func testUpdateInvalidUnique() async throws {
-        let detail1 = try await sdk.variable.create(
+        let detail1 = try await system.variable.create(
             System.Variable.Create.mock(1)
         )
-        let detail2 = try await sdk.variable.create(
+        let detail2 = try await system.variable.create(
             System.Variable.Create.mock(2)
         )
 
         do {
-            _ = try await sdk.variable.update(
+            _ = try await system.variable.update(
                 key: detail1.key,
                 .init(
                     key: detail2.key,
@@ -176,11 +176,11 @@ final class VariableTests: TestCase {
     }
 
     func testPatch() async throws {
-        let detail = try await sdk.variable.create(
+        let detail = try await system.variable.create(
             System.Variable.Create.mock()
         )
 
-        let variable = try await sdk.variable.patch(
+        let variable = try await system.variable.patch(
             key: detail.key,
             .init(
                 key: detail.key,
@@ -195,11 +195,11 @@ final class VariableTests: TestCase {
     }
 
     func testPatchValidUnique() async throws {
-        let detail = try await sdk.variable.create(
+        let detail = try await system.variable.create(
             System.Variable.Create.mock()
         )
 
-        let variable = try await sdk.variable.patch(
+        let variable = try await system.variable.patch(
             key: detail.key,
             .init(
                 key: .init(rawValue: "id-2"),
@@ -208,7 +208,7 @@ final class VariableTests: TestCase {
             )
         )
         do {
-            _ = try await sdk.variable.get(key: detail.key)
+            _ = try await system.variable.get(key: detail.key)
         }
         catch System.Error.variableNotFound {
             // ok
@@ -224,15 +224,15 @@ final class VariableTests: TestCase {
     }
 
     func testPatchInvalidUnique() async throws {
-        let detail1 = try await sdk.variable.create(
+        let detail1 = try await system.variable.create(
             System.Variable.Create.mock(1)
         )
-        let detail2 = try await sdk.variable.create(
+        let detail2 = try await system.variable.create(
             System.Variable.Create.mock(2)
         )
 
         do {
-            _ = try await sdk.variable.patch(
+            _ = try await system.variable.patch(
                 key: detail1.key,
                 .init(
                     key: detail2.key,
@@ -254,15 +254,15 @@ final class VariableTests: TestCase {
     }
 
     func testDelete() async throws {
-        let detail = try await sdk.variable.create(
+        let detail = try await system.variable.create(
             System.Variable.Create.mock()
         )
 
-        try await sdk.variable.bulkDelete(
+        try await system.variable.bulkDelete(
             keys: [detail.key]
         )
 
-        let variables = try await sdk.variable.reference(
+        let variables = try await system.variable.reference(
             keys: [
                 detail.key
             ]

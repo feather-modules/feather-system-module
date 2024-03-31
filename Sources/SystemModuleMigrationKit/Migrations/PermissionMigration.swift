@@ -20,10 +20,10 @@ extension System.Permission {
                 _ builder: SQLCreateTableBuilder
             ) -> SQLCreateTableBuilder {
                 builder
-                    .text("key")
-                    .text("name")
-                    .text("notes", isMandatory: false)
-                    .unique("key")
+                    .text(Model.fieldKeys.key.rawValue)
+                    .text(Model.fieldKeys.name.rawValue)
+                    .text(Model.fieldKeys.notes.rawValue, isMandatory: false)
+                    .unique(Model.fieldKeys.key.rawValue)
             }
         }
     }

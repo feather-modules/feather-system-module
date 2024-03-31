@@ -21,11 +21,14 @@ extension System.PushMessage {
             ) -> SQLCreateTableBuilder {
                 builder
                     .primaryId()
-                    .text("title")
-                    .text("message")
-                    .text("topic")
-                    .date("date")
-                    .text("recipients", isMandatory: false)
+                    .text(Model.fieldKeys.title.rawValue)
+                    .text(Model.fieldKeys.message.rawValue)
+                    .text(Model.fieldKeys.topic.rawValue)
+                    .date(Model.fieldKeys.date.rawValue)
+                    .text(
+                        Model.fieldKeys.recipients.rawValue,
+                        isMandatory: false
+                    )
             }
         }
     }
