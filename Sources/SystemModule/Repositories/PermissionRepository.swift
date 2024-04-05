@@ -135,9 +135,8 @@ struct PermissionRepository: SystemPermissionInterface {
     ) async throws -> System.Permission.Detail {
         let queryBuilder = try await getQueryBuilder()
 
-        guard let model = try await queryBuilder.get(key) else {
-            throw System.Error.permissionNotFound
-        }
+        let model = try await queryBuilder.require(key)
+
         return try model.toDetail()
     }
 
@@ -147,9 +146,8 @@ struct PermissionRepository: SystemPermissionInterface {
     ) async throws -> System.Permission.Detail {
         let queryBuilder = try await getQueryBuilder()
 
-        guard try await queryBuilder.get(key) != nil else {
-            throw System.Error.permissionNotFound
-        }
+        _ = try await queryBuilder.require(key)
+
         try await input.validate(key, queryBuilder)
         let newModel = System.Permission.Model(
             key: input.key.toKey(),
@@ -166,9 +164,8 @@ struct PermissionRepository: SystemPermissionInterface {
     ) async throws -> System.Permission.Detail {
         let queryBuilder = try await getQueryBuilder()
 
-        guard let oldModel = try await queryBuilder.get(key) else {
-            throw System.Error.permissionNotFound
-        }
+        let oldModel = try await queryBuilder.require(key)
+
         try await input.validate(key, queryBuilder)
         let newModel = System.Permission.Model(
             key: input.key?.toKey() ?? oldModel.key,

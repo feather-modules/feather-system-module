@@ -210,8 +210,9 @@ final class VariableTests: TestCase {
         do {
             _ = try await system.variable.get(key: detail.key)
         }
-        catch System.Error.variableNotFound {
-            // ok
+        catch ModuleError.objectNotFound(let type, let id) {
+            XCTAssertEqual(id, "key")
+            XCTAssert(type.contains("System.Variable.Model"))
         }
         catch {
             XCTFail("\(error)")

@@ -145,9 +145,8 @@ struct VariableRepository: SystemVariableInterface {
     ) async throws -> System.Variable.Detail {
 
         let queryBuilder = try await getQueryBuilder()
-        guard let model = try await queryBuilder.get(key) else {
-            throw System.Error.variableNotFound
-        }
+        let model = try await queryBuilder.require(key)
+
         return try model.toDetail()
     }
 
@@ -158,9 +157,8 @@ struct VariableRepository: SystemVariableInterface {
 
         let queryBuilder = try await getQueryBuilder()
 
-        guard try await queryBuilder.get(key) != nil else {
-            throw System.Error.variableNotFound
-        }
+        _ = try await queryBuilder.require(key)
+
         try await input.validate(key, queryBuilder)
         let newModel = System.Variable.Model(
             key: input.key.toKey(),
@@ -179,9 +177,8 @@ struct VariableRepository: SystemVariableInterface {
 
         let queryBuilder = try await getQueryBuilder()
 
-        guard let oldModel = try await queryBuilder.get(key) else {
-            throw System.Error.variableNotFound
-        }
+        let oldModel = try await queryBuilder.require(key)
+
         try await input.validate(key, queryBuilder)
         let newModel = System.Variable.Model(
             key: input.key?.toKey() ?? oldModel.key,
