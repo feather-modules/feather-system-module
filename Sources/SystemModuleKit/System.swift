@@ -18,8 +18,7 @@ public enum System {
     }
 
     public enum Error: Swift.Error {
-        case permissionNotFound
-        case variableNotFound
+        case unknown
     }
 
     public enum Mobile {}
