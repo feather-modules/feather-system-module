@@ -39,7 +39,10 @@ final class VariableTests: TestCase {
             )
         )
 
-        print(list)
+        XCTAssertEqual(list.count, 1)
+        XCTAssertEqual(list.items[0].key.rawValue, "key-1")
+        XCTAssertEqual(list.items[0].value, "value-1")
+        XCTAssertEqual(list.items[0].name, "name-1")
     }
 
     func testCreate() async throws {
