@@ -13,7 +13,7 @@ extension System.Variable.Model {
     }
 
     func toListItem() throws -> System.Variable.List.Item {
-        .init(key: key.toID(), value: value)
+        .init(key: key.toID(), value: value, name: name)
     }
 
     func toDetail() throws -> System.Variable.Detail {

@@ -58,10 +58,13 @@ extension System.Variable {
         public struct Item: Object {
             public let key: ID<System.Variable>
             public let value: String
+            public let name: String?
 
-            public init(key: ID<System.Variable>, value: String) {
+            public init(key: ID<System.Variable>, value: String, name: String?)
+            {
                 self.key = key
                 self.value = value
+                self.name = name
             }
         }
 
