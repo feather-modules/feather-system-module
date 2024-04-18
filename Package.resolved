@@ -55,6 +55,15 @@
       }
     },
     {
+      "identity" : "feather-module-kit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/feather-framework/feather-module-kit",
+      "state" : {
+        "revision" : "39dd717aa6131d00c3e2a234645794e08a4d1d33",
+        "version" : "0.2.0"
+      }
+    },
+    {
       "identity" : "feather-push",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/feather-framework/feather-push",

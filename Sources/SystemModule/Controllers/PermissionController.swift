@@ -114,8 +114,8 @@ struct PermissionController: SystemPermissionInterface {
 
         let db = try await components.database().connection()
 
-        // TODO
-        //        try await input.validate(<#T##queryBuilder: System.Permission.Query##System.Permission.Query#>)
+        try await input.validate(on: db)
+
         let model = System.Permission.Model(
             key: input.key.toKey(),
             name: input.name,
@@ -146,7 +146,8 @@ struct PermissionController: SystemPermissionInterface {
 
         _ = try await System.Permission.Query.require(key.toKey(), on: db)
 
-        //        try await input.validate(key, queryBuilder)
+        try await input.validate(key, on: db)
+
         let newModel = System.Permission.Model(
             key: input.key.toKey(),
             name: input.name,
@@ -167,7 +168,8 @@ struct PermissionController: SystemPermissionInterface {
             on: db
         )
 
-        //        try await input.validate(key, queryBuilder)
+        try await input.validate(key, on: db)
+
         let newModel = System.Permission.Model(
             key: input.key?.toKey() ?? oldModel.key,
             name: input.name ?? oldModel.name,

@@ -119,7 +119,9 @@ struct VariableController: SystemVariableInterface {
     ) async throws -> System.Variable.Detail {
 
         let db = try await components.database().connection()
-        //        try await input.validate(queryBuilder)
+
+        try await input.validate(on: db)
+
         let model = System.Variable.Model(
             key: input.key.toKey(),
             value: input.value,
@@ -150,7 +152,8 @@ struct VariableController: SystemVariableInterface {
 
         _ = try await System.Variable.Query.require(key.toKey(), on: db)
 
-        //        try await input.validate(key, queryBuilder)
+        try await input.validate(key, on: db)
+
         let newModel = System.Variable.Model(
             key: input.key.toKey(),
             value: input.value,
@@ -173,7 +176,8 @@ struct VariableController: SystemVariableInterface {
             on: db
         )
 
-        //        try await input.validate(key, queryBuilder)
+        try await input.validate(key, on: db)
+
         let newModel = System.Variable.Model(
             key: input.key?.toKey() ?? oldModel.key,
             value: input.value ?? oldModel.value,
