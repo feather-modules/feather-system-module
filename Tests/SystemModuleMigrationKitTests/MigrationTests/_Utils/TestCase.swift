@@ -5,12 +5,10 @@
 //  Created by Tibor Bodecs on 30/01/2024.
 //
 
-import DatabaseMigrationKit
 import FeatherComponent
-import FeatherRelationalDatabase
-import FeatherRelationalDatabaseDriverSQLite
+import FeatherDatabase
+import FeatherDatabaseDriverSQLite
 import Logging
-import MigrationKit
 import NIO
 import XCTest
 
@@ -41,10 +39,10 @@ class TestCase: XCTestCase {
 
         try await components.run()
 
-        self.migrator = Migrator(
-            components: components,
-            storage: MigrationEntryStorageEphemeral()
-        )
+        //        self.migrator = Migrator(
+        //            components: components,
+        //            storage: MigrationEntryStorageEphemeral()
+        //        )
     }
 
     override func tearDown() async throws {

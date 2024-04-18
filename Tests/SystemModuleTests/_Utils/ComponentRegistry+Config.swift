@@ -6,8 +6,8 @@
 //
 
 import FeatherComponent
-import FeatherRelationalDatabase
-import FeatherRelationalDatabaseDriverSQLite
+import FeatherDatabase
+import FeatherDatabaseDriverSQLite
 import Logging
 import NIO
 

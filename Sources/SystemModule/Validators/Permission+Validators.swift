@@ -5,7 +5,7 @@
 //  Created by Tibor Bodecs on 13/03/2024.
 //
 
-import DatabaseQueryKit
+import FeatherDatabase
 import FeatherModuleKit
 import FeatherValidation
 import SystemModuleDatabaseKit
@@ -24,11 +24,12 @@ extension System.Permission {
                 key: "key",
                 value: value,
                 rules: [
-                    .unique(
-                        queryBuilder: queryBuilder,
-                        fieldKey: .key,
-                        originalValue: originalKey
-                    )
+                    // TODO
+                    //                    .unique(
+                    //                        queryBuilder: queryBuilder,
+                    //                        fieldKey: .key,
+                    //                        originalValue: originalKey
+                    //                    )
                 ]
             )
         }

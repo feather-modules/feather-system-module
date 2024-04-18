@@ -1,25 +1,28 @@
-import DatabaseQueryKit
+import FeatherDatabase
 import SystemModuleKit
 
 extension System.Variable {
 
-    public struct Model: QueryModel {
+    public struct Model: KeyedDatabaseModel {
+        public typealias KeyType = Key<System.Variable>
 
-        public enum CodingKeys: String, QueryFieldKey {
+        public enum CodingKeys: String, DatabaseColumnName {
             case key
             case value
             case name
             case notes
         }
-        public static let fieldKeys = CodingKeys.self
+        public static let columnNames = CodingKeys.self
+        public static let keyName = Model.ColumnNames.key
+        public static let tableName = "system_variable"
 
-        public let key: Key<System.Variable>
+        public let key: KeyType
         public let value: String
         public let name: String?
         public let notes: String?
 
         public init(
-            key: Key<System.Variable>,
+            key: KeyType,
             value: String,
             name: String? = nil,
             notes: String? = nil

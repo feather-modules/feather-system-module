@@ -5,8 +5,8 @@
 //  Created by Tibor Bodecs on 04/02/2024.
 //
 
-import DatabaseQueryKit
 import FeatherComponent
+import FeatherDatabase
 import FeatherModuleKit
 import FeatherValidation
 import Logging
@@ -28,44 +28,35 @@ struct PermissionRepository: SystemPermissionInterface {
 
     // MARK: -
 
-    private func getQueryBuilder() async throws -> System.Permission.Query {
-        let rdb = try await components.relationalDatabase()
-        let db = try await rdb.database()
-        return System.Permission.Query(db: db)
-    }
-
-    // MARK: -
-
     public func list(
         _ input: System.Permission.List.Query
     ) async throws -> System.Permission.List {
+        let db = try await components.database().connection()
 
-        let queryBuilder = try await getQueryBuilder()
-
-        var field: System.Permission.Model.FieldKeys
+        var column: System.Permission.Model.ColumnNames
         switch input.sort.by {
         case .key:
-            field = .key
+            column = .key
         case .name:
-            field = .name
+            column = .name
         }
 
         let filterGroup = input.search.flatMap { value in
-            QueryFilterGroup<System.Permission.Model.CodingKeys>(
+            DatabaseGroupFilter<System.Permission.Model.ColumnNames>(
                 relation: .or,
-                fields: [
+                columns: [
                     .init(
-                        field: .key,
+                        column: .key,
                         operator: .like,
                         value: "%\(value)%"
                     ),
                     .init(
-                        field: .name,
+                        column: .name,
                         operator: .like,
                         value: "%\(value)%"
                     ),
                     .init(
-                        field: .notes,
+                        column: .notes,
                         operator: .like,
                         value: "%\(value)%"
                     ),
@@ -73,7 +64,7 @@ struct PermissionRepository: SystemPermissionInterface {
             )
         }
 
-        let result = try await queryBuilder.list(
+        let result = try await System.Permission.Query.list(
             .init(
                 page: .init(
                     size: input.page.size,
@@ -81,12 +72,13 @@ struct PermissionRepository: SystemPermissionInterface {
                 ),
                 orders: [
                     .init(
-                        field: field,
+                        column: column,
                         direction: input.sort.order.queryDirection
                     )
                 ],
                 filter: filterGroup.map { .init(groups: [$0]) }
-            )
+            ),
+            on: db
         )
 
         return try System.Permission.List(
@@ -100,15 +92,16 @@ struct PermissionRepository: SystemPermissionInterface {
     public func reference(
         keys: [ID<System.Permission>]
     ) async throws -> [System.Permission.Reference] {
-        let queryBuilder = try await getQueryBuilder()
+        let db = try await components.database().connection()
 
-        return
-            try await queryBuilder.all(
+        return try await System.Permission.Query
+            .listAll(
                 filter: .init(
-                    field: .key,
+                    column: .key,
                     operator: .in,
                     value: keys
-                )
+                ),
+                on: db
             )
             .map {
                 try $0.toReference()
@@ -119,23 +112,28 @@ struct PermissionRepository: SystemPermissionInterface {
         _ input: System.Permission.Create
     ) async throws -> System.Permission.Detail {
 
-        let queryBuilder = try await getQueryBuilder()
-        try await input.validate(queryBuilder)
+        let db = try await components.database().connection()
+
+        // TODO
+        //        try await input.validate(<#T##queryBuilder: System.Permission.Query##System.Permission.Query#>)
         let model = System.Permission.Model(
             key: input.key.toKey(),
             name: input.name,
             notes: input.notes
         )
-        try await queryBuilder.insert(model)
+        try await System.Permission.Query.insert(model, on: db)
         return try model.toDetail()
     }
 
     public func get(
         key: ID<System.Permission>
     ) async throws -> System.Permission.Detail {
-        let queryBuilder = try await getQueryBuilder()
+        let db = try await components.database().connection()
 
-        let model = try await queryBuilder.require(key)
+        let model = try await System.Permission.Query.require(
+            key.toKey(),
+            on: db
+        )
 
         return try model.toDetail()
     }
@@ -144,17 +142,17 @@ struct PermissionRepository: SystemPermissionInterface {
         key: ID<System.Permission>,
         _ input: System.Permission.Update
     ) async throws -> System.Permission.Detail {
-        let queryBuilder = try await getQueryBuilder()
+        let db = try await components.database().connection()
 
-        _ = try await queryBuilder.require(key)
+        _ = try await System.Permission.Query.require(key.toKey(), on: db)
 
-        try await input.validate(key, queryBuilder)
+        //        try await input.validate(key, queryBuilder)
         let newModel = System.Permission.Model(
             key: input.key.toKey(),
             name: input.name,
             notes: input.notes
         )
-        try await queryBuilder.update(key, newModel)
+        try await System.Permission.Query.update(key.toKey(), newModel, on: db)
         return try newModel.toDetail()
     }
 
@@ -162,31 +160,34 @@ struct PermissionRepository: SystemPermissionInterface {
         key: ID<System.Permission>,
         _ input: System.Permission.Patch
     ) async throws -> System.Permission.Detail {
-        let queryBuilder = try await getQueryBuilder()
+        let db = try await components.database().connection()
 
-        let oldModel = try await queryBuilder.require(key)
+        let oldModel = try await System.Permission.Query.require(
+            key.toKey(),
+            on: db
+        )
 
-        try await input.validate(key, queryBuilder)
+        //        try await input.validate(key, queryBuilder)
         let newModel = System.Permission.Model(
             key: input.key?.toKey() ?? oldModel.key,
             name: input.name ?? oldModel.name,
             notes: input.notes ?? oldModel.notes
         )
-        try await queryBuilder.update(key, newModel)
+        try await System.Permission.Query.update(key.toKey(), newModel, on: db)
         return try newModel.toDetail()
     }
 
     public func bulkDelete(
         keys: [ID<System.Permission>]
     ) async throws {
-
-        let queryBuilder = try await getQueryBuilder()
-        try await queryBuilder.delete(
+        let db = try await components.database().connection()
+        try await System.Permission.Query.delete(
             filter: .init(
-                field: .key,
+                column: .key,
                 operator: .in,
                 value: keys
-            )
+            ),
+            on: db
         )
     }
 }

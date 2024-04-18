@@ -6,7 +6,7 @@
 //
 
 import DatabaseMigrationKit
-import DatabaseQueryKit
+import FeatherDatabase
 import MigrationKit
 import SQLKit
 import SystemModuleDatabaseKit
