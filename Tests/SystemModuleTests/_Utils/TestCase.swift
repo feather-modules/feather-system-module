@@ -25,12 +25,10 @@ class TestCase: XCTestCase {
         system = SystemModule(components: components)
 
         try await components.configure(.singleton, eventLoopGroup)
-        try await components.run()
         try await components.runMigrations()
     }
 
     override func tearDown() async throws {
-        try await components.shutdown()
         try await self.eventLoopGroup.shutdownGracefully()
     }
 }

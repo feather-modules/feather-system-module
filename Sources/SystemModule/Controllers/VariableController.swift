@@ -2,7 +2,7 @@
 //  File.swift
 //
 //
-//  Created by Tibor Bodecs on 04/02/2024.
+//  Created by Tibor Bodecs on 06/01/2024.
 //
 
 import FeatherComponent
@@ -13,7 +13,7 @@ import Logging
 import SystemModuleDatabaseKit
 import SystemModuleKit
 
-struct PermissionRepository: SystemPermissionInterface {
+struct VariableController: SystemVariableInterface {
 
     let components: ComponentRegistry
     let system: SystemModuleInterface
@@ -29,20 +29,22 @@ struct PermissionRepository: SystemPermissionInterface {
     // MARK: -
 
     public func list(
-        _ input: System.Permission.List.Query
-    ) async throws -> System.Permission.List {
+        _ input: System.Variable.List.Query
+    ) async throws -> System.Variable.List {
         let db = try await components.database().connection()
 
-        var column: System.Permission.Model.ColumnNames
+        var column: System.Variable.Model.ColumnNames
         switch input.sort.by {
         case .key:
             column = .key
         case .name:
             column = .name
+        case .value:
+            column = .value
         }
 
         let filterGroup = input.search.flatMap { value in
-            DatabaseGroupFilter<System.Permission.Model.ColumnNames>(
+            DatabaseGroupFilter<System.Variable.Model.ColumnNames>(
                 relation: .or,
                 columns: [
                     .init(
@@ -56,6 +58,11 @@ struct PermissionRepository: SystemPermissionInterface {
                         value: "%\(value)%"
                     ),
                     .init(
+                        column: .value,
+                        operator: .like,
+                        value: "%\(value)%"
+                    ),
+                    .init(
                         column: .notes,
                         operator: .like,
                         value: "%\(value)%"
@@ -64,7 +71,7 @@ struct PermissionRepository: SystemPermissionInterface {
             )
         }
 
-        let result = try await System.Permission.Query.list(
+        let result = try await System.Variable.Query.list(
             .init(
                 page: .init(
                     size: input.page.size,
@@ -81,7 +88,7 @@ struct PermissionRepository: SystemPermissionInterface {
             on: db
         )
 
-        return try System.Permission.List(
+        return try System.Variable.List(
             items: result.items.map {
                 try $0.toListItem()
             },
@@ -90,11 +97,10 @@ struct PermissionRepository: SystemPermissionInterface {
     }
 
     public func reference(
-        keys: [ID<System.Permission>]
-    ) async throws -> [System.Permission.Reference] {
+        keys: [ID<System.Variable>]
+    ) async throws -> [System.Variable.Reference] {
         let db = try await components.database().connection()
-
-        return try await System.Permission.Query
+        return try await System.Variable.Query
             .listAll(
                 filter: .init(
                     column: .key,
@@ -109,79 +115,80 @@ struct PermissionRepository: SystemPermissionInterface {
     }
 
     public func create(
-        _ input: System.Permission.Create
-    ) async throws -> System.Permission.Detail {
+        _ input: System.Variable.Create
+    ) async throws -> System.Variable.Detail {
 
         let db = try await components.database().connection()
-
-        // TODO
-        //        try await input.validate(<#T##queryBuilder: System.Permission.Query##System.Permission.Query#>)
-        let model = System.Permission.Model(
+        //        try await input.validate(queryBuilder)
+        let model = System.Variable.Model(
             key: input.key.toKey(),
+            value: input.value,
             name: input.name,
             notes: input.notes
         )
-        try await System.Permission.Query.insert(model, on: db)
+        try await System.Variable.Query.insert(model, on: db)
         return try model.toDetail()
+
     }
 
     public func get(
-        key: ID<System.Permission>
-    ) async throws -> System.Permission.Detail {
-        let db = try await components.database().connection()
+        key: ID<System.Variable>
+    ) async throws -> System.Variable.Detail {
 
-        let model = try await System.Permission.Query.require(
-            key.toKey(),
-            on: db
-        )
+        let db = try await components.database().connection()
+        let model = try await System.Variable.Query.require(key.toKey(), on: db)
 
         return try model.toDetail()
     }
 
     public func update(
-        key: ID<System.Permission>,
-        _ input: System.Permission.Update
-    ) async throws -> System.Permission.Detail {
+        key: ID<System.Variable>,
+        _ input: System.Variable.Update
+    ) async throws -> System.Variable.Detail {
+
         let db = try await components.database().connection()
 
-        _ = try await System.Permission.Query.require(key.toKey(), on: db)
+        _ = try await System.Variable.Query.require(key.toKey(), on: db)
 
         //        try await input.validate(key, queryBuilder)
-        let newModel = System.Permission.Model(
+        let newModel = System.Variable.Model(
             key: input.key.toKey(),
+            value: input.value,
             name: input.name,
             notes: input.notes
         )
-        try await System.Permission.Query.update(key.toKey(), newModel, on: db)
+        try await System.Variable.Query.update(key.toKey(), newModel, on: db)
         return try newModel.toDetail()
     }
 
     public func patch(
-        key: ID<System.Permission>,
-        _ input: System.Permission.Patch
-    ) async throws -> System.Permission.Detail {
+        key: ID<System.Variable>,
+        _ input: System.Variable.Patch
+    ) async throws -> System.Variable.Detail {
+
         let db = try await components.database().connection()
 
-        let oldModel = try await System.Permission.Query.require(
+        let oldModel = try await System.Variable.Query.require(
             key.toKey(),
             on: db
         )
 
         //        try await input.validate(key, queryBuilder)
-        let newModel = System.Permission.Model(
+        let newModel = System.Variable.Model(
             key: input.key?.toKey() ?? oldModel.key,
+            value: input.value ?? oldModel.value,
             name: input.name ?? oldModel.name,
             notes: input.notes ?? oldModel.notes
         )
-        try await System.Permission.Query.update(key.toKey(), newModel, on: db)
+        try await System.Variable.Query.update(key.toKey(), newModel, on: db)
         return try newModel.toDetail()
     }
 
     public func bulkDelete(
-        keys: [ID<System.Permission>]
+        keys: [ID<System.Variable>]
     ) async throws {
         let db = try await components.database().connection()
-        try await System.Permission.Query.delete(
+        try await System.Variable.Query.delete(
             filter: .init(
                 column: .key,
                 operator: .in,

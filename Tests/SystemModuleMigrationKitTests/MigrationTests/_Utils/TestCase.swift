@@ -8,15 +8,17 @@
 import FeatherComponent
 import FeatherDatabase
 import FeatherDatabaseDriverSQLite
+import FeatherScripts
 import Logging
 import NIO
+import SQLiteKit
 import XCTest
 
 class TestCase: XCTestCase {
 
     var eventLoopGroup: EventLoopGroup!
     var components: ComponentRegistry!
-    var migrator: Migrator!
+    var scripts: ScriptExecutor!
 
     override func setUp() async throws {
         self.components = ComponentRegistry()
@@ -24,29 +26,32 @@ class TestCase: XCTestCase {
         let threadPool = NIOThreadPool(numberOfThreads: 1)
         threadPool.start()
 
-        try await components.addRelationalDatabase(
-            SQLiteRelationalDatabaseComponentContext(
-                eventLoopGroup: eventLoopGroup,
-                connectionSource: .init(
-                    configuration: .init(
-                        storage: .memory,
-                        enableForeignKeys: true
-                    ),
-                    threadPool: threadPool
-                )
+        let connectionSource = SQLiteConnectionSource(
+            configuration: .init(
+                storage: .memory,
+                enableForeignKeys: true
+            ),
+            threadPool: threadPool
+        )
+
+        let pool = EventLoopGroupConnectionPool(
+            source: connectionSource,
+            on: eventLoopGroup
+        )
+
+        try await components.addDatabase(
+            SQLiteDatabaseComponentContext(
+                pool: pool
             )
         )
 
-        try await components.run()
-
-        //        self.migrator = Migrator(
-        //            components: components,
-        //            storage: MigrationEntryStorageEphemeral()
-        //        )
+        self.scripts = ScriptExecutor(
+            components: components,
+            policy: .runAll
+        )
     }
 
     override func tearDown() async throws {
-        try await components.shutdown()
         try await eventLoopGroup.shutdownGracefully()
     }
 }
