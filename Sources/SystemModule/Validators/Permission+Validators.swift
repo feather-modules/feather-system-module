@@ -52,7 +52,7 @@ extension System.Permission {
 
 extension System.Permission.Create {
 
-    func validate(
+    public func validate(
         on db: Database
     ) async throws {
         let v = GroupValidator {
@@ -65,7 +65,7 @@ extension System.Permission.Create {
 
 extension System.Permission.Update {
 
-    func validate(
+    public func validate(
         _ originalKey: ID<System.Permission>,
         on db: Database
     ) async throws {
@@ -83,7 +83,7 @@ extension System.Permission.Update {
 
 extension System.Permission.Patch {
 
-    func validate(
+    public func validate(
         _ originalKey: ID<System.Permission>,
         on db: Database
     ) async throws {

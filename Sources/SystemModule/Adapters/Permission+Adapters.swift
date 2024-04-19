@@ -2,17 +2,74 @@ import FeatherModuleKit
 import SystemModuleDatabaseKit
 import SystemModuleKit
 
-extension System.Permission.Model {
-
-    func toReference() throws -> System.Permission.Reference {
-        .init(key: key.toID(), name: name)
+extension System.Permission.Model: ModelInterfaceCreate, ModelInterfaceUpdate,
+    ModelInterfacePatch
+{
+    public init(create: System.Permission.Create) {
+        self.init(
+            key: create.key.toKey(),
+            name: create.name,
+            notes: create.notes
+        )
     }
 
-    func toListItem() throws -> System.Permission.List.Item {
-        .init(key: key.toID(), name: name)
+    public init(update: System.Permission.Update, oldModel: Self) {
+        self.init(
+            key: update.key.toKey(),
+            name: update.name,
+            notes: update.notes
+        )
     }
 
-    func toDetail() throws -> System.Permission.Detail {
-        .init(key: key.toID(), name: name, notes: notes)
+    public init(patch: System.Permission.Patch, oldModel: Self) {
+        self.init(
+            key: patch.key?.toKey() ?? oldModel.key,
+            name: patch.name ?? oldModel.name,
+            notes: patch.notes ?? oldModel.notes
+        )
     }
 }
+
+extension System.Permission.List: ListInterface {
+    public init(items: [System.Permission.Model], count: UInt) throws {
+        self.init(
+            items: items.map {
+                .init(key: $0.key.toID(), name: $0.name)
+            },
+            count: count
+        )
+    }
+}
+
+extension System.Permission.List.Query: ListQueryInterface {}
+
+extension System.Permission.List.Query.Sort: ListQuerySortInterface {}
+
+extension System.Permission.List.Query.Sort.Keys: ListQueryKeysInterface {
+    public func toColumn() -> System.Permission.Model.ColumnNames {
+        switch self {
+        case .key:
+            return .key
+        case .name:
+            return .name
+        }
+    }
+}
+
+extension System.Permission.Reference: ReferenceInterface {
+    public init(model: System.Permission.Model) throws {
+        self.init(key: model.key.toID(), name: model.name)
+    }
+}
+
+extension System.Permission.Detail: DetailInterface {
+    public init(model: System.Permission.Model) throws {
+        self.init(key: model.key.toID(), name: model.name, notes: model.notes)
+    }
+}
+
+extension System.Permission.Create: CreateInterface {}
+
+extension System.Permission.Update: UpdateInterface {}
+
+extension System.Permission.Patch: PatchInterface {}
