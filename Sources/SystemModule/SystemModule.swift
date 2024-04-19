@@ -18,14 +18,14 @@ public struct SystemModule: SystemModuleInterface {
     }
 
     public var permission: SystemPermissionInterface {
-        PermissionRepository(
+        PermissionController(
             components: components,
             system: self
         )
     }
 
     public var variable: SystemVariableInterface {
-        VariableRepository(
+        VariableController(
             components: components,
             system: self
         )

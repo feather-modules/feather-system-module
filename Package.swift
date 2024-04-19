@@ -18,9 +18,8 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-nio", from: "2.61.0"),
-        .package(url: "https://github.com/feather-framework/feather-module-kit", .upToNextMinor(from: "0.1.0")),
-        .package(url: "https://github.com/feather-framework/feather-database-kit", .upToNextMinor(from: "0.7.0")),
-        .package(url: "https://github.com/feather-framework/feather-relational-database-driver-sqlite", .upToNextMinor(from: "0.2.0")),
+        .package(url: "https://github.com/feather-framework/feather-module-kit", .upToNextMinor(from: "0.2.0")),
+        .package(url: "https://github.com/feather-framework/feather-database-driver-sqlite", .upToNextMinor(from: "0.4.0")),
     ],
     targets: [
         .target(
@@ -40,8 +39,8 @@ let package = Package(
         .target(
             name: "SystemModuleMigrationKit",
             dependencies: [
-                .product(name: "DatabaseMigrationKit", package: "feather-database-kit"),
                 .target(name: "SystemModuleDatabaseKit"),
+                .product(name: "FeatherMigrationKit", package: "feather-module-kit"),
             ]
         ),
 
@@ -66,7 +65,7 @@ let package = Package(
                 .target(name: "SystemModule"),
                 .target(name: "SystemModuleMigrationKit"),
                 // drivers
-                .product(name: "FeatherRelationalDatabaseDriverSQLite", package: "feather-relational-database-driver-sqlite"),
+                .product(name: "FeatherDatabaseDriverSQLite", package: "feather-database-driver-sqlite"),
             ]
         ),
     
@@ -77,7 +76,7 @@ let package = Package(
                 .target(name: "SystemModule"),
                 .target(name: "SystemModuleMigrationKit"),
                 // drivers
-                .product(name: "FeatherRelationalDatabaseDriverSQLite", package: "feather-relational-database-driver-sqlite"),
+                .product(name: "FeatherDatabaseDriverSQLite", package: "feather-database-driver-sqlite"),
             ]
         ),
         

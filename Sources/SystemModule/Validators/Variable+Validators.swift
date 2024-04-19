@@ -5,7 +5,7 @@
 //  Created by Tibor Bodecs on 15/02/2024.
 //
 
-import DatabaseQueryKit
+import FeatherDatabase
 import FeatherModuleKit
 import FeatherValidation
 import SystemModuleDatabaseKit
@@ -17,7 +17,7 @@ extension System.Variable {
 
         static func uniqueKey(
             _ value: ID<System.Variable>,
-            _ queryBuilder: System.Variable.Query,
+            on db: Database,
             _ originalKey: ID<System.Variable>? = nil
         ) -> Validator {
             KeyValueValidator(
@@ -25,9 +25,10 @@ extension System.Variable {
                 value: value,
                 rules: [
                     .unique(
-                        queryBuilder: queryBuilder,
-                        fieldKey: .key,
-                        originalValue: originalKey
+                        System.Variable.Query.self,
+                        column: .key,
+                        originalValue: originalKey,
+                        on: db
                     )
                 ]
             )
@@ -64,11 +65,11 @@ extension System.Variable {
 extension System.Variable.Create {
 
     func validate(
-        _ queryBuilder: System.Variable.Query
+        on db: Database
     ) async throws {
         let v = GroupValidator {
             System.Variable.Validators.key(key.rawValue)
-            System.Variable.Validators.uniqueKey(key, queryBuilder)
+            System.Variable.Validators.uniqueKey(key, on: db)
             System.Variable.Validators.value(value)
         }
         try await v.validate()
@@ -79,13 +80,13 @@ extension System.Variable.Update {
 
     func validate(
         _ originalKey: ID<System.Variable>,
-        _ queryBuilder: System.Variable.Query
+        on db: Database
     ) async throws {
         let v = GroupValidator {
             System.Variable.Validators.key(key.rawValue)
             System.Variable.Validators.uniqueKey(
                 key,
-                queryBuilder,
+                on: db,
                 originalKey
             )
             System.Variable.Validators.value(value)
@@ -98,14 +99,14 @@ extension System.Variable.Patch {
 
     func validate(
         _ originalKey: ID<System.Variable>,
-        _ queryBuilder: System.Variable.Query
+        on db: Database
     ) async throws {
         let v = GroupValidator {
             if let key {
                 System.Variable.Validators.key(key.rawValue)
                 System.Variable.Validators.uniqueKey(
                     key,
-                    queryBuilder,
+                    on: db,
                     originalKey
                 )
             }

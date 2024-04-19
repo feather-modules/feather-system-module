@@ -5,20 +5,20 @@
 //  Created by Tibor Bodecs on 30/01/2024.
 //
 
-import DatabaseMigrationKit
 import FeatherComponent
-import FeatherRelationalDatabase
-import FeatherRelationalDatabaseDriverSQLite
+import FeatherDatabase
+import FeatherDatabaseDriverSQLite
+import FeatherScripts
 import Logging
-import MigrationKit
 import NIO
+import SQLiteKit
 import XCTest
 
 class TestCase: XCTestCase {
 
     var eventLoopGroup: EventLoopGroup!
     var components: ComponentRegistry!
-    var migrator: Migrator!
+    var scripts: ScriptExecutor!
 
     override func setUp() async throws {
         self.components = ComponentRegistry()
@@ -26,29 +26,32 @@ class TestCase: XCTestCase {
         let threadPool = NIOThreadPool(numberOfThreads: 1)
         threadPool.start()
 
-        try await components.addRelationalDatabase(
-            SQLiteRelationalDatabaseComponentContext(
-                eventLoopGroup: eventLoopGroup,
-                connectionSource: .init(
-                    configuration: .init(
-                        storage: .memory,
-                        enableForeignKeys: true
-                    ),
-                    threadPool: threadPool
-                )
+        let connectionSource = SQLiteConnectionSource(
+            configuration: .init(
+                storage: .memory,
+                enableForeignKeys: true
+            ),
+            threadPool: threadPool
+        )
+
+        let pool = EventLoopGroupConnectionPool(
+            source: connectionSource,
+            on: eventLoopGroup
+        )
+
+        try await components.addDatabase(
+            SQLiteDatabaseComponentContext(
+                pool: pool
             )
         )
 
-        try await components.run()
-
-        self.migrator = Migrator(
+        self.scripts = ScriptExecutor(
             components: components,
-            storage: MigrationEntryStorageEphemeral()
+            policy: .runAll
         )
     }
 
     override func tearDown() async throws {
-        try await components.shutdown()
         try await eventLoopGroup.shutdownGracefully()
     }
 }

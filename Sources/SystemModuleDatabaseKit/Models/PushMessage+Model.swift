@@ -1,12 +1,13 @@
-import DatabaseQueryKit
+import FeatherDatabase
 import Foundation
 import SystemModuleKit
 
 extension System.PushMessage {
 
-    public struct Model: QueryModel {
+    public struct Model: KeyedDatabaseModel {
+        public typealias KeyType = Key<System.PushMessage>
 
-        public enum CodingKeys: String, QueryFieldKey {
+        public enum CodingKeys: String, DatabaseColumnName {
             case id
             case title
             case message
@@ -14,9 +15,11 @@ extension System.PushMessage {
             case date
             case recipients
         }
-        public static let fieldKeys = CodingKeys.self
+        public static var keyName = ColumnNames.id
+        public static let columnNames = CodingKeys.self
+        public static let tableName = "system_push_message"
 
-        public let id: UUID
+        public let id: KeyType
         public let title: String
         public let message: String
         public let topic: String
@@ -24,7 +27,7 @@ extension System.PushMessage {
         public let recipients: String?
 
         public init(
-            id: UUID,
+            id: KeyType,
             title: String,
             message: String,
             topic: String,

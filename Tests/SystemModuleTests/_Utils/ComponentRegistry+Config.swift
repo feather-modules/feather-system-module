@@ -6,10 +6,11 @@
 //
 
 import FeatherComponent
-import FeatherRelationalDatabase
-import FeatherRelationalDatabaseDriverSQLite
+import FeatherDatabase
+import FeatherDatabaseDriverSQLite
 import Logging
 import NIO
+import SQLiteKit
 
 extension ComponentRegistry {
 
@@ -18,16 +19,22 @@ extension ComponentRegistry {
         _ eventLoopGroup: EventLoopGroup
     ) async throws {
 
-        try await addRelationalDatabase(
-            SQLiteRelationalDatabaseComponentContext(
-                eventLoopGroup: eventLoopGroup,
-                connectionSource: .init(
-                    configuration: .init(
-                        storage: .memory,
-                        enableForeignKeys: true
-                    ),
-                    threadPool: threadPool
-                )
+        let connectionSource = SQLiteConnectionSource(
+            configuration: .init(
+                storage: .memory,
+                enableForeignKeys: true
+            ),
+            threadPool: threadPool
+        )
+
+        let pool = EventLoopGroupConnectionPool(
+            source: connectionSource,
+            on: eventLoopGroup
+        )
+
+        try await addDatabase(
+            SQLiteDatabaseComponentContext(
+                pool: pool
             )
         )
     }

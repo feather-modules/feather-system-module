@@ -5,26 +5,29 @@
 //  Created by Tibor Bodecs on 06/01/2024.
 //
 
-import DatabaseQueryKit
+import FeatherDatabase
 import SystemModuleKit
 
 extension System.Permission {
 
-    public struct Model: QueryModel {
+    public struct Model: KeyedDatabaseModel {
+        public typealias KeyType = Key<System.Permission>
 
-        public enum CodingKeys: String, QueryFieldKey {
+        public enum CodingKeys: String, DatabaseColumnName {
             case key
             case name
             case notes
         }
-        public static let fieldKeys = CodingKeys.self
+        public static let columnNames = CodingKeys.self
+        public static let keyName = Model.ColumnNames.key
+        public static let tableName = "system_permission"
 
-        public let key: Key<System.Permission>
+        public let key: KeyType
         public let name: String
         public let notes: String?
 
         public init(
-            key: Key<System.Permission>,
+            key: KeyType,
             name: String,
             notes: String? = nil
         ) {
