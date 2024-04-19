@@ -23,7 +23,6 @@ struct PermissionController: SystemPermissionInterface,
     ControllerDelete
 {
     typealias Query = System.Permission.Query
-    typealias KeyType = System.Permission
     typealias Patch = System.Permission.Patch
     typealias Update = System.Permission.Update
     typealias Create = System.Permission.Create

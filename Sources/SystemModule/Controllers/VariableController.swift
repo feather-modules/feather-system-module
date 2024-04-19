@@ -22,7 +22,6 @@ struct VariableController: SystemVariableInterface,
     ControllerDelete
 {
     typealias Query = System.Variable.Query
-    typealias KeyType = System.Variable
     typealias Patch = System.Variable.Patch
     typealias Update = System.Variable.Update
     typealias Create = System.Variable.Create
