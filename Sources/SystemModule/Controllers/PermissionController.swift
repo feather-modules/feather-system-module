@@ -43,11 +43,10 @@ struct PermissionController: SystemPermissionInterface,
 
     // MARK: -
 
-    static func getListFilterColumns() -> [Model.ColumnNames] {
+    static let listFilterColumns: [Model.ColumnNames] =
         [
             .key,
             .name,
             .notes,
         ]
-    }
 }
