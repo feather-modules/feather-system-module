@@ -5,7 +5,7 @@ import SystemModuleKit
 extension System.Permission.Model: ModelInterfaceCreate, ModelInterfaceUpdate,
     ModelInterfacePatch
 {
-    public init(create: System.Permission.Create) {
+    public init(create: System.Permission.Create) throws {
         self.init(
             key: create.key.toKey(),
             name: create.name,
@@ -13,7 +13,7 @@ extension System.Permission.Model: ModelInterfaceCreate, ModelInterfaceUpdate,
         )
     }
 
-    public init(update: System.Permission.Update, oldModel: Self) {
+    public init(update: System.Permission.Update, oldModel: Self) throws {
         self.init(
             key: update.key.toKey(),
             name: update.name,
@@ -21,7 +21,7 @@ extension System.Permission.Model: ModelInterfaceCreate, ModelInterfaceUpdate,
         )
     }
 
-    public init(patch: System.Permission.Patch, oldModel: Self) {
+    public init(patch: System.Permission.Patch, oldModel: Self) throws {
         self.init(
             key: patch.key?.toKey() ?? oldModel.key,
             name: patch.name ?? oldModel.name,
@@ -31,7 +31,8 @@ extension System.Permission.Model: ModelInterfaceCreate, ModelInterfaceUpdate,
 }
 
 extension System.Permission.Model.ColumnNames: ModelColumnNamesInterface {
-    public init(listQuerySortKeys: System.Permission.List.Query.Sort.Key) {
+    public init(listQuerySortKeys: System.Permission.List.Query.Sort.Key) throws
+    {
         switch listQuerySortKeys {
         case .key:
             self = .key

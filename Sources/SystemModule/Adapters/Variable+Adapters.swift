@@ -9,7 +9,7 @@ import SystemModuleKit
 extension System.Variable.Model: ModelInterfaceCreate, ModelInterfaceUpdate,
     ModelInterfacePatch
 {
-    public init(create: System.Variable.Create) {
+    public init(create: System.Variable.Create) throws {
         self.init(
             key: create.key.toKey(),
             value: create.value,
@@ -18,7 +18,7 @@ extension System.Variable.Model: ModelInterfaceCreate, ModelInterfaceUpdate,
         )
     }
 
-    public init(update: System.Variable.Update, oldModel: Self) {
+    public init(update: System.Variable.Update, oldModel: Self) throws {
         self.init(
             key: update.key.toKey(),
             value: update.value,
@@ -27,7 +27,7 @@ extension System.Variable.Model: ModelInterfaceCreate, ModelInterfaceUpdate,
         )
     }
 
-    public init(patch: System.Variable.Patch, oldModel: Self) {
+    public init(patch: System.Variable.Patch, oldModel: Self) throws {
         self.init(
             key: patch.key?.toKey() ?? oldModel.key,
             value: patch.value ?? oldModel.value,
@@ -38,7 +38,7 @@ extension System.Variable.Model: ModelInterfaceCreate, ModelInterfaceUpdate,
 }
 
 extension System.Variable.Model.ColumnNames: ModelColumnNamesInterface {
-    public init(listQuerySortKeys: System.Variable.List.Query.Sort.Key) {
+    public init(listQuerySortKeys: System.Variable.List.Query.Sort.Key) throws {
         switch listQuerySortKeys {
         case .key:
             self = .key
