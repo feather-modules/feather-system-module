@@ -110,7 +110,7 @@ final class VariableTests: TestCase {
         )
 
         let variables = try await system.variable.reference(
-            keys: [
+            ids: [
                 detail.key
             ]
         )
@@ -124,7 +124,7 @@ final class VariableTests: TestCase {
             System.Variable.Create.mock()
         )
 
-        let variable = try await system.variable.get(key: detail.key)
+        let variable = try await system.variable.get(detail.key)
         XCTAssertEqual(variable.key, detail.key)
     }
 
@@ -134,7 +134,7 @@ final class VariableTests: TestCase {
         )
 
         let variable = try await system.variable.update(
-            key: detail.key,
+            detail.key,
             .init(
                 key: detail.key,
                 value: "value-2",
@@ -158,7 +158,7 @@ final class VariableTests: TestCase {
 
         do {
             _ = try await system.variable.update(
-                key: detail1.key,
+                detail1.key,
                 .init(
                     key: detail2.key,
                     value: "",
@@ -184,7 +184,7 @@ final class VariableTests: TestCase {
         )
 
         let variable = try await system.variable.patch(
-            key: detail.key,
+            detail.key,
             .init(
                 key: detail.key,
                 name: "name-2",
@@ -203,7 +203,7 @@ final class VariableTests: TestCase {
         )
 
         let variable = try await system.variable.patch(
-            key: detail.key,
+            detail.key,
             .init(
                 key: .init(rawValue: "id-2"),
                 name: "name-2",
@@ -211,7 +211,7 @@ final class VariableTests: TestCase {
             )
         )
         do {
-            _ = try await system.variable.get(key: detail.key)
+            _ = try await system.variable.get(detail.key)
         }
         catch ModuleError.objectNotFound(let type, let id) {
             XCTAssertEqual(id, "key")
@@ -237,7 +237,7 @@ final class VariableTests: TestCase {
 
         do {
             _ = try await system.variable.patch(
-                key: detail1.key,
+                detail1.key,
                 .init(
                     key: detail2.key,
                     value: "",
@@ -263,11 +263,11 @@ final class VariableTests: TestCase {
         )
 
         try await system.variable.bulkDelete(
-            keys: [detail.key]
+            ids: [detail.key]
         )
 
         let variables = try await system.variable.reference(
-            keys: [
+            ids: [
                 detail.key
             ]
         )
