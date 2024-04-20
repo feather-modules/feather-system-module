@@ -30,6 +30,17 @@ extension System.Permission.Model: ModelInterfaceCreate, ModelInterfaceUpdate,
     }
 }
 
+extension System.Permission.Model.ColumnNames: ModelColumnNamesInterface {
+    public init(listQuerySortKeys: System.Permission.List.Query.Sort.Key) {
+        switch listQuerySortKeys {
+        case .key:
+            self = .key
+        case .name:
+            self = .name
+        }
+    }
+}
+
 extension System.Permission.List: ListInterface {
     public init(items: [System.Permission.Model], count: UInt) throws {
         self.init(
@@ -44,17 +55,6 @@ extension System.Permission.List: ListInterface {
 extension System.Permission.List.Query: ListQueryInterface {}
 
 extension System.Permission.List.Query.Sort: ListQuerySortInterface {}
-
-extension System.Permission.List.Query.Sort.Keys: ListQueryKeysInterface {
-    public func toColumn() -> System.Permission.Model.ColumnNames {
-        switch self {
-        case .key:
-            return .key
-        case .name:
-            return .name
-        }
-    }
-}
 
 extension System.Permission.Reference: ReferenceInterface {
     public init(model: System.Permission.Model) throws {

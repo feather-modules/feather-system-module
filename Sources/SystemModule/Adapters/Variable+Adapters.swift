@@ -37,6 +37,19 @@ extension System.Variable.Model: ModelInterfaceCreate, ModelInterfaceUpdate,
     }
 }
 
+extension System.Variable.Model.ColumnNames: ModelColumnNamesInterface {
+    public init(listQuerySortKeys: System.Variable.List.Query.Sort.Key) {
+        switch listQuerySortKeys {
+        case .key:
+            self = .key
+        case .name:
+            self = .name
+        case .value:
+            self = .value
+        }
+    }
+}
+
 extension System.Variable.List: ListInterface {
     public init(items: [System.Variable.Model], count: UInt) throws {
         self.init(
@@ -51,19 +64,6 @@ extension System.Variable.List: ListInterface {
 extension System.Variable.List.Query: ListQueryInterface {}
 
 extension System.Variable.List.Query.Sort: ListQuerySortInterface {}
-
-extension System.Variable.List.Query.Sort.Keys: ListQueryKeysInterface {
-    public func toColumn() -> System.Variable.Model.ColumnNames {
-        switch self {
-        case .key:
-            return .key
-        case .name:
-            return .name
-        case .value:
-            return .value
-        }
-    }
-}
 
 extension System.Variable.Reference: ReferenceInterface {
     public init(model: System.Variable.Model) throws {
