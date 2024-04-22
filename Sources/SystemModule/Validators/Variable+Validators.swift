@@ -64,7 +64,7 @@ extension System.Variable {
 
 extension System.Variable.Create {
 
-    func validate(
+    public func validate(
         on db: Database
     ) async throws {
         let v = GroupValidator {
@@ -78,7 +78,7 @@ extension System.Variable.Create {
 
 extension System.Variable.Update {
 
-    func validate(
+    public func validate(
         _ originalKey: ID<System.Variable>,
         on db: Database
     ) async throws {
@@ -97,7 +97,7 @@ extension System.Variable.Update {
 
 extension System.Variable.Patch {
 
-    func validate(
+    public func validate(
         _ originalKey: ID<System.Variable>,
         on db: Database
     ) async throws {

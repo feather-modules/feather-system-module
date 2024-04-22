@@ -56,7 +56,7 @@ final class PermissionTests: TestCase {
         )
 
         let permissions = try await system.permission.reference(
-            keys: [
+            ids: [
                 detail.key
             ]
         )
@@ -70,7 +70,7 @@ final class PermissionTests: TestCase {
             System.Permission.Create.mock()
         )
 
-        let permission = try await system.permission.get(key: detail.key)
+        let permission = try await system.permission.get(detail.key)
         XCTAssertEqual(permission.key, detail.key)
     }
 
@@ -80,7 +80,7 @@ final class PermissionTests: TestCase {
         )
 
         let permission = try await system.permission.update(
-            key: detail.key,
+            detail.key,
             System.Permission.Update(
                 key: detail.key,
                 name: "name",
@@ -98,7 +98,7 @@ final class PermissionTests: TestCase {
         )
 
         let permission = try await system.permission.patch(
-            key: detail.key,
+            detail.key,
             System.Permission.Patch(
                 key: detail.key,
                 name: "name",
@@ -116,11 +116,11 @@ final class PermissionTests: TestCase {
         )
 
         try await system.permission.bulkDelete(
-            keys: [detail.key]
+            ids: [detail.key]
         )
 
         let permissions = try await system.permission.reference(
-            keys: [
+            ids: [
                 detail.key
             ]
         )

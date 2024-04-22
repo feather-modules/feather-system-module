@@ -14,7 +14,7 @@ public protocol SystemPermissionInterface: Sendable {
     ) async throws -> System.Permission.List
 
     func reference(
-        keys: [ID<System.Permission>]
+        ids: [ID<System.Permission>]
     ) async throws -> [System.Permission.Reference]
 
     func create(
@@ -22,21 +22,21 @@ public protocol SystemPermissionInterface: Sendable {
     ) async throws -> System.Permission.Detail
 
     func get(
-        key: ID<System.Permission>
+        _ id: ID<System.Permission>
     ) async throws -> System.Permission.Detail
 
     func update(
-        key: ID<System.Permission>,
+        _ id: ID<System.Permission>,
         _ input: System.Permission.Update
     ) async throws -> System.Permission.Detail
 
     func patch(
-        key: ID<System.Permission>,
+        _ id: ID<System.Permission>,
         _ input: System.Permission.Patch
     ) async throws -> System.Permission.Detail
 
     func bulkDelete(
-        keys: [ID<System.Permission>]
+        ids: [ID<System.Permission>]
     ) async throws
 
 }
