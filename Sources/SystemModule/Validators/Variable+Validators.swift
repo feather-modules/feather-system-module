@@ -25,7 +25,7 @@ extension System.Variable {
                 value: value,
                 rules: [
                     .unique(
-                        System.Variable.Query.self,
+                        Query.self,
                         column: .key,
                         originalValue: originalKey,
                         on: db

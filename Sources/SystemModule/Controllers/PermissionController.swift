@@ -14,14 +14,9 @@ import SystemModuleDatabaseKit
 import SystemModuleKit
 
 struct PermissionController: SystemPermissionInterface,
-    ControllerList,
-    ControllerReference,
-    ControllerCreate,
-    ControllerGet,
-    ControllerUpdate,
-    ControllerPatch,
-    ControllerDelete
+    ControllerCRUDInterface
 {
+    #if swift(<5.10)
     typealias Query = System.Permission.Query
     typealias Patch = System.Permission.Patch
     typealias Update = System.Permission.Update
@@ -29,6 +24,8 @@ struct PermissionController: SystemPermissionInterface,
     typealias Detail = System.Permission.Detail
     typealias Reference = System.Permission.Reference
     typealias List = System.Permission.List
+    #endif
+    typealias ControllerModel = System.Permission
 
     let components: ComponentRegistry
     let system: SystemModuleInterface

@@ -87,3 +87,5 @@ extension System.Variable.Create: CreateInterface {}
 extension System.Variable.Update: UpdateInterface {}
 
 extension System.Variable.Patch: PatchInterface {}
+
+extension System.Variable: ControllerModelInterface {}

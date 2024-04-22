@@ -13,14 +13,9 @@ import SystemModuleDatabaseKit
 import SystemModuleKit
 
 struct VariableController: SystemVariableInterface,
-    ControllerList,
-    ControllerReference,
-    ControllerCreate,
-    ControllerGet,
-    ControllerUpdate,
-    ControllerPatch,
-    ControllerDelete
+    ControllerCRUDInterface
 {
+    #if swift(<5.10)
     typealias Query = System.Variable.Query
     typealias Patch = System.Variable.Patch
     typealias Update = System.Variable.Update
@@ -28,6 +23,8 @@ struct VariableController: SystemVariableInterface,
     typealias Detail = System.Variable.Detail
     typealias Reference = System.Variable.Reference
     typealias List = System.Variable.List
+    #endif
+    typealias ControllerModel = System.Variable
 
     let components: ComponentRegistry
     let system: SystemModuleInterface

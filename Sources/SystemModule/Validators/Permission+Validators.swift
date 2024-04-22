@@ -25,7 +25,7 @@ extension System.Permission {
                 value: value,
                 rules: [
                     .unique(
-                        System.Permission.Query.self,
+                        Query.self,
                         column: .key,
                         originalValue: originalKey,
                         on: db
