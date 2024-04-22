@@ -74,3 +74,5 @@ extension System.Permission.Create: CreateInterface {}
 extension System.Permission.Update: UpdateInterface {}
 
 extension System.Permission.Patch: PatchInterface {}
+
+extension System.Permission: ControllerModelInterface {}

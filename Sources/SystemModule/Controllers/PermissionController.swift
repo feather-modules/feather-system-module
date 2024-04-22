@@ -14,21 +14,9 @@ import SystemModuleDatabaseKit
 import SystemModuleKit
 
 struct PermissionController: SystemPermissionInterface,
-    ControllerList,
-    ControllerReference,
-    ControllerCreate,
-    ControllerGet,
-    ControllerUpdate,
-    ControllerPatch,
-    ControllerDelete
+    ControllerCRUDInterface
 {
-    typealias Query = System.Permission.Query
-    typealias Patch = System.Permission.Patch
-    typealias Update = System.Permission.Update
-    typealias Create = System.Permission.Create
-    typealias Detail = System.Permission.Detail
-    typealias Reference = System.Permission.Reference
-    typealias List = System.Permission.List
+    typealias ControllerModel = System.Permission
 
     let components: ComponentRegistry
     let system: SystemModuleInterface

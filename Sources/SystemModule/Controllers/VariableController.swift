@@ -13,21 +13,9 @@ import SystemModuleDatabaseKit
 import SystemModuleKit
 
 struct VariableController: SystemVariableInterface,
-    ControllerList,
-    ControllerReference,
-    ControllerCreate,
-    ControllerGet,
-    ControllerUpdate,
-    ControllerPatch,
-    ControllerDelete
+    ControllerCRUDInterface
 {
-    typealias Query = System.Variable.Query
-    typealias Patch = System.Variable.Patch
-    typealias Update = System.Variable.Update
-    typealias Create = System.Variable.Create
-    typealias Detail = System.Variable.Detail
-    typealias Reference = System.Variable.Reference
-    typealias List = System.Variable.List
+    typealias ControllerModel = System.Variable
 
     let components: ComponentRegistry
     let system: SystemModuleInterface
