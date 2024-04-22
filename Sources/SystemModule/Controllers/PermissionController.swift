@@ -16,6 +16,15 @@ import SystemModuleKit
 struct PermissionController: SystemPermissionInterface,
     ControllerCRUDInterface
 {
+    #if swift(<5.10)
+    typealias Query = System.Permission.Query
+    typealias Patch = System.Permission.Patch
+    typealias Update = System.Permission.Update
+    typealias Create = System.Permission.Create
+    typealias Detail = System.Permission.Detail
+    typealias Reference = System.Permission.Reference
+    typealias List = System.Permission.List
+    #endif
     typealias ControllerModel = System.Permission
 
     let components: ComponentRegistry
