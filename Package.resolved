@@ -59,8 +59,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/feather-framework/feather-module-kit",
       "state" : {
-        "revision" : "bd3b4f0af46af7e2e90f94485ce094993710e650",
-        "version" : "0.2.2"
+        "revision" : "2fe2f7426daefb13542c57ce0aa37817ea4ed2e4",
+        "version" : "0.2.3"
       }
     },
     {
