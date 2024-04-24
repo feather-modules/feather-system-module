@@ -15,15 +15,6 @@ import SystemModuleKit
 struct VariableController: SystemVariableInterface,
     ControllerCRUDInterface
 {
-    #if swift(<5.10)
-    typealias Query = System.Variable.Query
-    typealias Patch = System.Variable.Patch
-    typealias Update = System.Variable.Update
-    typealias Create = System.Variable.Create
-    typealias Detail = System.Variable.Detail
-    typealias Reference = System.Variable.Reference
-    typealias List = System.Variable.List
-    #endif
     typealias ControllerModel = System.Variable
 
     let components: ComponentRegistry
