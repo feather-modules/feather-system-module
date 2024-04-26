@@ -21,7 +21,7 @@ public protocol SystemVariableInterface: Sendable {
         _ input: System.Variable.Create
     ) async throws -> System.Variable.Detail
 
-    func get(
+    func require(
         _ id: ID<System.Variable>
     ) async throws -> System.Variable.Detail
 

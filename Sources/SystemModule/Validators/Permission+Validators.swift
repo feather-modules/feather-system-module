@@ -50,7 +50,7 @@ extension System.Permission {
     }
 }
 
-extension System.Permission.Create {
+extension System.Permission.Create: CreateInterface {
 
     public func validate(
         on db: Database
@@ -63,7 +63,7 @@ extension System.Permission.Create {
     }
 }
 
-extension System.Permission.Update {
+extension System.Permission.Update: UpdateInterface {
 
     public func validate(
         _ originalKey: ID<System.Permission>,
@@ -81,7 +81,7 @@ extension System.Permission.Update {
     }
 }
 
-extension System.Permission.Patch {
+extension System.Permission.Patch: PatchInterface {
 
     public func validate(
         _ originalKey: ID<System.Permission>,

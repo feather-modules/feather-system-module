@@ -13,6 +13,8 @@ import Logging
 import SystemModuleDatabaseKit
 import SystemModuleKit
 
+extension System.Permission: ControllerModelInterface {}
+
 struct PermissionController: SystemPermissionInterface,
     ControllerCRUDInterface
 {

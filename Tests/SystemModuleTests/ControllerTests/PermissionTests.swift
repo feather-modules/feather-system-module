@@ -70,7 +70,7 @@ final class PermissionTests: TestCase {
             System.Permission.Create.mock()
         )
 
-        let permission = try await system.permission.get(detail.key)
+        let permission = try await system.permission.require(detail.key)
         XCTAssertEqual(permission.key, detail.key)
     }
 

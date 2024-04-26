@@ -21,7 +21,7 @@ public protocol SystemPermissionInterface: Sendable {
         _ input: System.Permission.Create
     ) async throws -> System.Permission.Detail
 
-    func get(
+    func require(
         _ id: ID<System.Permission>
     ) async throws -> System.Permission.Detail
 
