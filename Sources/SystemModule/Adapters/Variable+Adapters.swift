@@ -6,9 +6,7 @@ import NanoID
 import SystemModuleDatabaseKit
 import SystemModuleKit
 
-extension System.Variable.Model: ModelInterfaceCreate, ModelInterfaceUpdate,
-    ModelInterfacePatch
-{
+extension System.Variable.Model: CreateAdapter, UpdateAdapter, PatchAdapter {
     public init(create: System.Variable.Create) throws {
         self.init(
             key: create.key.toKey(),
@@ -37,7 +35,7 @@ extension System.Variable.Model: ModelInterfaceCreate, ModelInterfaceUpdate,
     }
 }
 
-extension System.Variable.Model.ColumnNames: ModelColumnNamesInterface {
+extension System.Variable.Model.ColumnNames: ColumnNamesInterface {
     public init(listQuerySortKeys: System.Variable.List.Query.Sort.Key) throws {
         switch listQuerySortKeys {
         case .key:
@@ -81,11 +79,3 @@ extension System.Variable.Detail: DetailInterface {
         )
     }
 }
-
-extension System.Variable.Create: CreateInterface {}
-
-extension System.Variable.Update: UpdateInterface {}
-
-extension System.Variable.Patch: PatchInterface {}
-
-extension System.Variable: ControllerModelInterface {}

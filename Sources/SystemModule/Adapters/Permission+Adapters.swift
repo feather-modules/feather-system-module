@@ -2,9 +2,7 @@ import FeatherModuleKit
 import SystemModuleDatabaseKit
 import SystemModuleKit
 
-extension System.Permission.Model: ModelInterfaceCreate, ModelInterfaceUpdate,
-    ModelInterfacePatch
-{
+extension System.Permission.Model: CreateAdapter, UpdateAdapter, PatchAdapter {
     public init(create: System.Permission.Create) throws {
         self.init(
             key: create.key.toKey(),
@@ -30,7 +28,7 @@ extension System.Permission.Model: ModelInterfaceCreate, ModelInterfaceUpdate,
     }
 }
 
-extension System.Permission.Model.ColumnNames: ModelColumnNamesInterface {
+extension System.Permission.Model.ColumnNames: ColumnNamesInterface {
     public init(listQuerySortKeys: System.Permission.List.Query.Sort.Key) throws
     {
         switch listQuerySortKeys {
@@ -68,11 +66,3 @@ extension System.Permission.Detail: DetailInterface {
         self.init(key: model.key.toID(), name: model.name, notes: model.notes)
     }
 }
-
-extension System.Permission.Create: CreateInterface {}
-
-extension System.Permission.Update: UpdateInterface {}
-
-extension System.Permission.Patch: PatchInterface {}
-
-extension System.Permission: ControllerModelInterface {}

@@ -62,7 +62,7 @@ extension System.Variable {
     }
 }
 
-extension System.Variable.Create {
+extension System.Variable.Create: CreateInterface {
 
     public func validate(
         on db: Database
@@ -76,7 +76,7 @@ extension System.Variable.Create {
     }
 }
 
-extension System.Variable.Update {
+extension System.Variable.Update: UpdateInterface {
 
     public func validate(
         _ originalKey: ID<System.Variable>,
@@ -95,7 +95,7 @@ extension System.Variable.Update {
     }
 }
 
-extension System.Variable.Patch {
+extension System.Variable.Patch: PatchInterface {
 
     public func validate(
         _ originalKey: ID<System.Variable>,

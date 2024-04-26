@@ -124,7 +124,7 @@ final class VariableTests: TestCase {
             System.Variable.Create.mock()
         )
 
-        let variable = try await system.variable.get(detail.key)
+        let variable = try await system.variable.require(detail.key)
         XCTAssertEqual(variable.key, detail.key)
     }
 
@@ -211,7 +211,7 @@ final class VariableTests: TestCase {
             )
         )
         do {
-            _ = try await system.variable.get(detail.key)
+            _ = try await system.variable.require(detail.key)
         }
         catch ModuleError.objectNotFound(let type, let id) {
             XCTAssertEqual(id, "key")

@@ -12,6 +12,8 @@ import Logging
 import SystemModuleDatabaseKit
 import SystemModuleKit
 
+extension System.Variable: ControllerModelInterface {}
+
 struct VariableController: SystemVariableInterface,
     ControllerCRUDInterface
 {
