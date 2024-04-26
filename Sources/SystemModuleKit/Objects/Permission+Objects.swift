@@ -19,7 +19,7 @@ extension System.Permission {
         }
     }
 
-    public struct List: FeatherModuleKit.List {
+    public struct List: ListInterface {
 
         public struct Query: ListQueryInterface {
 

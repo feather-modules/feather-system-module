@@ -35,7 +35,7 @@ extension System.Variable.Model: CreateAdapter, UpdateAdapter, PatchAdapter {
     }
 }
 
-extension System.Variable.Model.ColumnNames: ColumnNamesAdapter {
+extension System.Variable.Model.ColumnNames: ListQuerySortKeyAdapter {
     public init(listQuerySortKeys: System.Variable.List.Query.Sort.Key) throws {
         switch listQuerySortKeys {
         case .key:

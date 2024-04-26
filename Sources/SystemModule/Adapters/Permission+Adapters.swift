@@ -28,7 +28,7 @@ extension System.Permission.Model: CreateAdapter, UpdateAdapter, PatchAdapter {
     }
 }
 
-extension System.Permission.Model.ColumnNames: ColumnNamesAdapter {
+extension System.Permission.Model.ColumnNames: ListQuerySortKeyAdapter {
     public init(listQuerySortKeys: System.Permission.List.Query.Sort.Key) throws
     {
         switch listQuerySortKeys {
