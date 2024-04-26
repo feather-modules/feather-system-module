@@ -21,9 +21,9 @@ extension System.Permission {
 
     public struct List: FeatherModuleKit.List {
 
-        public struct Query: Object {
+        public struct Query: ListQueryInterface {
 
-            public struct Sort: Object {
+            public struct Sort: ListQuerySortInterface {
 
                 public enum Keys: SortKeyInterface {
                     case key

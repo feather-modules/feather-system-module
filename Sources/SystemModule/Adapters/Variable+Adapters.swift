@@ -35,7 +35,7 @@ extension System.Variable.Model: CreateAdapter, UpdateAdapter, PatchAdapter {
     }
 }
 
-extension System.Variable.Model.ColumnNames: ColumnNamesInterface {
+extension System.Variable.Model.ColumnNames: ColumnNamesAdapter {
     public init(listQuerySortKeys: System.Variable.List.Query.Sort.Key) throws {
         switch listQuerySortKeys {
         case .key:
@@ -48,28 +48,23 @@ extension System.Variable.Model.ColumnNames: ColumnNamesInterface {
     }
 }
 
-extension System.Variable.List: ListInterface {
-    public init(items: [System.Variable.Model], count: UInt) throws {
-        self.init(
-            items: items.map {
-                .init(key: $0.key.toID(), value: $0.value, name: $0.name)
-            },
-            count: count
-        )
+extension System.Variable.List.Item: ListItemAdapter {
+    public init(model: System.Variable.Model) throws {
+        self.init(key: model.key.toID(), value: model.value, name: model.name)
     }
 }
 
-extension System.Variable.List.Query: ListQueryInterface {}
+extension System.Variable.List: ListAdapter {
+    public typealias Model = System.Variable.Model
+}
 
-extension System.Variable.List.Query.Sort: ListQuerySortInterface {}
-
-extension System.Variable.Reference: ReferenceInterface {
+extension System.Variable.Reference: ReferenceAdapter {
     public init(model: System.Variable.Model) throws {
         self.init(key: model.key.toID(), value: model.value)
     }
 }
 
-extension System.Variable.Detail: DetailInterface {
+extension System.Variable.Detail: DetailAdapter {
     public init(model: System.Variable.Model) throws {
         self.init(
             key: model.key.toID(),

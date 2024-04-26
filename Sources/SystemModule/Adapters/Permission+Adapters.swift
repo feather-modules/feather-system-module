@@ -28,7 +28,7 @@ extension System.Permission.Model: CreateAdapter, UpdateAdapter, PatchAdapter {
     }
 }
 
-extension System.Permission.Model.ColumnNames: ColumnNamesInterface {
+extension System.Permission.Model.ColumnNames: ColumnNamesAdapter {
     public init(listQuerySortKeys: System.Permission.List.Query.Sort.Key) throws
     {
         switch listQuerySortKeys {
@@ -40,28 +40,23 @@ extension System.Permission.Model.ColumnNames: ColumnNamesInterface {
     }
 }
 
-extension System.Permission.List: ListInterface {
-    public init(items: [System.Permission.Model], count: UInt) throws {
-        self.init(
-            items: items.map {
-                .init(key: $0.key.toID(), name: $0.name)
-            },
-            count: count
-        )
-    }
-}
-
-extension System.Permission.List.Query: ListQueryInterface {}
-
-extension System.Permission.List.Query.Sort: ListQuerySortInterface {}
-
-extension System.Permission.Reference: ReferenceInterface {
+extension System.Permission.List.Item: ListItemAdapter {
     public init(model: System.Permission.Model) throws {
         self.init(key: model.key.toID(), name: model.name)
     }
 }
 
-extension System.Permission.Detail: DetailInterface {
+extension System.Permission.List: ListAdapter {
+    public typealias Model = System.Permission.Model
+}
+
+extension System.Permission.Reference: ReferenceAdapter {
+    public init(model: System.Permission.Model) throws {
+        self.init(key: model.key.toID(), name: model.name)
+    }
+}
+
+extension System.Permission.Detail: DetailAdapter {
     public init(model: System.Permission.Model) throws {
         self.init(key: model.key.toID(), name: model.name, notes: model.notes)
     }
